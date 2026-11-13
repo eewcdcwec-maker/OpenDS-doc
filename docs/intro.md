@@ -42,25 +42,6 @@ OpenDS is the management platform; the connectors do the actual data exchange. P
 policies, offers and exchange history live on each organization's connectors, and OpenDS reads
 them live instead of keeping copies.
 
-## Where to go next
-
-:::tip New to OpenDS?
-Install it ([Installation](/getting-started)), then follow
-[Your first data exchange](/guide/first-exchange): two organizations, one offer and a
-downloaded file in about half an hour.
-:::
-
-| You want to                                     | Read                                              |
-| ----------------------------------------------- | ------------------------------------------------- |
-| Install OpenDS on a server                      | [Installation](/getting-started)                  |
-| Try a complete exchange                         | [Your first data exchange](/guide/first-exchange) |
-| Share or consume data as an organization        | [User guide](/guide/overview)                     |
-| Run your connector or wallet on your own server | [Self-hosted connector](/guide/self-hosted-connector), [Your own wallet](/guide/organization-wallet) |
-| Run, back up and upgrade an installation        | [Operations](/administration/operations)          |
-| Understand how it works                         | [Architecture](/architecture)                     |
-| Automate it from your own systems               | [API and permissions](/reference/api)             |
-| Work on the source code                         | [Development](/development)           |
-
 ## Status and limits
 
 OpenDS is intended for development and evaluation; it is not a certified production system.
