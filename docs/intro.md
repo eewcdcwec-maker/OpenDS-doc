@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Introduction
+title: OpenDS
 slug: /
 ---
 
