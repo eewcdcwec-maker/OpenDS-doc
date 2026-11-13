@@ -12,18 +12,12 @@ OpenDS provides **Connector-as-a-Service (CaaS)** capabilities, allowing organiz
 
 ## What you can do with it
 
-- **Organizations and teams**: registration with administrator approval, members and roles,
-  per-connector Manager and Viewer access, API keys and an activity log.
-- **Identity**: disposable test identities, production identities hosted by OpenDS, or an
-  organization's own `did:web` and wallet.
-- **Connectors**: created and run by OpenDS on Kubernetes, or self-hosted by an organization on
-  its own server with Docker, managed from the same app.
-- **Data products and policies**: HTTP, login-protected, Amazon S3 and Azure Blob sources, and
-  file upload; access and usage policies with partner groups, time limits and usage purposes.
-- **Discovery and exchange**: a live catalog across organizations, optional provider approval,
-  negotiation, agreements, transfers and repeatable automated downloads.
-- **Provider control**: see who uses your data, revoke and restore agreements, stop transfers.
-- **Operations**: HTTPS with Let's Encrypt or the dataspace's own CA, encrypted backups,
-  monitoring with email alerts, connector data export and import.
+- **Organization management**: register organizations, manage members and roles, assign connector permissions, and control access through API keys.
+- **Identity management**: create test identities, use identities provided by OpenDS, or connect an organization's own identity and wallet.
+- **Connector-as-a-Service (CaaS)**: create, deploy and manage dataspace connectors through the OpenDS web application. Connectors can be hosted and operated by OpenDS or deployed on an organization's own server.
+- **Data publication and access policies**: publish data from HTTP services, protected endpoints, Amazon S3, Azure Blob or file uploads. Define who can access data and under which conditions.
+- **Data discovery and exchange**: discover published data products across participating organizations, negotiate agreements and exchange data through secure connector-to-connector transfers.
+- **Provider control**: monitor who accesses published data, revoke or restore agreements, and stop ongoing transfers.
+- **Platform operations**: configure HTTPS, manage encrypted backups, monitor services with email alerts, and export or import connector data.
 
 OpenDS is released under the Apache-2.0 license.
