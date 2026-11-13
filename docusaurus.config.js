@@ -11,9 +11,9 @@ const config = {
     v4: true,
   },
 
-  // Website URL
-  url: 'https://docs.open-ds.de',
-  baseUrl: '/',
+  // GitHub Pages project site
+  url: 'https://eewcdcwec-maker.github.io',
+  baseUrl: '/OpenDS-doc/',
 
   onBrokenLinks: 'throw',
 
