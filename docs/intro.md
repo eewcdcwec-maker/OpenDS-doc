@@ -6,11 +6,9 @@ slug: /
 
 # OpenDS
 
-OpenDS runs a complete dataspace from one server. Organizations join through a web app, get a
-verified identity, start connectors, publish data under policies and exchange it with each
-other. It is built on the official, unmodified Eclipse Tractus-X connector and identity
-components, and each installation is its own dataspace that issues its participants'
-credentials.
+OpenDS is an open-source platform for deploying and managing dataspaces. It provides a web-based environment for organizations to establish identities, manage dataspace connectors, publish data products, define access policies, and exchange data with other participants.
+
+An OpenDS installation provides the management platform and identity services for its participants. Connectors can run either on infrastructure managed by OpenDS or on servers operated independently by participating organizations. The platform is built on the official Eclipse Tractus-X connector and identity components.
 
 ## What you can do with it
 
