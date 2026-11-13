@@ -28,20 +28,6 @@ credentials.
 - **Operations**: HTTPS with Let's Encrypt or the dataspace's own CA, encrypted backups,
   monitoring with email alerts, connector data export and import.
 
-## How it fits together
-
-```text
-Browser ── OpenDS app ── OpenDS API and worker ── PostgreSQL
-                                  │
-          ┌───────────────────────┼─────────────────────────┐
-  Platform-hosted connectors  Self-hosted connectors   Identity services
-  (Kubernetes)                (organization's server)  (issuer, wallets, directory)
-```
-
-OpenDS is the management platform; the connectors do the actual data exchange. Products,
-policies, offers and exchange history live on each organization's connectors, and OpenDS reads
-them live instead of keeping copies.
-
 ## Status and limits
 
 OpenDS is intended for development and evaluation; it is not a certified production system.
