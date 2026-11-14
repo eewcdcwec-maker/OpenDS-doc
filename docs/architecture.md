@@ -27,7 +27,7 @@ The backend enforces all permissions, so the browser never accesses Vault, Kuber
 Management APIs of the connectors directly. The backend and worker run without root privileges or
 Linux capabilities, and connector pods are not given a Kubernetes API token.
 
-## Where data lives
+## Data storage and ownership
 
 - **Platform database**: users, organizations, memberships, permissions, approval workflows,
   audit entries and operational records.
