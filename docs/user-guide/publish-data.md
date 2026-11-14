@@ -71,7 +71,7 @@ Partners find the offer under **Discover** once its connector is listed with
   directly. With **Request approval**, you review each access request first. Approval is a step
   in OpenDS and does not stop a partner who contacts your connector directly, so use the access
   policy to restrict which organizations are eligible.
-- **Withdraw**: stops new discovery and approval requests. Existing exchange history is kept.
+- **Withdraw**: removes the offer from **Discover** and stops new access requests. Existing exchange history is kept.
   Active offers must be withdrawn before their product or policy can be changed or deleted.
 
 Policies created outside OpenDS are shown read-only.

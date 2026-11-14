@@ -4,9 +4,9 @@ title: Architecture
 
 # Architecture
 
-OpenDS manages the dataspace infrastructure and coordinates connector operations. The data
-itself is exchanged by the connectors of the participating organizations. OpenDS provides
-centralized management of connector deployments, identities and data exchange workflows.
+OpenDS centrally manages the dataspace infrastructure: connector deployments, identities and
+data exchange workflows. The data itself is exchanged by the connectors of the participating
+organizations.
 Connectors are either hosted by the platform on Kubernetes, or self-hosted on a participant's
 own infrastructure and controlled through the OpenDS agent.
 
@@ -36,13 +36,14 @@ Linux capabilities, and connector pods are not given a Kubernetes API token.
   without maintaining copies.
 - **Connector Vaults**: source credentials and connector secrets. For self-hosted connectors,
   credentials are entered and stored on the organization's own host.
-- **Not stored by OpenDS**: EDR access tokens, dataset bytes, and self-hosted Management API
+- **Not stored by OpenDS**: EDR access tokens (the short-lived tokens for pull
+  transfers), dataset bytes, and self-hosted Management API
   request and response bodies. Self-hosted EDR responses are held in backend memory only and
   discarded after delivery. Downloads go directly through the connector's data plane.
 
 ## Connector hosting
 
-Runtime and hosting are independent:
+Both hosting modes use the same connector runtime:
 
 - **Platform-hosted**: OpenDS manages connectors on Kubernetes, either in the local cluster
   created during setup or in a [separate cluster](/administration/remote-connector-cluster).
@@ -55,8 +56,8 @@ Each platform-hosted connector runs in its own Kubernetes namespace with a netwo
 policy allows its pods to communicate within that namespace, access cluster DNS and ingress,
 and reach external addresses. It blocks communication with pods in other connector namespaces
 and prevents access to cloud infrastructure metadata services. The policy is applied during
-provisioning and requires a Kubernetes network implementation that enforces NetworkPolicy, as
-provided by the local cluster.
+provisioning and requires a Kubernetes network implementation that enforces NetworkPolicy. The
+local cluster provides this. A remote cluster must provide it too.
 
 ## Connector runtime
 

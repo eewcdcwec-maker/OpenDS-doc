@@ -12,7 +12,8 @@ platform services, the connector cluster and the identity services.
 - An evaluation installation with up to two platform-hosted connectors needs at least 4 CPU
   cores, 8 GB RAM and 20 GB of free disk space. Actual use depends on the connector workload,
   image caches and retained data. Self-hosted connectors run on servers operated by their
-  organizations. The platform still handles their management, discovery and agent requests.
+  organizations, not on this one. This server still handles their management, discovery and
+  agent requests.
 - HTTPS on the internet requires a domain that points at the server, with TCP port 443 open.
 - The server runs Linux on x86_64 with Docker Engine, Compose v2, Git, Bash, curl, tar and
   sha256sum. Node.js is not required for the Docker installation.
@@ -35,7 +36,7 @@ platform services, the connector cluster and the identity services.
 | ----------- | -------------------------------------------------------------- | ----------------------------------------------- |
 | `acme`      | The server is on the internet with a domain                    | HTTPS with Let's Encrypt                        |
 | `internal`  | The server is on a private network where clients can trust the dataspace CA | HTTPS with dataspace-issued certificates         |
-| `files`     | You provide certificate files before setup                     | HTTPS with your certificate                     |
+| `files`     | You provide `.deploy/edge-certs/tls.crt` and `tls.key` before setup | HTTPS with your certificate                     |
 
 With `EDGE_TLS=internal`, every browser and script client must trust the dataspace CA. After
 setup, its certificate is stored on the server in `.deploy/ca/dataspace-ca.crt`. Copy it to your
@@ -90,11 +91,11 @@ OpenDS is ready: https://<your domain>
 ```
 
 Open that address and sign in with `PAYLOAD_ADMIN_EMAIL` and `PAYLOAD_ADMIN_PASSWORD` from
-`.env`. With `EDGE_TLS=internal`, trust the dataspace CA first as described above. Running
+`.env`. Setup generated the password if you left it empty. With `EDGE_TLS=internal`, trust the dataspace CA first as described above. Running
 setup again later keeps your settings and data.
 
 :::warning Choose your domain once
-Changing the domain changes the DID of the local issuer, so all credentials must be issued
+Changing the domain changes the issuer's DID, so all credentials must be issued
 again. Test identities are tied to the domain as well. After a domain change, setup stops and
 names the command that removes the test identity stack. Run that command, then run setup again.
 For an installation you intend to keep, use a stable hostname: address-based hostnames change

@@ -7,7 +7,7 @@ title: Self-hosted connector
 A self-hosted connector runs on your organization's own server with Docker. It is managed from
 OpenDS like any other connector. A small agent next to the connector picks up the work queued
 in OpenDS, such as creating products, publishing offers and health checks, and runs it locally.
-OpenDS therefore never needs access to the management interfaces of your server. Source
+OpenDS therefore never needs access to your connector's Management API. Source
 passwords and cloud keys are entered on your server and never pass through OpenDS.
 
 ## Requirements
@@ -32,6 +32,8 @@ passwords and cloud keys are entered on your server and never pass through OpenD
    ```bash
    sudo env OPENDS_PUBLIC_HOST=connector.example.org sh ./start.sh
    ```
+
+   Without a DNS name, run `sudo sh ./start.sh`.
 
 4. After about half a minute, the connector shows **Running** in OpenDS. Then select
    **List in discovery** on the **Hosting** tab so that partners find its offers.
@@ -126,6 +128,6 @@ Existing agreements and transfers cannot be moved, so partners negotiate again.
 
 ## Switching to platform hosting
 
-Stop the connector on its server. Then select **Use platform hosting** on the **Hosting** tab
-and **Provision**. OpenDS then runs it on Kubernetes. Export its data first if you want
-to keep its products and policies.
+If you want to keep its products and policies, export its data first. Then stop the connector
+on its server, select **Use platform hosting** on the **Hosting** tab and **Provision**. OpenDS
+then runs it on Kubernetes.

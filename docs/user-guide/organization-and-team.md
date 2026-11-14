@@ -12,8 +12,8 @@ title: Organization and team
   registration is closed, ask to be invited.
 - **Be invited**: an owner or administrator adds you as a member. The invitation email
   contains a code that you enter when accepting. Without an email server, the inviter is shown
-  the code once and passes it on. If an account with your email address already exists, it
-  joins the organization with its own name and password.
+  the code once and passes it on. If you already have an account with this email address,
+  that account is added and keeps its name and password.
 
 A new account receives an email with a link to choose a password. The link is valid for seven
 days. Only the most recent link works, so requesting a password reset replaces an unused
@@ -25,8 +25,8 @@ A notice at the top shows whether the organization is awaiting approval, rejecte
 suspended.
 
 You can decline an invitation or leave an organization at any time. If you are its last owner,
-appoint another owner first. An owner or administrator can also remove a member. In both cases,
-the account itself remains, together with its other organizations.
+appoint another owner first. An owner or administrator can also remove a member. Whether you leave
+or are removed, your account remains, together with its other organizations.
 
 ## Your profile
 
@@ -38,9 +38,9 @@ for ten minutes.
 ## Organization details
 
 Under **Organization**, you describe what your organization shares or uses in the dataspace.
-Partners see this description. Signed-in members can also see the other approved organizations
-of their dataspace and their running connectors in the organization directory, but never any
-user data.
+Partners see this description. In the organization directory, signed-in members can also see the
+other approved organizations of their dataspace and those organizations' running connectors,
+but never any user data.
 
 Owners and administrators also manage:
 

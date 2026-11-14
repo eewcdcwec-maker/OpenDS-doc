@@ -38,7 +38,7 @@ Setup creates the first platform administrator from `PAYLOAD_ADMIN_EMAIL` and
 `PAYLOAD_ADMIN_PASSWORD`. The password is generated if empty and has at least 16 characters. Use a
 real mailbox, because password resets and alerts are sent there. To change the address later,
 edit `.env` and run `docker compose up -d backend worker`. The platform administrator then
-signs in with the new address. Nothing changes if the address is already taken
+signs in with the new address. The change is skipped if the address is already taken
 or if there are several administrators.
 
 ## Domain and certificates
@@ -64,8 +64,7 @@ contains it, so a later change invalidates all production identities and credent
 without any setup. Let's Encrypt verifies the domain by connecting to the server, so the
 platform and each self-hosted connector need a public address and an open TCP port 443.
 `CONNECTOR_TLS` defaults to `dataspace` with `EDGE_TLS=internal` and to `public` otherwise. A
-common production layout is `acme` with `CONNECTOR_TLS=dataspace`. People and scripts reach the
-public platform without setup, and self-hosted connectors need no public certificate.
+common production layout is `acme` with `CONNECTOR_TLS=dataspace`. People and scripts reach the public platform without installing a CA certificate, and self-hosted connectors need no public certificate.
 
 ### Trusting the dataspace CA
 

@@ -18,7 +18,7 @@ whom they are dealing with. All connectors of an organization share its identity
 
 You choose the type when you register. Managed and self-hosted identities are production
 identities. They receive their credentials from the production issuer of the dataspace. Test
-credentials never satisfy a production policy.
+identities can therefore only exchange data with other test identities.
 
 - **Test and managed identities** are ready a few seconds after an administrator approves your
   organization.
@@ -35,7 +35,7 @@ Only the organization owner can change the identity, on the **Organization** pag
 | Change                          | Action                        | Effect                                                                                                                                                              |
 | ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Test to managed or self-hosted  | **Leave test mode**           | The organization starts over: connectors, products, policies, offers, partner groups, agreements and transfers are deleted. Members stay. An administrator approves the new identity. |
-| Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn and connectors are removed together with their products and policies. Partner groups stay. Agreements are removed with the connectors. |
+| Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn. Connectors are removed together with their products, policies and agreements. Partner groups stay. |
 | Correct the self-hosted domain  | **Change** next to the domain | Possible only until an administrator approves the identity                                                                                                          |
 
 Before **Change wallet hosting**, export the data of each connector under **More → Export

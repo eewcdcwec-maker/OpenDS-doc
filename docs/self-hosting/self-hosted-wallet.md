@@ -58,7 +58,8 @@ If nginx or Traefik already terminates HTTPS for this server, use `--external-pr
 sudo ./wallet.sh start
 ```
 
-For a proxy on another host, use the wallet server's private address and add
+For a proxy on another host, use the wallet server's private address in `--external-proxy`
+instead of `127.0.0.1`, and add
 `--proxy-allow <proxy-address>`. After startup, add either `external-proxy/nginx.conf` or
 `external-proxy/traefik.yml` to your proxy configuration, and give the proxy a certificate for
 the wallet domain. Only the DID document, the credential service and the STS are public. The

@@ -46,8 +46,8 @@ Start a transfer with **Start transfer** under **Agreements** and choose the tra
 - **Pull**: after starting the transfer, open **Access details** under **Transfers**. It shows
   the endpoint, token and expiry, with curl and Python examples. **Fetch the data once** uses
   the current token, and **Get a new token** issues a fresh one. **Fetch it repeatedly** is a
-  script that requests current access details before every download and needs a personal API
-  key from **API access** in `OPENDS_API_KEY`.
+  script that requests current access details before every download. It reads a personal API
+  key (from **API access**) from the environment variable `OPENDS_API_KEY`.
 - **Push to HTTP**: enter your endpoint URL and, if needed, an authentication header name and
   value. The endpoint must be reachable from the provider's connector. The header is passed to
   the provider's connector for this transfer only and is not stored by OpenDS.

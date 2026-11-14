@@ -4,8 +4,8 @@ title: Your first data exchange
 
 # Your first data exchange
 
-This walk-through takes two organizations from registration to a downloaded file. Once the
-connectors are running, it takes about half an hour. One organization provides the data and the
+This walk-through takes two organizations from registration to a downloaded file. It takes
+about half an hour, plus the time the connectors need to start. One organization provides the data and the
 other consumes it. You need an OpenDS [installation](/getting-started/installation). As data, you
 can use the sample that every installation serves at `https://<your domain>/api/test-data`.
 
@@ -14,9 +14,10 @@ can use the sample that every installation serves at `https://<your domain>/api/
 Open the OpenDS address and select **Register an organization**. Register the provider with
 the organization name, your name, email address and password, roles such as **Data
 provider**, and the identity type **Test**. Accept the participation terms and submit the
-registration. Then register the consumer in the same way, using another browser profile.
+registration. Then register the consumer in the same way, using another browser profile so that you can stay
+signed in to both.
 
-A platform administrator approves both organizations under **Platform Admin → Organizations
+As the platform administrator, approve both organizations under **Platform Admin → Organizations
 awaiting approval**. A few seconds later, the **Organization** page of each organization shows
 its identity as **Ready**.
 

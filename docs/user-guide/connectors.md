@@ -15,7 +15,8 @@ created and managed under **Connectors**.
 | Self-hosted     | On your organization's own Docker host         | Organizations that operate the connector themselves |
 
 The hosting mode can be changed on the connector page. This is a migration: export the connector
-data, set up the new runtime, import the definitions and enter the source credentials again.
+data, set up the connector in the new mode,
+import its products, policies and offers, and enter the source credentials again.
 
 To self-host a connector, create it, select **Use self-hosting** on its **Hosting** tab and run
 the commands shown on your Docker host. Installation, HTTPS options, source credentials and
@@ -25,14 +26,15 @@ moving to another server are described under
 ## Lifecycle
 
 **Provision**, **Pause** and **Resume** are at the top of the connector page. The
-**Hosting** tab also contains **Deprovision**, **Delete connector** and the self-hosting
-actions.
+**Hosting** tab contains **List in discovery**, **Deprovision**, **Delete connector** and the
+self-hosting actions. **Export connector data** is under **More**.
 
 - **Provision**: installs a new platform-hosted connector. This may take several minutes while
   images are downloaded and services start.
 - **Pause** and **Resume**: stop and start the connector services while keeping their data. A
   paused connector's offers are hidden from **Discover**.
-- **Deprovision**: uninstalls the runtime.
+- **Deprovision**: uninstalls the connector's services. The connector stays in OpenDS and can be
+  provisioned again, but its products, policies and offers are lost.
 - **List in discovery**: lets other organizations find the connector's offers under
   **Discover**. A connector that is not listed still exchanges data, but partners can only
   reach it with its DSP address.

@@ -69,9 +69,9 @@ The login comes from the consumer's connector. See [Cloud storage](/user-guide/c
 | `POST /api/exchange/transfers/<connector>/<transfer>/edr`          | Returns a current access token for repeated downloads as consumer             |
 | `POST /api/exchange/transfers/<connector>/<transfer>/suspend`      | Suspends a running transfer on either side. `resume` and `terminate` work the same way |
 
-- **Provider view**: both lists show the organization as consumer by default. With
-  `role=provider` they list the agreements and transfers of data it shares, with the consumer
-  in `partner` and `retired` set for revoked agreements.
+- **Provider view**: by default, the agreement and transfer lists show exchanges in which your
+  organization is the consumer. With `role=provider`, they list the agreements and transfers of
+  data it shares. The consumer is then in `partner`, and `retired` is set for revoked agreements.
 - **Permissions**: these actions require the Manager role on the connector. Revoking and restoring
   only work on the provider's own connector.
 - **Paging**: agreements and transfers come in pages of 20, 50 or 100 entries per connector.

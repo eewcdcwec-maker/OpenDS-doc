@@ -41,8 +41,8 @@ contains the definitions and exchange history, but no secrets or source files.
 | `bash manage.sh backup verify <file>`     | Test-restores the backup in temporary containers and checks its contents                                       |
 | `bash manage.sh backup restore <file>`    | Replaces the platform state of this installation with the backup, after confirmation (`OPENDS_RESTORE_CONFIRM=yes` without a terminal) |
 
-To restore on a new server, install OpenDS first and pass the original passphrase with
-`BACKUP_PASSPHRASE=...`. Platform-hosted connectors on the same server keep their runtime data.
+To restore on a new server, install OpenDS first, then restore with the original passphrase:
+`BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>`. Platform-hosted connectors on the same server keep their runtime data.
 On a new server, they must be provisioned again, with their definitions imported and their
 credentials entered again. A production identity on a separate identity host is recovered as
 described under
@@ -58,8 +58,8 @@ Organizations install, run and move their self-hosted connectors themselves, as 
 
 - **Installer links**: a link downloads setup files with identity credentials and enrolls one
   agent. After that, it no longer works. A new installer, **Reinstall** or a rotated STS secret
-  invalidates earlier unused links. Make sure that reverse proxies, monitoring services and shell
-  history in front of OpenDS do not record these links.
+  invalidates earlier unused links. Make sure that reverse proxies and monitoring services in front
+  of OpenDS, and shell histories, do not record these links.
 - **Running state**: a self-hosted connector only counts as running when all its services are
   healthy, not merely when its agent is online.
 - **Deletion**: deleting the platform record of an offline connector cannot erase the remote
