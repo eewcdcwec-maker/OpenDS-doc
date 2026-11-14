@@ -95,11 +95,14 @@ Open that address and sign in with `PAYLOAD_ADMIN_EMAIL` and `PAYLOAD_ADMIN_PASS
 setup again later keeps your settings and data.
 
 :::warning Choose your domain once
-Changing the domain changes the issuer's DID, so all credentials must be issued
-again. Test identities are tied to the domain as well. After a domain change, setup stops and
-names the command that removes the test identity stack. Run that command, then run setup again.
-For an installation you intend to keep, use a stable hostname: address-based hostnames change
-whenever the embedded IP address changes.
+The domain is part of every DID in the dataspace. If you change it later:
+
+- All credentials must be issued again, because the issuer's DID changes.
+- Setup stops and names a command that removes the test identity stack. Run that command, then
+  run setup again. Test identities start over.
+
+For an installation you intend to keep, use a stable hostname. Address-based `sslip.io` names
+change whenever the server's IP address changes.
 :::
 
 ## After installation
