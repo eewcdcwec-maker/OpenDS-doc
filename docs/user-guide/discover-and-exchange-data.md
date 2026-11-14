@@ -68,8 +68,9 @@ each consumer's name.
   consumer still sees the agreement as **Agreed**, because the revocation is recorded on your
   connector only.
 - **Suspend, resume or terminate a transfer**: suspending is a pause that either side can
-  resume. To prevent further transfers under an agreement, terminate the transfer or revoke the
-  agreement.
+  resume. Terminating ends only that transfer. The agreement stays
+  valid, so the consumer can start a new transfer. To prevent further transfers under an
+  agreement, revoke the agreement.
 - **Review access requests**: for offers with provider approval, approve or reject each pending
   request under **Access requests**. Owners, administrators and the Managers of the publishing
   connector decide and receive the notification email. Access requests must be enabled under

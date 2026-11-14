@@ -33,8 +33,8 @@ product, by a connector Manager on the connector's **Cloud storage** tab.
 Products and transfers choose from these buckets and containers, so a new one must be added
 here before it can be used.
 
-On a platform-hosted connector, the keys are stored on the connector, which keeps its
-products, offers and agreements. OpenDS never shows the keys again. Saving without keys keeps
+On a platform-hosted connector, the keys are stored in the connector's Vault. Saving them does
+not affect its products, offers or agreements. OpenDS never shows the keys again. Saving without keys keeps
 the stored ones. Removing AWS or an account deletes its keys. Before saving, OpenDS
 checks that the AWS keys work and belong to an IAM user rather than the root account, that each
 bucket exists in the chosen region, and that each Azure account key is accepted and its

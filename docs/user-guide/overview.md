@@ -25,7 +25,7 @@ and work with the OpenDS web application.
 | ------------- | ---------------------------------------------------------------------------------------------------- |
 | Organization  | A legal entity in the dataspace with one identity and any number of connectors                       |
 | Connector     | The software that exchanges data on behalf of an organization                                        |
-| Data product  | A data source offered through a connector, such as an HTTP endpoint, Amazon S3, Azure Blob or a file |
+| Data product  | A data source offered through a connector, such as an HTTP endpoint, Amazon S3 or Azure Blob |
 | Access policy | Decides who can discover an offer and agree to it                                                    |
 | Usage policy  | The terms the consumer accepts, such as time limits, usage purposes or a contract reference          |
 | Offer         | A data product published with an access policy and a usage policy                                    |

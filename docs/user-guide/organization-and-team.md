@@ -58,8 +58,8 @@ Providers choose from it in their usage policies.
 
 Every member can create a personal API key for scripts under **API access**. When you create a
 key, you enter your password and choose an expiry of 30 days, 90 days, one year or never. The
-key is shown only once. A key acts as you, with your roles. **Replace key** makes the old key
-stop working. **Revoke key** removes it. How to use the key is described under
+key is shown only once. A key acts as you, with your roles. **Replace key** creates a new key, and the old one stops
+working at once. **Revoke key** removes it. How to use the key is described under
 [API](/user-guide/api).
 
 ## Identity

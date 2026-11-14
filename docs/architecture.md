@@ -75,8 +75,7 @@ Each organization has one DID and one BPN, shared by all its connectors. The DID
 primary protocol identity for DCP 1.0 and DSP 2025-1. The BPN and BDRS directory are also
 required by the Tractus-X runtime and are handled within the Tractus-X adapter.
 
-OpenDS allocates BPNs within its own dataspace. Catalog requests use DID-based DSP version
-discovery with a known provider address. Identity types, wallets and hosting are described in
+OpenDS allocates BPNs within its own dataspace. Identity types, wallets and hosting are described in
 [Identity services](/administration/identity-services).
 
 ## Policy enforcement

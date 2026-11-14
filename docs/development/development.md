@@ -89,8 +89,8 @@ Two tests help with an upgrade:
 - **Profile tests** check that chart dependencies and images match, and reject versions that
   OpenDS does not implement.
 - **`bash manage.sh runtime-e2e`** also records BDRS traffic through a temporary forwarding
-  proxy, keeping only method, path and status. The exchange flows use the BDRS directory, so
-  it stays enabled.
+  proxy, keeping only method, path and status. The proxy forwards every request to
+  the real directory, because the exchange flows depend on it.
 
 The platform and connector databases use PostgreSQL 18.
 
@@ -177,5 +177,4 @@ manage.sh                Setup, operations and test commands
 
 Tests sit beside their modules, except browser flows in `frontend/e2e/` and deployment and
 exchange tests in `scripts/`. Feature components, API calls, types and tests stay in their
-feature folder, and shared code is only what several features use. Kubernetes and Docker hosting
-stay separate, so a runtime upgrade does not change who operates a connector.
+feature folder, and shared code is only what several features use. 

@@ -30,7 +30,8 @@ and downloads are configured under **Platform Admin → Operations**.
 | --------------------------------------------------------------- | ---------------------------------------------------- |
 | The platform database and uploaded contracts                    | Connector databases, Vaults and runtime volumes      |
 | The PostgreSQL and Vault state of the identity services         | Source data                                          |
-| `.env` and the platform configuration files                     | A production identity on a separate identity host    |
+| `.env` and the platform configuration files                     |                                                      |
+| The database and Vault of a linked separate identity host       |                                                      |
 
 Connector data is saved separately with **Export connector data** on each connector. The export
 contains the definitions and exchange history, but no secrets or source files.
@@ -44,8 +45,8 @@ contains the definitions and exchange history, but no secrets or source files.
 To restore on a new server, install OpenDS first, then restore with the original passphrase:
 `BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>`. Platform-hosted connectors on the same server keep their runtime data.
 On a new server, they must be provisioned again, with their definitions imported and their
-credentials entered again. A production identity on a separate identity host is recovered as
-described under
+credentials entered again. `backup restore` skips the data of a separate identity host, which has to be restored on that
+host, as described under
 [Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
 
 The database and the contract files are copied one after the other. If you need a fully

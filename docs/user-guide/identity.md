@@ -53,7 +53,8 @@ Contact the dataspace operator if it must change.
 All connectors of an organization use one secret to obtain tokens from its wallet. Rotate it
 under **Organization → Rotate STS secret** if it may have leaked, for example after a server
 was lost. With a self-hosted identity, first run `./wallet.sh rotate-secret` in the wallet
-folder and enter the secret it prints. OpenDS delivers the new secret to every connector, and
+folder and enter the secret it prints in the **New secret from your wallet** field of the
+dialog. OpenDS delivers the new secret to every connector, and
 self-hosted connectors receive it through their agent within a minute.
 
 ## When an organization leaves

@@ -24,7 +24,8 @@ Under **Data products**, add a product of one of these kinds:
 | Login-protected HTTP | A URL that requires a login, which the connector performs and renews itself |
 | Amazon S3            | An object in a bucket that the connector can read                         |
 | Azure Blob           | A blob in a container that the connector can read                         |
-| File upload          | A file stored in the connector's cloud storage                            |
+
+For Amazon S3 and Azure Blob, you can choose an existing file or upload a new one.
 
 Give each product a name, a description, categories and tags so that consumers can find it.
 Cloud storage setup and limits are described under [Cloud storage](/user-guide/cloud-storage).
