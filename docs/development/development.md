@@ -4,8 +4,8 @@ title: Development
 
 # Development
 
-How to propose a change is in `CONTRIBUTING.md`; this page covers
-running OpenDS from source. How to test it is under [Testing](/development/testing).
+How to propose a change is described in `CONTRIBUTING.md`, while this page covers running
+OpenDS from source. How to test it is under [Testing](/development/testing).
 
 ## Running locally
 
@@ -31,7 +31,7 @@ API_PROXY_TARGET=http://localhost:8080 npm run dev:frontend
 ```
 
 Run the API and the worker in separate terminals with the same settings and cluster access.
-Backend resource operations use the official Kubernetes client; kubectl is only used by
+Backend resource operations use the official Kubernetes client, while kubectl is only used by
 infrastructure scripts and tests. Rendering tests need Helm on `PATH`, in `.tools/helm`
 (installed by setup), or set through `HELM_BIN`.
 
@@ -47,7 +47,7 @@ npm --prefix backend run seed    # creates the administrator; never overwrites a
 
 ## Database changes
 
-Schema changes need checked-in migrations; schema push is not a deployment strategy.
+Schema changes need checked-in migrations, because schema push is not a deployment strategy.
 
 ```bash
 npm --prefix backend run platform:migration:create -- describe_change
@@ -56,13 +56,13 @@ npm --prefix backend run platform:types
 ```
 
 For these commands on the host, set `PAYLOAD_DATABASE_URL` to the local PostgreSQL in your
-shell; containers and CI set it themselves. `platform:types` regenerates the checked-in API
+shell, while containers and CI set it themselves. `platform:types` regenerates the checked-in API
 types for both backend and frontend.
 
 ## Dependencies
 
 The dependency gate is `npm audit --audit-level=high` in all three packages. Overrides for
-DOMPurify and graphql-scalars address high advisories in upstream packages; remaining low and
+DOMPurify and graphql-scalars address high advisories in upstream packages, while remaining low and
 moderate upstream advisories are reported by the audit, not hidden.
 
 ## Runtime upgrades
@@ -96,7 +96,7 @@ versions OpenDS does not implement.
   is run by a regular user) and without Linux capabilities.
 - **Connector Vaults**: an unseal sidecar initializes each Vault, unseals it after restarts and
   creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key is kept on
-  the Vault's volume, which protects against restarts, not against access to the volume;
+  the Vault's volume, which protects against restarts but not against access to the volume, so
   production deployments use an external auto-unseal.
 - **Single backend instance**: EDR responses of self-hosted connectors pass through backend
   memory and are discarded after delivery, which assumes one backend instance.
@@ -169,5 +169,5 @@ manage.sh                Setup, operations and test commands
 
 Tests sit beside their modules, except browser flows in `frontend/e2e/` and deployment and
 exchange tests in `scripts/`. Feature components, API calls, types and tests stay in their
-feature folder; shared code is only what several features use. Kubernetes and Docker hosting
+feature folder, and shared code is only what several features use. Kubernetes and Docker hosting
 stay separate, so a runtime upgrade does not change who operates a connector.

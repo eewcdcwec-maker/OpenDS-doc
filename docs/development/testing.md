@@ -21,9 +21,9 @@ behavior.
 Notes for the integration tests:
 
 - `runtime-e2e` runs three platform-hosted connectors at once, so the server needs about 6 CPU
-  cores and 12 GB RAM; on a 4-core server it stops when the third connector cannot start.
+  cores and 12 GB RAM, and on a 4-core server it stops when the third connector cannot start.
 - They run on the host and need Node.js 22 or newer there. `manage.sh` trusts the dataspace
-  CA for them; for direct `node scripts/...` runs set `NODE_EXTRA_CA_CERTS` to
+  CA for them, and for direct `node scripts/...` runs set `NODE_EXTRA_CA_CERTS` to
   `.deploy/ca/dataspace-ca.crt`.
 - They create their own organizations and offboard them afterwards.
   `bash manage.sh clean-test-data` removes leftovers of interrupted runs.
@@ -35,24 +35,24 @@ Notes for the integration tests:
 - The token renewal scenario of the runtime test serves a login source from the test host,
   which the platform refuses as a private address unless allowed. Start the backend with
   `SOURCE_LOGIN_PRIVATE_ORIGINS=http://<docker gateway>:<port>` and run the test with
-  `OPENDS_RUNTIME_E2E_SOURCE_PORT=<port>` and `OPENDS_RUNTIME_E2E_SOURCE_LOGIN_ALLOWED=1`;
+  `OPENDS_RUNTIME_E2E_SOURCE_PORT=<port>` and `OPENDS_RUNTIME_E2E_SOURCE_LOGIN_ALLOWED=1`,
   otherwise that scenario is skipped.
 - The cloud storage scenario of the runtime test runs when an AWS or Azure Blob emulator
   reachable from the connectors and the platform is given: LocalStack 4.3 or newer with
-  `SERVICES=s3,iam,sts` (`OPENDS_RUNTIME_E2E_S3_ENDPOINT=http://<docker gateway>:4566`; older
+  `SERVICES=s3,iam,sts` (`OPENDS_RUNTIME_E2E_S3_ENDPOINT=http://<docker gateway>:4566`, because older
   versions refuse the connector's multipart upload, and only the API accepts an S3 endpoint,
-  the app does not offer one), or Azurite
+  not the app), or Azurite
   (`OPENDS_RUNTIME_E2E_AZURE_ENDPOINT=http://<docker gateway>:10000/%s`). Start the platform
   with the emulator origins in `CLOUD_STORAGE_ENDPOINTS`, or saving the settings is refused.
   Keys are set with `OPENDS_RUNTIME_E2E_S3_KEY_ID`, `_S3_SECRET`, `_AZURE_ACCOUNT` and
-  `_AZURE_KEY`; the emulators' defaults are used otherwise. The self-host test runs its cloud
+  `_AZURE_KEY`, and the emulators' defaults are used otherwise. The self-host test runs its cloud
   scenario (keys stored with `cloud-storage.sh`, an agent-signed upload, S3 pushes in both
   directions) with `OPENDS_SELF_HOST_E2E_S3_ENDPOINT` set the same way. Against real AWS and
   Azure instead, set `OPENDS_SELF_HOST_E2E_S3_BUCKET` (an existing bucket), `_S3_REGION`,
   `_S3_KEY_ID` and `_S3_SECRET`, and optionally `_AZURE_ACCOUNT`, `_AZURE_KEY` and
-  `_AZURE_CONTAINER` (an existing container); test files stay under `opends-tests/`.
+  `_AZURE_CONTAINER` (an existing container), and test files stay under `opends-tests/`.
 - The two-host test needs a second Docker host reachable over SSH (`OPENDS_TWO_HOST_SSH`,
-  `OPENDS_TWO_HOST_HOST`); `OPENDS_TWO_HOST_KEEP=1` keeps its organizations and containers
+  `OPENDS_TWO_HOST_HOST`), and `OPENDS_TWO_HOST_KEEP=1` keeps its organizations and containers
   for inspection.
 - `PAYLOAD_PROOF_PRODUCTION=1 npm run test:platform` starts an isolated production API
   (port 8082 by default) against a disposable database and checks API isolation, sessions,
@@ -84,7 +84,7 @@ offboards Org B, and removes the resources it created on the second server.
   TCP port 443.
 - For `OPENDS_TWO_HOST_WALLET=own`, an issuer that can reach the organization's wallet. Allow
   a private second server with `ORGANIZATION_PRIVATE_NETWORKS`
-  ([Configuration](/administration/configuration#private-networks)); a separate identity host
+  ([Configuration](/administration/configuration#private-networks)), while a separate identity host
   cannot reach a private wallet.
 
 ### Run the test
