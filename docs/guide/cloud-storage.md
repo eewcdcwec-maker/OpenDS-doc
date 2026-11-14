@@ -1,3 +1,7 @@
+---
+title: Cloud storage
+---
+
 # Cloud storage
 
 Connectors can offer data stored in Amazon S3 or Azure Blob Storage and receive data into

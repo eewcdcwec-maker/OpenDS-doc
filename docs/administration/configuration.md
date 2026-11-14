@@ -1,3 +1,7 @@
+---
+title: Configuration
+---
+
 # Configuration
 
 Installation settings live in `.env`, which setup creates from your values and fills in

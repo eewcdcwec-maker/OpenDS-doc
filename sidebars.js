@@ -4,22 +4,30 @@
 const sidebars = {
   docsSidebar: [
     'intro',
-    'getting-started',
+    'architecture',
+    {
+      type: 'category',
+      label: 'Getting started',
+      items: ['getting-started', 'guide/first-exchange'],
+    },
     {
       type: 'category',
       label: 'User guide',
       items: [
         'guide/overview',
-        'guide/first-exchange',
         'guide/organization',
         'guide/identity',
-        'guide/organization-wallet',
         'guide/connectors',
-        'guide/self-hosted-connector',
-        'guide/cloud-storage',
         'guide/publish',
         'guide/exchange',
+        'guide/cloud-storage',
+        'reference/api',
       ],
+    },
+    {
+      type: 'category',
+      label: 'Self-hosting',
+      items: ['guide/self-hosted-connector', 'guide/organization-wallet'],
     },
     {
       type: 'category',
@@ -27,21 +35,16 @@ const sidebars = {
       items: [
         'administration/configuration',
         'administration/operations',
-        'administration/remote-cluster',
         'identity/identity-hosting',
+        'administration/remote-cluster',
+        'troubleshooting',
       ],
     },
     {
       type: 'category',
-      label: 'Reference',
-      items: ['architecture', 'reference/api'],
-    },
-    {
-      type: 'category',
       label: 'Development',
-      items: ['development/development', 'development/two-host-test'],
+      items: ['development/development', 'development/testing'],
     },
-    'troubleshooting',
   ],
 };
 

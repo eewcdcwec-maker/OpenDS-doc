@@ -1,6 +1,6 @@
 ---
 id: overview
-title: User guide overview
+title: Overview
 ---
 
 # User guide overview

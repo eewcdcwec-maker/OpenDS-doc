@@ -1,3 +1,7 @@
+---
+title: Architecture
+---
+
 # Architecture
 
 OpenDS is the management platform around a dataspace, not a connector itself. Each

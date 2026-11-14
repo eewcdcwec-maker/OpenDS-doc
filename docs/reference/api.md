@@ -1,3 +1,7 @@
+---
+title: API
+---
+
 # API and permissions
 
 Everything the web app does goes through the same REST API, so scripts can do it too.

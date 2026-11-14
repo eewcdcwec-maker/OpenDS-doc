@@ -211,9 +211,9 @@ runs the test stack only, and its web server publishes the same test paths over 
 
 The runtime end-to-end test covers test identities with platform-hosted connectors; the
 self-host test covers STS rotation through the agent; the
-[two-host integration test](/development/two-host-test) covers managed and self-hosted
+[two-host integration test](/development/testing#two-host-integration-test) covers managed and self-hosted
 identities, the production issuer and approval, offboarding and an organization on another
-server. See [Development](/development#tests).
+server. See [Testing](/development/testing).
 
 ## Known limitations
 
