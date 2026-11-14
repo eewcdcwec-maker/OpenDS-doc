@@ -29,20 +29,19 @@ root rights or Linux capabilities, and connector pods receive no Kubernetes API 
 
 ## Where data lives
 
-The platform database stores users, organizations, memberships, permissions, approval
-workflows, audit entries and operational records. Products, policies, offers, source
-configuration, negotiations, agreements and transfers live only on the connectors, and OpenDS
-reads them live without keeping copies.
+- **Platform database**: users, organizations, memberships, permissions, approval
+  workflows, audit entries and operational records.
+- **Connectors**: products, policies, offers, source configuration, negotiations,
+  agreements and transfers. OpenDS reads them live and keeps no copies.
+- **Connector Vaults**: source credentials and connector secrets. Self-hosted credentials
+  are entered on the connector's own host.
+- **Never stored**: access tokens (EDRs), dataset bytes, and self-hosted Management API
+  request and response bodies. Self-host EDR responses pass through backend memory and are
+  discarded after delivery, which assumes one backend instance. Downloads go directly
+  through the connector's data plane.
 
-Source credentials and connector secrets are kept in each connector's Vault. For self-hosted
-connectors, these credentials are entered on the connector's own host. Connector Vaults keep
-their data across restarts and unseal themselves, as described under
-[Development](/development#internals).
-
-Access tokens (EDRs), dataset contents and the request and response bodies of self-hosted
-management calls are never stored. EDR responses of self-hosted connectors pass through
-backend memory and are discarded after delivery, which assumes a single backend instance.
-Downloads go directly through the connector's data plane.
+Connector Vaults keep their data across restarts and unseal themselves; see
+[Development](/development#internals) for how.
 
 ## Connector hosting
 
