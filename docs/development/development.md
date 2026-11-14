@@ -104,6 +104,33 @@ versions OpenDS does not implement.
   never changes when a bundle is rendered, a connector restarts, is reprovisioned or switches
   hosting mode.
 
+## Identity services
+
+The test and production identity stacks are two instances of `infra/identity/compose.yaml`,
+managed with `./manage.sh identity`, and Kubernetes runs connectors only.
+
+| Component               | Version | Role                                                         |
+| ----------------------- | ------- | ------------------------------------------------------------ |
+| Tractus-X IdentityHub   | 0.4.1   | Wallets, with one participant context per organization       |
+| Tractus-X IssuerService | 0.4.1   | The stack's issuer                                           |
+| Tractus-X BDRS          | 0.6.0   | The stack's directory, which trusts only the stack's issuer  |
+| PostgreSQL 18, Vault 1.20 |       | Persistent stores, with private keys in Vault                |
+
+The issued credentials are MembershipCredential, BpnCredential, DataExchangeGovernanceCredential
+and UsagePurposeCredential.
+
+Known limitations of these versions:
+
+- **Issuer DID**: IssuerService 0.4.1 has no DID management API, so OpenDS republishes the
+  issuer's DID document, and the installer only allows changing the issuer's DID while no
+  holders exist.
+- **Credential requests**: IdentityHub 0.4.1 cannot delete them, so OpenDS removes them with a
+  database role restricted to that table.
+- **STS secret**: all connectors of an organization share one STS secret, because IdentityHub
+  0.4.1 has one STS account per participant context. OpenDS rotates it by writing the
+  IdentityHub Vault entry with a write-only token.
+- **Replicas**: each identity service runs as a single replica.
+
 ## Repository layout
 
 ```text
