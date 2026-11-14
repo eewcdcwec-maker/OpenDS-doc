@@ -94,9 +94,3 @@ controlled once the data has been received.
 | Usage purpose                           | Contract    | Recorded in the agreement                                        |
 | Contract reference and document         | Contract    | Recorded in the agreement, with a checksum of the contract PDF   |
 | Jurisdictions, onward sharing, deletion | Contract    | Recorded in the agreement                                        |
-
-Partner groups are stored on the provider's connectors in the runtime's business partner group
-store, and a policy refers to the group rather than to a copy of its members. OpenDS writes
-each change to every running connector of the organization when the group is saved and again
-before an offer with a group policy is published, while the health check corrects connectors
-that missed a change.
