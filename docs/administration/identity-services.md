@@ -19,7 +19,7 @@ Compose with the official Tractus-X images.
 
 Every production DID contains the identity domain, including the issuer named in every
 credential, so **changing the domain later invalidates all production identities and
-credentials**. Managed identities then need new identities, and organizations with a self-hosted
+credentials**. Organizations with a managed identity then get new identities, and organizations with a self-hosted
 identity must request their credentials again. Before approving the first production
 organization, choose a name you will keep, such as `dataspace.example.org` or `id.example.org`,
 rather than an address-based name.
@@ -92,7 +92,7 @@ Notes:
   - **Managed identities** cannot keep their DIDs, because these contain the old domain. They
     receive new identities on the identity host automatically.
   - **Self-hosted wallets** keep their DID, but their credentials came from the old issuer. Their
-    identity returns to **Awaiting credentials**, and The **Organization** page shows the new
+    identity returns to **Awaiting credentials**. The **Organization** page shows the new
     issuer's DID, and they run `./wallet.sh request-credentials <that DID>`.
   - **Existing connectors** keep the old identity until they are provisioned again. Until then,
     new negotiations and transfers fail. Because reprovisioning removes a connector's
