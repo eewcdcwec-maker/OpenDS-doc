@@ -69,7 +69,7 @@ independent hosts.
 
 |              | OpenDS server                    | Second server                                               |
 | ------------ | -------------------------------- | ----------------------------------------------------------- |
-| Organization | "Org A", wallet hosted by OpenDS | "Org B"                                                     |
+| Organization | "Org A", managed identity        | "Org B"                                                     |
 | Wallet       | OpenDS IdentityHub               | Hosted by OpenDS, or its own (`OPENDS_TWO_HOST_WALLET=own`) |
 | Connectors   | Hosted by OpenDS                 | Two self-hosted connectors behind one shared HTTPS entry    |
 | Credentials  | OpenDS production issuer         | OpenDS production issuer                                    |

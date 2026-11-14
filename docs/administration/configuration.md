@@ -97,7 +97,7 @@ cannot point it at internal services. Three settings in `.env` allow specific pr
 destinations, and the backend must be restarted after changing them with
 `docker compose up -d backend worker`.
 
-- **Own wallets**: OpenDS fetches the DID document of an organization with its own wallet over
+- **Self-hosted wallets**: OpenDS fetches the DID document of an organization with its own wallet over
   HTTPS. On a private network, list the hosts or ranges where organizations run their wallets:
 
   ```bash

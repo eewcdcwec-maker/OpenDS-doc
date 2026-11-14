@@ -43,7 +43,7 @@ name.
 | Test identity stack                          | OpenDS server                                 | Participants of the test phase                                 |
 | Production identity stack                    | OpenDS server (default) or a separate host    | All participants over HTTPS, management only from the platform |
 | Platform-hosted connectors                   | Kubernetes, locally or in a remote cluster    | Participants over HTTPS                                        |
-| Self-hosted connectors and own wallets       | The organizations' own servers                | As chosen by the organization                                  |
+| Self-hosted connectors and wallets           | Servers operated by the organizations         | As chosen by the organization                                  |
 
 Only DID documents, the wallet and token endpoints, credential requests, revocation lists and
 the directory are public, while all management APIs, the Vaults and the databases stay private.
@@ -84,14 +84,14 @@ The script can be run again to update the stack. It:
 
 Notes:
 
-- **Own wallets** must be reachable from the identity host, because the issuer delivers
+- **Self-hosted wallets** must be reachable from the identity host, because the issuer delivers
   credentials to them. A public identity host cannot reach wallets on a private network, so
-  organizations there use a wallet hosted by OpenDS.
+  organizations there use a managed identity.
 - **Moving from a local stack** changes the production issuer's DID, which affects every
   production organization:
   - **Managed identities** cannot keep their DIDs, because these contain the old domain, and
     receive new identities on the identity host automatically.
-  - **Own wallets** keep their DID, but their credentials came from the old issuer. Their
+  - **Self-hosted wallets** keep their DID, but their credentials came from the old issuer. Their
     identity returns to **Awaiting credentials**, and the **Organization** page shows the new
     issuer's DID, with which they run `./wallet.sh request-credentials <that DID>`.
   - **Existing connectors** keep the old identity until they are provisioned again, and new

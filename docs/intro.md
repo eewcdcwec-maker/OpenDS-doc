@@ -12,14 +12,12 @@ their identities, deploy connectors, publish data products, define access polici
 exchange data.
 
 With **Connector-as-a-Service (CaaS)**, the dataspace operator can offer connector provisioning
-and management to participating organizations. Connectors can be hosted by the operator or run
-on infrastructure operated by the participating organizations. OpenDS also provides identity
-services for its participants.
+and management to participating organizations.
 
 ## What you can do with it
 
 - **Organization management**: register organizations, manage members and roles, assign connector permissions, and control access through API keys.
-- **Identity management**: create test identities, use identities provided by OpenDS, or connect an organization's own identity and wallet.
+- **Identity management**: use a test identity, a managed identity hosted by OpenDS, or a self-hosted identity with the organization's own wallet.
 - **Connector-as-a-Service (CaaS)**: create, deploy and manage dataspace connectors through the OpenDS web application. Connectors can be hosted and operated by OpenDS or deployed on an organization's own server.
 - **Data publication and access policies**: publish data from HTTP services, protected endpoints, Amazon S3, Azure Blob or file uploads. Define who can access data and under which conditions.
 - **Data discovery and exchange**: discover published data products across participating organizations, negotiate agreements and exchange data through secure connector-to-connector transfers.
@@ -30,10 +28,10 @@ services for its participants.
 
 Each organization decides what it runs itself. Connector and identity are independent choices.
 
-|           | Run by OpenDS                             | Run by the organization |
-| --------- | ----------------------------------------- | ----------------------- |
-| Connector | Platform-hosted connector                 | Self-hosted connector   |
-| Identity  | Test identity or wallet hosted by OpenDS  | Self-hosted wallet      |
+|           | Run by OpenDS                        | Run by the organization |
+| --------- | ------------------------------------ | ----------------------- |
+| Connector | Platform-hosted connector            | Self-hosted connector   |
+| Identity  | Test identity or managed identity    | Self-hosted identity    |
 
 ## Where to start
 
