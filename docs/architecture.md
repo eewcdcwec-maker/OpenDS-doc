@@ -135,11 +135,3 @@ Providers can see who uses their data, revoke agreements and stop transfers, as 
 [Discover and exchange data](/guide/exchange#as-a-provider-see-and-control-use). The
 organization directory shows signed-in members the approved organizations of their dataspace,
 including name, BPN, DID and the DSP addresses of running connectors, but never any user data.
-
-## Login-protected data sources
-
-HTTP sources can require a login, with a configurable login method, token extraction, outgoing
-headers and token lifetime. A worker next to the connector logs in and refreshes the token
-before it expires, and self-hosted connectors use their agent for this. The login details stay
-on the connector, and private login services need an explicit allowance in the
-[configuration](/administration/configuration#private-networks).

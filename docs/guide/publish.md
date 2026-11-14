@@ -30,6 +30,18 @@ Under **Data products** add a product of one of these kinds:
 Give each product a name, a description, categories and tags so consumers can find it. Cloud
 storage setup and limits are on the [Cloud storage](/guide/cloud-storage) page.
 
+### Login-protected sources
+
+- The login is configured in the product form: login URL and method, token extraction,
+  outgoing headers and token lifetime.
+- The login request body with the credentials is entered when the offer is published, or on
+  the connector's own server for self-hosted connectors.
+- A worker next to the connector logs in and refreshes the token before it expires, and for
+  self-hosted connectors the agent does this.
+- The login details stay on the connector and are never stored in OpenDS.
+- A login service on a private network needs an explicit allowance from the operator
+  ([Configuration](/administration/configuration#private-networks)).
+
 ## Policies
 
 Under **Policies** create two kinds:
