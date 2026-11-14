@@ -1,5 +1,4 @@
 ---
-id: organization
 title: Organization and team
 ---
 
@@ -61,9 +60,9 @@ Every member can create a personal API key for scripts under **API access**. Cre
 asks for your password and an expiry of 30 days, 90 days, one year or never, and the key is
 shown only once. A key acts as you, with your roles. **Replace key** makes the old key stop
 working, while **Revoke key** removes it. How to use the key is described under
-[API](/reference/api).
+[API](/user-guide/api).
 
 ## Identity
 
 The identity types of an organization and how to change them are described under
-[Identity](/guide/identity).
+[Identity](/user-guide/identity).

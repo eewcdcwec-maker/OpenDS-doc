@@ -1,5 +1,4 @@
 ---
-id: first-exchange
 title: Your first data exchange
 ---
 
@@ -7,7 +6,7 @@ title: Your first data exchange
 
 This walk-through takes two organizations from registration to a downloaded file, which
 takes about half an hour once the connectors are running. One organization provides the data,
-while the other consumes it. You need an OpenDS [installation](/getting-started), and as data
+while the other consumes it. You need an OpenDS [installation](/getting-started/installation), and as data
 you can use the sample that every installation serves at `https://<your domain>/api/test-data`.
 
 ## 1. Register both organizations
@@ -48,7 +47,7 @@ Under **Offers → Publish offer**, choose the connector, the data product, the 
 the usage policy, keep **Automatic** approval and publish the offer. The summary on the right
 shows what partners will see.
 
-![The Publish an offer dialog with connector, data product, access and usage policy, and approval, and a summary on the right](./img/publish-offer.png)
+![The Publish an offer dialog with connector, data product, access and usage policy, and approval, and a summary on the right](../img/publish-offer.png)
 
 ## 5. Find the offer and agree (consumer)
 
@@ -57,7 +56,7 @@ provider under **Provider organization**, and select **Search**. The offer appea
 together with its policies. Select **Request agreement**, and after a few seconds the agreement
 appears under **Agreements** with the status **Agreed**.
 
-![Discover lists the provider's data products as cards, each with its access and usage policy](./img/discover.png)
+![Discover lists the provider's data products as cards, each with its access and usage policy](../img/discover.png)
 
 ## 6. Get the data (consumer)
 
@@ -65,15 +64,15 @@ On the agreement, select **Start transfer**, choose **Pull** and start the trans
 **Download** under **Transfers**, and the file is delivered directly from the provider's
 connector.
 
-![The Transfers page with a pull transfer and its Download button](./img/transfers.png)
+![The Transfers page with a pull transfer and its Download button](../img/transfers.png)
 
 ## What next
 
-- [Publish data](/guide/publish) and [Cloud storage](/guide/cloud-storage) explain how to
+- [Publish data](/user-guide/publish-data) and [Cloud storage](/user-guide/cloud-storage) explain how to
   protect a source with a password or token and how to offer files from Amazon S3 or Azure.
-- [Publish data](/guide/publish) also explains how to limit an offer to chosen partners or
+- [Publish data](/user-guide/publish-data) also explains how to limit an offer to chosen partners or
   review each request yourself.
-- [Discover and exchange data](/guide/exchange) explains how to receive data into your own
+- [Discover and exchange data](/user-guide/discover-and-exchange-data) explains how to receive data into your own
   storage or download it repeatedly from a script.
 - To exchange real data, move to a managed or self-hosted identity as described under
-  [Identity](/guide/identity).
+  [Identity](/user-guide/identity).

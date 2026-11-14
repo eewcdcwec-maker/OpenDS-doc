@@ -1,5 +1,4 @@
 ---
-id: identity
 title: Identity
 ---
 
@@ -24,7 +23,7 @@ test credentials never satisfy a production policy.
 - **Test and managed identities** are ready a few seconds after an administrator approves your
   organization.
 - **Self-hosted identities** need your wallet first, as described under
-  [Your own wallet](/guide/organization-wallet). An administrator then confirms that the domain
+  [Your own wallet](/self-hosting/your-own-wallet). An administrator then confirms that the domain
   belongs to you before credentials are issued.
 
 Every identity type works with both platform-hosted and self-hosted connectors.

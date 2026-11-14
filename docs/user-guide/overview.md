@@ -1,5 +1,4 @@
 ---
-id: overview
 title: Overview
 ---
 
@@ -10,14 +9,14 @@ and work with the OpenDS web application.
 
 ## From data to exchange
 
-1. **Join** the dataspace by [registering or accepting an invitation](/guide/organization).
+1. **Join** the dataspace by [registering or accepting an invitation](/user-guide/organization-and-team).
 2. **Get an identity**, either a test identity to try things out or a production identity
-   ([Identity](/guide/identity)).
+   ([Identity](/user-guide/identity)).
 3. **Start a connector**, hosted by OpenDS or on your own server
-   ([Connectors](/guide/connectors)).
+   ([Connectors](/user-guide/connectors)).
 4. **As a provider**, add a data product and the policies that govern it, then
-   [publish an offer](/guide/publish).
-5. **As a consumer**, [discover offers](/guide/exchange), request an agreement and start a
+   [publish an offer](/user-guide/publish-data).
+5. **As a consumer**, [discover offers](/user-guide/discover-and-exchange-data), request an agreement and start a
    transfer.
 
 ## Key terms

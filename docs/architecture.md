@@ -21,7 +21,7 @@ participant's own infrastructure and controlled through the OpenDS agent.
 | Worker            | Runs queued jobs such as connector provisioning, identity tasks, health checks and notifications              |
 | PostgreSQL        | Stores users, organizations, permissions, approvals and operational records                                   |
 | Connectors        | Official Tractus-X EDC, each with its own control plane, data plane, PostgreSQL and Vault                     |
-| Identity services | Tractus-X IdentityHub, IssuerService and BDRS, as described in [Identity services](/identity/identity-hosting) |
+| Identity services | Tractus-X IdentityHub, IssuerService and BDRS, as described in [Identity services](/administration/identity-services) |
 
 The backend enforces all permissions, so the browser never accesses Vault, Kubernetes or the
 Management APIs of the connectors directly. The backend and worker run without root privileges or
@@ -45,11 +45,11 @@ Linux capabilities, and connector pods are not given a Kubernetes API token.
 Runtime and hosting are independent:
 
 - **Platform-hosted**: OpenDS manages connectors on Kubernetes, either in the local cluster
-  created during setup or in a [separate cluster](/administration/remote-cluster).
+  created during setup or in a [separate cluster](/administration/remote-connector-cluster).
 - **Self-hosted**: the organization runs the connector using Docker Compose on its own server.
   A lightweight agent polls OpenDS for queued operations and executes them locally. OpenDS
   therefore requires no inbound access to the connector's Management API. See
-  [Self-hosted connector](/guide/self-hosted-connector).
+  [Self-hosted connector](/self-hosting/self-hosted-connector).
 
 Each platform-hosted connector runs in its own Kubernetes namespace with a network policy. The
 policy allows its pods to communicate within that namespace, access cluster DNS and ingress,
@@ -76,7 +76,7 @@ required by the Tractus-X runtime and are handled within the Tractus-X adapter.
 
 OpenDS allocates BPNs within its own dataspace. Catalog requests use DID-based DSP version
 discovery with a known provider address. Identity types, wallets and hosting are described in
-[Identity services](/identity/identity-hosting).
+[Identity services](/administration/identity-services).
 
 ## Policy enforcement
 

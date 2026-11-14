@@ -1,5 +1,4 @@
 ---
-id: identity-hosting
 title: Identity services
 ---
 
@@ -7,7 +6,7 @@ title: Identity services
 
 This page is for operators and describes where the identity services of a dataspace run and how
 to move them to a separate host. Organizations choose and change their identity as described
-under [Identity](/guide/identity).
+under [Identity](/user-guide/identity).
 
 The production identity services form one **identity stack**, consisting of the production
 issuer, one wallet service for all organizations with a managed identity, the production

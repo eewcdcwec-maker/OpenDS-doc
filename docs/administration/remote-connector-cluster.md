@@ -1,5 +1,4 @@
 ---
-id: remote-cluster
 title: Remote connector cluster
 ---
 

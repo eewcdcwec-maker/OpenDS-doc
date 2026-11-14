@@ -1,5 +1,4 @@
 ---
-id: exchange
 title: Discover and exchange data
 ---
 

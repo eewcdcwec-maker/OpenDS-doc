@@ -18,7 +18,7 @@ bash manage.sh                   # lists every command
 Under **Platform Admin → Operations**, administrators can check identity services, connectors,
 storage and certificates, and email alerts are sent once monitoring and email are configured.
 
-![The Monitoring card: daily alert email, connector health check interval and the current checks](./img/monitoring.png)
+![The Monitoring card: daily alert email, connector health check interval and the current checks](../img/monitoring.png)
 
 ## Backups
 
@@ -46,7 +46,7 @@ To restore on a new server, install OpenDS first and pass the original passphras
 while on a new server they must be provisioned again, with their definitions imported and their
 credentials entered again. A production identity on a separate identity host is recovered as
 described under
-[Identity services](/identity/identity-hosting#rebuilding-a-lost-identity-host).
+[Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
 
 The database and the contract files are copied one after the other, so pause contract uploads
 and deletions while taking a backup if you need a fully consistent recovery point.
@@ -54,7 +54,7 @@ and deletions while taking a backup if you need a fully consistent recovery poin
 ## Self-hosted connectors
 
 Organizations install, run and move their self-hosted connectors themselves, as described under
-[Self-hosted connector](/guide/self-hosted-connector). As an operator, note:
+[Self-hosted connector](/self-hosting/self-hosted-connector). As an operator, note:
 
 - **Installer links**: a link downloads setup files with identity credentials and enrolls one
   agent, after which it no longer works. A new installer, **Reinstall** or a rotated STS secret

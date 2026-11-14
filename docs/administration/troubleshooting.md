@@ -1,5 +1,4 @@
 ---
-id: troubleshooting
 title: Troubleshooting
 ---
 
@@ -20,7 +19,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Symptom                                                           | What to do                                                                                     |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Setup says "permission denied" for the Docker socket              | Add the user to the `docker` group (`sudo usermod -aG docker $USER`), sign in again, rerun setup. |
-| Setup stops with "Run sudo sysctl -w fs.inotify…"                 | Set the two kernel limits once as root, as shown under [Requirements](/getting-started#requirements), then rerun setup. |
+| Setup stops with "Run sudo sysctl -w fs.inotify…"                 | Set the two kernel limits once as root, as shown under [Requirements](/getting-started/installation#requirements), then rerun setup. |
 | After changing the domain, setup stops with "The test issuer was created for another address" | Run the command it names (`docker compose -p opends-identity-test down -v`) and rerun setup. Test identities start over. |
 | Browser warns about the certificate                               | With `EDGE_TLS=internal`, trust the [dataspace CA](/administration/configuration#trusting-the-dataspace-ca) once. |
 | No HTTPS certificate, Let's Encrypt reports a rate limit (429)    | Let's Encrypt limits how many certificates one name gets per week. Wait, or use your own certificate (`EDGE_TLS=files`). |
@@ -37,7 +36,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Cannot create or edit a product or policy                  | Choose a running connector, because paused or stopped connectors cannot be edited.               |
 | Cannot change or delete a product or policy                | Withdraw the offers that use it first.                                                          |
 | Publishing a login-protected offer fails with "destination is not public" | The login service is on a private network. An operator allows its exact origin with `SOURCE_LOGIN_PRIVATE_ORIGINS`. |
-| A self-hosted server was lost or replaced                  | **Reinstall** on the Hosting tab, then rotate the STS secret ([Move to another server](/guide/self-hosted-connector#moving-to-another-server)). |
+| A self-hosted server was lost or replaced                  | **Reinstall** on the Hosting tab, then rotate the STS secret ([Move to another server](/self-hosting/self-hosted-connector#moving-to-another-server)). |
 
 ## Identity and wallets
 

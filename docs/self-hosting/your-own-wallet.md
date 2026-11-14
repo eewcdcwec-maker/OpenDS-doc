@@ -1,5 +1,4 @@
 ---
-id: organization-wallet
 title: Your own wallet
 ---
 
@@ -9,7 +8,7 @@ This guide applies when your organization chooses **Self-hosted identity**. The 
 your server and gives your organization its own `did:web` identity, while its private key never
 leaves that server. OpenDS only receives the public key, proof that you control it, and the
 STS secret that your connectors use. The identity types and the effects of changing them are
-described under [Identity](/guide/identity).
+described under [Identity](/user-guide/identity).
 
 ## Requirements
 
@@ -105,7 +104,7 @@ In OpenDS, open **Organization → Dataspace identity** and complete the steps s
 
    OpenDS marks the identity as ready once all required credentials are issued.
 
-   ![The Dataspace identity card with all six steps done: DID document, ownership, wallet, approval, credentials, ready](./img/wallet-progress.png)
+   ![The Dataspace identity card with all six steps done: DID document, ownership, wallet, approval, credentials, ready](../img/wallet-progress.png)
 
 After you add connectors, OpenDS lists their `DataService` entries, which you add to the
 `service` array in `./did/did.json` so that partners can find the connectors.
@@ -114,6 +113,6 @@ After you add connectors, OpenDS lists their `DataService` entries, which you ad
 
 - **Start and stop**: `sudo ./wallet.sh start` and `sudo ./wallet.sh stop`.
 - **STS secret**: rotated with `./wallet.sh rotate-secret`, as described under
-  [Identity](/guide/identity#rotating-the-sts-secret).
+  [Identity](/user-guide/identity#rotating-the-sts-secret).
 - **Backup**: back up the `vault`, `vault-keys` and `postgres` Docker volumes together, because
   losing them means losing the wallet's private keys.

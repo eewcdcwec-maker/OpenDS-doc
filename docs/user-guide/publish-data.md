@@ -1,5 +1,4 @@
 ---
-id: publish
 title: Publish data
 ---
 
@@ -28,7 +27,7 @@ Under **Data products**, add a product of one of these kinds:
 | File upload          | A file stored in the connector's cloud storage                            |
 
 Give each product a name, a description, categories and tags so that consumers can find it.
-Cloud storage setup and limits are described under [Cloud storage](/guide/cloud-storage).
+Cloud storage setup and limits are described under [Cloud storage](/user-guide/cloud-storage).
 
 ### Login-protected sources
 
@@ -67,7 +66,7 @@ Under **Offers**, publish one product per offer with an access policy and a usag
 Partners find the offer under **Discover** once its connector is listed with
 **List in discovery** on the connector page.
 
-![The Publish an offer dialog with a summary of what partners will see](./img/publish-offer.png)
+![The Publish an offer dialog with a summary of what partners will see](../img/publish-offer.png)
 
 - **Provider approval**: with **Automatic**, eligible consumers can request an agreement
   directly, while with **Request approval** you review each access request first. Approval is a

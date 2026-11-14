@@ -1,5 +1,4 @@
 ---
-id: self-hosted-connector
 title: Self-hosted connector
 ---
 

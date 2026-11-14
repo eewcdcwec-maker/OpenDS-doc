@@ -37,11 +37,11 @@ Each organization decides what it runs itself. Connector and identity are indepe
 
 ## Where to start
 
-- Try it: [Installation](/getting-started), then [Your first data exchange](/guide/first-exchange)
-- Use the app: [User guide](/guide/overview)
-- Run connectors or a wallet on your own servers: [Self-hosting](/guide/self-hosted-connector)
+- Try it: [Installation](/getting-started/installation), then [Your first data exchange](/getting-started/first-data-exchange)
+- Use the app: [User guide](/user-guide/overview)
+- Run connectors or a wallet on your own servers: [Self-hosting](/self-hosting/self-hosted-connector)
 - Operate an installation: [Administration](/administration/configuration)
-- Contribute: [Development](/development)
+- Contribute: [Development](/development/development)
 
 ## License
 

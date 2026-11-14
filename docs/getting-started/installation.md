@@ -1,5 +1,4 @@
 ---
-id: getting-started
 title: Installation
 ---
 
@@ -107,7 +106,7 @@ whenever the embedded IP address changes.
 1. Sign in as the first administrator.
 2. Open **Platform Admin** from the account menu and configure email, registration and backups.
 3. Try a first exchange between two organizations, as described in
-   [Your first data exchange](/guide/first-exchange).
+   [Your first data exchange](/getting-started/first-data-exchange).
 
 Optional and advanced settings are listed in `.env.example`, commented out with their
 defaults, and explained under [Configuration](/administration/configuration). Everyday

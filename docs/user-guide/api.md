@@ -23,7 +23,7 @@ file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dat
 - **Collections**: `/api/<collection>` with paginated results (`docs`, `totalDocs`, `page`,
   `limit`), while creates and updates return `{doc}`.
 - **Permissions**: API keys apply the same organization and connector permissions as the app,
-  as listed under [Roles](/guide/overview#roles).
+  as listed under [Roles](/user-guide/overview#roles).
 - **Platform administration**: the admin interface at `/platform-admin` is the operator's
   support and recovery tool and gives platform administrators access to every record of every
   organization. Day-to-day work happens in the app.
@@ -53,7 +53,7 @@ name, then resource ID. Offers are published with `POST /api/offers/publish`.
 
 Transfers of type `AmazonS3-PUSH` and `AzureStorage-PUSH` take only the location in
 `dataDestination` (`bucketName` and `objectName`, or `account`, `container` and `blobName`),
-while the login comes from the consumer's connector. See [Cloud storage](/guide/cloud-storage).
+while the login comes from the consumer's connector. See [Cloud storage](/user-guide/cloud-storage).
 
 ## Discovery and exchanges
 

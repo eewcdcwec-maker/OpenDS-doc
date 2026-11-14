@@ -45,7 +45,7 @@ or if there are several administrators.
 
 With `PUBLIC_DOMAIN` set, everything is served over HTTPS on that domain, while without it
 OpenDS runs in the unencrypted HTTP evaluation mode described under
-[Installation](/getting-started#http-evaluation-mode). A private network does not need a public
+[Installation](/getting-started/installation#http-evaluation-mode). A private network does not need a public
 domain, because an address-based name such as `opends.192-168-1-50.sslip.io` with
 `EDGE_TLS=internal` provides full HTTPS.
 
@@ -142,4 +142,4 @@ in both the host firewall and any cloud security group.
 ## Separate connector cluster
 
 Platform-hosted connectors can also run on a Kubernetes cluster on another server, as
-described under [Remote connector cluster](/administration/remote-cluster).
+described under [Remote connector cluster](/administration/remote-connector-cluster).
