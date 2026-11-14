@@ -24,7 +24,9 @@ the extracted directory private, because setup writes secrets to its `.env` file
 
 ## Starting the wallet
 
-On the wallet server, extract the bundle, open its directory, then run:
+If this server also runs your connectors or already has a reverse proxy, read the two sections
+below before running setup. Otherwise, on the wallet server, extract the bundle, open its
+directory, then run:
 
 ```bash
 ./wallet.sh setup wallet.example.org

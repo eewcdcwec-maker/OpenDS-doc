@@ -5,9 +5,9 @@ title: Configuration
 # Configuration
 
 Installation settings are kept in `.env`. Setup creates it from your values and completes it.
-All optional settings are listed in `.env.example`. Settings that change while the platform
-runs are made in the app under **Platform Admin**. Platform administrators open it from the
-account menu.
+All optional settings are listed in `.env.example`. Settings that can be changed while the
+platform is running are made in the app under **Platform Admin**. Platform administrators open
+it from the account menu.
 
 ## Settings in the app
 

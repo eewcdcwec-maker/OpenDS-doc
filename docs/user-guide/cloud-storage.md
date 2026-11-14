@@ -24,6 +24,8 @@ product, by a connector Manager on the connector's **Cloud storage** tab.
 
 ## Setting it up
 
+On the connector's **Cloud storage** tab, set up one or both providers:
+
 - **AWS**: the region, access key ID, secret access key and the **buckets** the connector
   uses. S3-compatible services such as MinIO or Garage are not supported.
 - **Azure**: one or more storage accounts, each with its access key and its **containers**.

@@ -12,8 +12,7 @@ can use the sample that every installation serves at `https://<your domain>/api/
 ## 1. Register both organizations
 
 Open the OpenDS address and select **Register an organization**. Register the provider with
-the organization name, your name, email address and password, roles such as **Data
-provider**, and the identity type **Test**. Accept the participation terms and submit the
+the organization name, your name, email address and password, the role **Data provider**, and the identity type **Test**. Accept the participation terms and submit the
 registration. Then register the consumer in the same way, choosing **Data
 consumer** as its role. Use another browser profile so that you can stay signed in to both.
 
@@ -26,8 +25,8 @@ its identity as **Ready**.
 In each organization, open **Connectors → New connector**, enter a name and save. Then select
 **Provision** on the connector page. The connector shows **Running** after a few minutes. The
 first connector of an installation takes longer because the software is downloaded first.
-Finally, select **List in discovery** on the provider's connector so that other organizations
-can find its offers.
+Finally, on the provider's connector, select **List in discovery** on the **Hosting** tab so
+that other organizations can find its offers.
 
 ## 3. Describe the data and its rules (provider)
 

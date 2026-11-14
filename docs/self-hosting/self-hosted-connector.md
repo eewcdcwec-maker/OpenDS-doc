@@ -27,7 +27,9 @@ passwords and cloud keys are entered on your server and never pass through OpenD
    stop and delete it later.
 2. On your server, run the first command. It downloads the bundle, together with a
    `README.md`, into a folder named after the connector.
-3. Start the connector, with your DNS name if you have one:
+3. Start the connector, with your DNS name if you have one. If the server already runs other
+   services or several connectors, use a start command from [HTTPS options](#https-options)
+   instead:
 
    ```bash
    sudo env OPENDS_PUBLIC_HOST=connector.example.org sh ./start.sh

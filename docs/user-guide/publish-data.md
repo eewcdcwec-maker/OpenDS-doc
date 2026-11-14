@@ -25,10 +25,11 @@ Under **Data products**, add a product of one of these kinds:
 | Amazon S3            | An object in a bucket that the connector can read                         |
 | Azure Blob           | A blob in a container that the connector can read                         |
 
-For Amazon S3 and Azure Blob, you can choose an existing file or upload a new one.
+For Amazon S3 and Azure Blob, you can choose an existing file or upload a new one. These kinds
+appear only when the connector has cloud storage set up, as described under
+[Cloud storage](/user-guide/cloud-storage).
 
 Give each product a name, a description, categories and tags so that consumers can find it.
-Cloud storage setup and limits are described under [Cloud storage](/user-guide/cloud-storage).
 
 ### Login-protected sources
 
@@ -60,11 +61,13 @@ apply to offers that are already published. Removing a member prevents new agree
 existing agreement stays valid until you revoke it. A group used by active offers cannot be
 renamed or deleted until those offers are withdrawn.
 
+Policies created outside OpenDS are shown read-only.
+
 ## Offers
 
 Under **Offers**, publish one product per offer with an access policy and a usage policy.
 Partners find the offer under **Discover** once its connector is listed with
-**List in discovery** on the connector page.
+**List in discovery** on the connector's **Hosting** tab.
 
 ![The Publish an offer dialog with a summary of what partners will see](../img/publish-offer.png)
 
@@ -74,5 +77,3 @@ Partners find the offer under **Discover** once its connector is listed with
   policy to restrict which organizations are eligible.
 - **Withdraw**: removes the offer from **Discover** and stops new access requests. Existing exchange history is kept.
   Active offers must be withdrawn before their product or policy can be changed or deleted.
-
-Policies created outside OpenDS are shown read-only.

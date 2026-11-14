@@ -23,8 +23,8 @@ storage and certificates. Email alerts are sent once monitoring and email are co
 ## Backups
 
 Backups are encrypted with `BACKUP_PASSPHRASE` from `.env`. The passphrase is generated on first
-use. Also keep a copy of it somewhere other than the server. Daily backups, retention, backups on demand
-and downloads are configured under **Platform Admin → Operations**.
+use. Also keep a copy of it somewhere other than the server. Daily backups, retention, backups
+on demand and downloads are configured under **Platform Admin → Operations**.
 
 | Included in a platform backup                                   | Not included                                         |
 | --------------------------------------------------------------- | ---------------------------------------------------- |
@@ -42,12 +42,19 @@ contains the definitions and exchange history, but no secrets or source files.
 | `bash manage.sh backup verify <file>`     | Test-restores the backup in temporary containers and checks its contents                                       |
 | `bash manage.sh backup restore <file>`    | Replaces the platform state of this installation with the backup, after confirmation (`OPENDS_RESTORE_CONFIRM=yes` without a terminal) |
 
-To restore on a new server, install OpenDS first, then restore with the original passphrase:
-`BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>`. Platform-hosted connectors on the same server keep their runtime data.
-On a new server, they must be provisioned again, with their definitions imported and their
-credentials entered again. `backup restore` skips the data of a separate identity host, which has to be restored on that
-host, as described under
-[Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
+To restore, run the following with the original passphrase. On a new server, install OpenDS
+first.
+
+```bash
+BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>
+```
+
+- **Platform-hosted connectors**: on the same server, they keep their runtime data. On a new
+  server, they must be provisioned again, with their definitions imported and their credentials
+  entered again.
+- **Separate identity host**: `backup restore` skips its data, which has to be restored on that
+  host, as described under
+  [Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
 
 The database and the contract files are copied one after the other. If you need a fully
 consistent recovery point, pause contract uploads and deletions while taking a backup.

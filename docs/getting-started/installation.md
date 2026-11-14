@@ -9,20 +9,20 @@ platform services, the connector cluster and the identity services.
 
 ## Requirements
 
-- An evaluation installation with up to two platform-hosted connectors needs at least 4 CPU
-  cores, 8 GB RAM and 20 GB of free disk space. Actual use depends on the connector workload,
-  image caches and retained data. Self-hosted connectors run on servers operated by their
-  organizations, not on this one. This server still handles their management, discovery and
-  agent requests.
-- HTTPS on the internet requires a domain that points at the server, with TCP port 443 open.
 - The server runs Linux on x86_64 with Docker Engine, Compose v2, Git, Bash, curl, tar and
   sha256sum. Node.js is not required for the Docker installation.
+- An evaluation installation with up to two platform-hosted connectors needs at least 4 CPU
+  cores, 8 GB RAM and 20 GB of free disk space. Actual use depends on the connector workload,
+  image caches and retained data.
+- Self-hosted connectors run on servers operated by their organizations, not on this one. This
+  server still handles their management, discovery and agent requests.
+- HTTPS on the internet requires a domain that points at the server, with TCP port 443 open.
 - The server needs outbound access to GitHub, the container registries and the Kubernetes and
   Helm downloads.
 - Setup runs as a regular user with Docker access. If `docker ps` reports "permission
   denied", add the user to the `docker` group with `sudo usermod -aG docker $USER` and log in
   again.
-- The connector cluster needs two raised kernel limits. If setup may use `sudo`, it raises them
+- The connector cluster needs two raised kernel limits. If setup can use `sudo`, it raises them
   itself. Otherwise, set them once as root so that they also survive a reboot:
 
   ```bash
@@ -31,6 +31,8 @@ platform services, the connector cluster and the identity services.
   ```
 
 ## Choose a TLS mode
+
+You set the TLS mode with `EDGE_TLS` in `.env` during installation:
 
 | `EDGE_TLS`  | Use it when                                                    | Result                                          |
 | ----------- | -------------------------------------------------------------- | ----------------------------------------------- |
@@ -56,12 +58,14 @@ network, set a hostname in `PUBLIC_DOMAIN` together with `EDGE_TLS=internal`.
 
 ## Install
 
+Clone the repository and create `.env` from the example:
+
 ```bash
 git clone https://github.com/kwe712/OpenDS.git opends && cd opends
 cp .env.example .env
 ```
 
-Then fill in the first section of `.env`:
+Fill in the first section of `.env`:
 
 ```bash
 PUBLIC_DOMAIN=dataspace.example.org   # your domain; choose it once
@@ -77,7 +81,18 @@ PUBLIC_DOMAIN=opends.192-168-1-50.sslip.io   # for a server at 192.168.1.50
 EDGE_TLS=internal
 ```
 
-Then start the setup:
+:::warning Choose your domain once
+The domain is part of every DID in the dataspace. If you change it later:
+
+- All credentials must be issued again, because the issuer's DID changes.
+- Setup stops and names a command that removes the test identity stack. Run that command, then
+  run setup again. Test identities start over.
+
+For an installation you intend to keep, use a stable hostname. Address-based `sslip.io` names
+change whenever the server's IP address changes.
+:::
+
+Start the setup:
 
 ```bash
 bash manage.sh setup
@@ -96,22 +111,10 @@ address and sign in with the email and password from `PAYLOAD_ADMIN_EMAIL` and
 
 You can run setup again later. It keeps your settings and data.
 
-:::warning Choose your domain once
-The domain is part of every DID in the dataspace. If you change it later:
-
-- All credentials must be issued again, because the issuer's DID changes.
-- Setup stops and names a command that removes the test identity stack. Run that command, then
-  run setup again. Test identities start over.
-
-For an installation you intend to keep, use a stable hostname. Address-based `sslip.io` names
-change whenever the server's IP address changes.
-:::
-
 ## After installation
 
-1. Sign in as the first administrator.
-2. Open **Platform Admin** from the account menu and configure email, registration and backups.
-3. Try a first exchange between two organizations, as described in
+1. Open **Platform Admin** from the account menu and configure email, registration and backups.
+2. Try a first exchange between two organizations, as described in
    [Your first data exchange](/getting-started/first-data-exchange).
 
 Optional and advanced settings are listed in `.env.example`, commented out with their
