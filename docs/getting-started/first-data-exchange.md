@@ -4,14 +4,14 @@ title: Your first data exchange
 
 # Your first data exchange
 
-This walk-through takes two organizations from registration to a downloaded file, which
-takes about half an hour once the connectors are running. One organization provides the data,
-while the other consumes it. You need an OpenDS [installation](/getting-started/installation), and as data
-you can use the sample that every installation serves at `https://<your domain>/api/test-data`.
+This walk-through takes two organizations from registration to a downloaded file. Once the
+connectors are running, it takes about half an hour. One organization provides the data and the
+other consumes it. You need an OpenDS [installation](/getting-started/installation). As data, you
+can use the sample that every installation serves at `https://<your domain>/api/test-data`.
 
 ## 1. Register both organizations
 
-Open the OpenDS address, select **Register an organization** and register the provider with
+Open the OpenDS address and select **Register an organization**. Register the provider with
 the organization name, your name, email address and password, roles such as **Data
 provider**, and the identity type **Test**. Accept the participation terms and submit the
 registration. Then register the consumer in the same way, using another browser profile.
@@ -23,8 +23,8 @@ its identity as **Ready**.
 ## 2. Start a connector for each organization
 
 In each organization, open **Connectors → New connector**, enter a name and save. Then select
-**Provision** on the connector page. The connector shows **Running** after a few minutes, while
-the first connector of an installation takes longer because the software is downloaded first.
+**Provision** on the connector page. The connector shows **Running** after a few minutes. The
+first connector of an installation takes longer because the software is downloaded first.
 Finally, select **List in discovery** on the provider's connector so that other organizations
 can find its offers.
 
@@ -44,7 +44,7 @@ can find its offers.
 ## 4. Publish the offer (provider)
 
 Under **Offers → Publish offer**, choose the connector, the data product, the access policy and
-the usage policy, keep **Automatic** approval and publish the offer. The summary on the right
+the usage policy. Keep **Automatic** approval and publish the offer. The summary on the right
 shows what partners will see.
 
 ![The Publish an offer dialog with connector, data product, access and usage policy, and approval, and a summary on the right](../img/publish-offer.png)
@@ -52,8 +52,8 @@ shows what partners will see.
 ## 5. Find the offer and agree (consumer)
 
 Under **Discover**, choose your connector under **Consumer connector for requests** and the
-provider under **Provider organization**, and select **Search**. The offer appears as a card
-together with its policies. Select **Request agreement**, and after a few seconds the agreement
+provider under **Provider organization**, then select **Search**. The offer appears as a card
+together with its policies. Select **Request agreement**. After a few seconds, the agreement
 appears under **Agreements** with the status **Agreed**.
 
 ![Discover lists the provider's data products as cards, each with its access and usage policy](../img/discover.png)
@@ -61,7 +61,7 @@ appears under **Agreements** with the status **Agreed**.
 ## 6. Get the data (consumer)
 
 On the agreement, select **Start transfer**, choose **Pull** and start the transfer. Then select
-**Download** under **Transfers**, and the file is delivered directly from the provider's
+**Download** under **Transfers**. The file is delivered directly from the provider's
 connector.
 
 ![The Transfers page with a pull transfer and its Download button](../img/transfers.png)

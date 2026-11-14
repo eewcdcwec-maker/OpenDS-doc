@@ -11,8 +11,8 @@ publish it as an offer.
 Data product + Access policy + Usage policy -> Offer
 ```
 
-Products, policies and offers are stored on the connector, so a running connector must be
-selected when creating them.
+Products, policies and offers are stored on the connector, so select a running connector
+before creating them.
 
 ## Data products
 
@@ -34,7 +34,7 @@ Cloud storage setup and limits are described under [Cloud storage](/user-guide/c
 - **Login settings**: the login URL and method, token extraction, outgoing headers and token
   lifetime are set in the product form.
 - **Credentials**: the login request body with the credentials is entered when the offer is
-  published, or on the connector's own server for self-hosted connectors.
+  published. For self-hosted connectors, it is entered on the connector's own server.
 - **Storage**: the login details stay on the connector and are never stored in OpenDS.
 - **Private networks**: a login service on a private network needs an explicit allowance from
   the operator ([Configuration](/administration/configuration#private-networks)).
@@ -50,13 +50,12 @@ Under **Policies**, create two kinds of policies:
   Partners download the contract PDF from the offer in **Discover** before they agree, and a
   checksum lets both sides verify the file.
 
-Some terms are enforced by the connector, while others are contractual and recorded in the
+Some terms are enforced by the connector. Others are contractual and recorded in the
 agreement, because data that a consumer has already received cannot be technically controlled.
-Which term belongs to which group is shown under
-[Policy enforcement](/architecture#policy-enforcement).
+[Policy enforcement](/architecture#policy-enforcement) shows which terms belong to which group.
 
-**Partner groups** let you change who is allowed without republishing, because changes also
-apply to offers that are already published. Removing a member prevents new agreements, while an
+**Partner groups** let you change who is allowed without republishing: changes to a group also
+apply to offers that are already published. Removing a member prevents new agreements, but an
 existing agreement stays valid until you revoke it. A group used by active offers cannot be
 renamed or deleted until those offers are withdrawn.
 
@@ -69,11 +68,10 @@ Partners find the offer under **Discover** once its connector is listed with
 ![The Publish an offer dialog with a summary of what partners will see](../img/publish-offer.png)
 
 - **Provider approval**: with **Automatic**, eligible consumers can request an agreement
-  directly, while with **Request approval** you review each access request first. Approval is a
-  step in OpenDS and does not stop a partner who contacts your connector directly, so use the
-  access policy to restrict which organizations are eligible.
-- **Withdraw**: stops new discovery and approval requests, while existing exchange history
-  stays. Active offers must be withdrawn before their product or policy can be changed or
-  deleted.
+  directly. With **Request approval**, you review each access request first. Approval is a step
+  in OpenDS and does not stop a partner who contacts your connector directly, so use the access
+  policy to restrict which organizations are eligible.
+- **Withdraw**: stops new discovery and approval requests. Existing exchange history is kept.
+  Active offers must be withdrawn before their product or policy can be changed or deleted.
 
 Policies created outside OpenDS are shown read-only.

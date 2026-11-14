@@ -11,10 +11,10 @@ web-based environment where participating organizations can join the dataspace, 
 their identities, deploy connectors, publish data products, define access policies, and
 exchange data.
 
-OpenDS provides **Connector-as-a-Service (CaaS)**, enabling the dataspace operator to offer
-connector provisioning and management to participating organizations. Connectors can be hosted
-by the operator or run on infrastructure operated by the participating organizations. The
-platform also provides identity services for its participants.
+With **Connector-as-a-Service (CaaS)**, the dataspace operator can offer connector provisioning
+and management to participating organizations. Connectors can be hosted by the operator or run
+on infrastructure operated by the participating organizations. OpenDS also provides identity
+services for its participants.
 
 ## What you can do with it
 
@@ -33,7 +33,7 @@ Each organization decides what it runs itself. Connector and identity are indepe
 |           | Run by OpenDS                             | Run by the organization |
 | --------- | ----------------------------------------- | ----------------------- |
 | Connector | Platform-hosted connector                 | Self-hosted connector   |
-| Identity  | Test identity or wallet hosted by OpenDS  | Own wallet              |
+| Identity  | Test identity or wallet hosted by OpenDS  | Self-hosted wallet      |
 
 ## Where to start
 
