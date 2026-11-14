@@ -64,6 +64,8 @@ Under **Offers** publish one product per offer with an access policy and a usage
 Partners find the offer under **Discover** once its connector is listed (**List in discovery**
 on the connector page).
 
+![The Publish an offer dialog with a summary of what partners will see](./img/publish-offer.png)
+
 - **Provider approval**: leave it off so eligible consumers can request an agreement directly,
   or turn it on so you review each access request first. Approval applies to requests made
   through OpenDS; the access policy decides who the connector itself lets negotiate, so use it

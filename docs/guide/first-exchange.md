@@ -41,6 +41,11 @@ connector of an installation takes longer while the software downloads. Then sel
 **Offers → Publish offer**: choose the connector, the data product, the access policy and the
 usage policy, keep **Automatic** approval, and publish.
 
+![The Publish an offer dialog: connector, data product, access and usage policy, and approval, with a summary on the right](./img/publish-offer.png)
+
+The summary on the right shows what partners will see. (This example uses **Request
+approval**; keep **Automatic** for your first exchange.)
+
 ## 5. Find it and agree (consumer)
 
 **Discover**: choose your connector under **Consumer connector for requests**, the provider
@@ -48,10 +53,14 @@ under **Provider organization**, and select **Search**. The offer appears as a c
 policies. Select **Request agreement**. Under **Agreements** it shows **Agreed** after a few
 seconds.
 
+![Discover lists the provider's data products as cards, each with its access and usage policy](./img/discover.png)
+
 ## 6. Get the data (consumer)
 
 On the agreement, select **Start transfer**, choose **Pull** and start it. Under
 **Transfers**, select **Download**: the file comes straight from the provider's connector.
+
+![The Transfers page with a pull transfer and its Download button](./img/transfers.png)
 
 ## What next
 

@@ -109,6 +109,8 @@ In OpenDS, open **Organization → Dataspace identity** and complete the steps s
 
    OpenDS marks the identity ready after all required credentials are issued.
 
+   ![The Dataspace identity card with all six steps done: DID document, ownership, wallet, approval, credentials, ready](./img/wallet-progress.png)
+
 After you add connectors, OpenDS lists their `DataService` entries. Add those entries to the
 `service` array in `./did/did.json` so partners can find the connectors.
 

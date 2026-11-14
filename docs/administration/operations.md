@@ -14,6 +14,8 @@ bash manage.sh                   # lists every command
 Under **Platform Admin → Operations**, administrators can check identity services, connectors,
 storage and certificates. Email alerts require monitoring and email to be configured.
 
+![The Monitoring card: daily alert email, connector health check interval and the current checks](./img/monitoring.png)
+
 ## Backups
 
 `bash manage.sh backup create` writes an encrypted, platform-only archive: the platform
