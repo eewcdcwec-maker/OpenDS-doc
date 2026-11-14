@@ -113,8 +113,9 @@ The platform and connector databases use PostgreSQL 18.
 
 ## Identity services
 
-The test and production identity stacks are two instances of `infra/identity/compose.yaml`,
-managed with `./manage.sh identity`. Kubernetes runs connectors only.
+The test and production identity stacks run in Docker Compose, not on Kubernetes, which runs
+only the connectors. Both are instances of `infra/identity/compose.yaml` and are managed with
+`./manage.sh identity`.
 
 | Component               | Version | Role                                                         |
 | ----------------------- | ------- | ------------------------------------------------------------ |
