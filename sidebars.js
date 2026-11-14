@@ -4,12 +4,12 @@
 const sidebars = {
   docsSidebar: [
     'intro',
-    'architecture',
     {
       type: 'category',
       label: 'Getting started',
       items: ['getting-started/installation', 'getting-started/first-data-exchange'],
     },
+    'architecture',
     {
       type: 'category',
       label: 'User guide',

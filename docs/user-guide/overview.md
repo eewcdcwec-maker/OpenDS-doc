@@ -31,6 +31,9 @@ and work with the OpenDS web application.
 | Offer         | A data product published with an access policy and a usage policy                                    |
 | Agreement     | The result of a successful negotiation between a consumer and a provider                             |
 | Transfer      | One delivery of data under an agreement                                                              |
+| DID           | The decentralized identifier of an organization, which partners use to verify its identity           |
+| DSP address   | The address at which partners reach a connector, needed when the connector is not listed in discovery |
+| STS secret    | The secret all connectors of an organization use to obtain tokens from its wallet                    |
 
 ## Roles
 
