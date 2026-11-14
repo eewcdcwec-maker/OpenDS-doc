@@ -83,5 +83,7 @@ consumer's name, read live from your connectors.
   product, the other organization, and whether you received the request or sent it. Access requests must be on under **Organization**,
   **Organization settings**; they cannot be turned off while an offer that needs approval is
   active.
+  Approval is a step in the app, not a connector check: a partner who talks to your
+  connector directly, without OpenDS, is not stopped by it. Use an access policy for that.
 
 Revocation stops further delivery; it cannot take back data already received.

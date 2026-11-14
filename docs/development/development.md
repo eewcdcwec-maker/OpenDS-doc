@@ -86,3 +86,59 @@ platform and connector databases use PostgreSQL 18.
 keeping only method, path and status. The exchange flows use the BDRS directory, so it stays
 enabled. The profile tests check that chart dependencies and images agree, and reject
 versions OpenDS does not implement.
+
+## Internals
+
+- **Worker**: a single runner, guarded by a PostgreSQL advisory lock, so it can safely recover
+  jobs a stopped worker left behind. Tasks are serialized per connector, keep their operation
+  IDs and recheck the initiating user's permissions.
+- **Process rights**: backend and worker run as the user who ran setup (not as root when setup
+  is run by a regular user) and without Linux capabilities.
+- **Connector Vaults**: an unseal sidecar initializes each Vault, unseals it after restarts and
+  creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key is kept on
+  the Vault's volume, which protects against restarts, not against access to the volume;
+  production deployments use an external auto-unseal.
+- **Participant context**: each connector has a unique, persisted participant-context ID. It
+  never changes when a bundle is rendered, a connector restarts, is reprovisioned or switches
+  hosting mode.
+
+## Repository layout
+
+```text
+frontend/
+  src/
+    app/                 Router, providers, application layout
+    theme/               Ant Design theme and global styles
+    features/            Pages grouped by business capability
+    shared/              Code used by several features, including the API client
+  e2e/                   Browser workflow tests
+backend/
+  src/
+    platform/            Collections, permissions, workflows, jobs and migrations
+      domain/            Exchange, discovery, onboarding and agent actions
+    app/(payload)/       REST and platform administration routes
+    connectors/
+      adapters/tractusx/ Tractus-X API, policy, identity and configuration adapter
+      hosting/
+        kubernetes/      Platform-hosted provisioning and health
+        docker/          Self-host Compose bundle and agent
+runtimes/
+  tractusx/              Pinned runtime profile, chart, values and Docker templates
+  common/                Connector-local source-token worker
+infra/
+  identity/              Identity stacks (test and production) in Docker Compose
+  identity-host/         Production identity stack on a separate host
+  selfhost-identity/     Wallet bundle for organizations with their own wallet
+  public/                HTTPS edge (Caddy)
+  kubernetes/            Cluster connection and the connector ingress (Traefik)
+  local/                 Same-host kind networking and connector gateway
+  charts/                Upstream licenses and chart checksums
+scripts/                 Setup, backups, identity installers and tests
+docker-compose.yml       Platform services; the files under infra/ add to it
+manage.sh                Setup, operations and test commands
+```
+
+Tests sit beside their modules, except browser flows in `frontend/e2e/` and deployment and
+exchange tests in `scripts/`. Feature components, API calls, types and tests stay in their
+feature folder; shared code is only what several features use. Kubernetes and Docker hosting
+stay separate, so a runtime upgrade does not change who operates a connector.

@@ -32,12 +32,8 @@ Browser ── OpenDS app (frontend) ── OpenDS API and worker (backend) ─�
 The backend owns every permission and business rule. The browser never talks to Vault,
 Kubernetes or a connector's management API.
 
-Backend and worker run as the user who ran setup (not as root when setup is run by a regular
-user) and without Linux capabilities. Connector pods get no Kubernetes API token.
-
-The worker is a single runner, guarded by a PostgreSQL advisory lock, so it can safely
-recover jobs a stopped worker left behind. Tasks are serialized per connector, keep their
-operation IDs and recheck the initiating user's permissions.
+Backend and worker run without root rights or Linux capabilities, and connector pods get no
+Kubernetes API token.
 
 ## Where data lives
 
@@ -52,10 +48,8 @@ operation IDs and recheck the initiating user's permissions.
   discarded after delivery, which assumes one backend instance. Downloads go directly
   through the connector's data plane.
 
-Connector Vaults are persistent: an unseal sidecar initializes each Vault, unseals it after
-restarts and creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key
-is kept on the Vault's volume, which protects against restarts, not against access to the
-volume; production deployments use an external auto-unseal.
+Connector Vaults keep their data across restarts and unseal themselves; see
+[Development](/development#internals) for how.
 
 ## Connector hosting
 
@@ -73,9 +67,6 @@ reach their own namespace, the cluster's DNS and ingress, and addresses outside 
 but not other connectors' pods and not the link-local range of cloud metadata services. The
 policy is applied when a connector is provisioned and needs a cluster network that enforces
 NetworkPolicy (the local cluster does).
-
-Each connector has a unique, persisted participant-context ID. It never changes when a
-bundle is rendered, a connector restarts, is reprovisioned or switches hosting mode.
 
 ## Connector runtime
 
@@ -138,23 +129,10 @@ PDF, stored only in OpenDS, adds its SHA-256.
 
 ## Provider controls
 
-On the **Consumers** page a provider sees the agreements and transfers of the data it shares,
-with each consumer's name, read live from its connectors.
-
-- **Revoke an agreement**: the provider's connector retires the agreement and refuses every
-  new transfer under it, and OpenDS terminates the transfers still running under it (the
-  runtime alone would let them continue). **Restore** reactivates the agreement for new
-  transfers. The optional reason is kept on the connector.
-- **Suspend, resume or terminate a transfer** from the provider's side; the consumer's
-  connector is told. Only the consumer has an access token for a transfer.
-- **Cancel a negotiation** that has not finished, on either side.
-
-Data a consumer has already received cannot be taken back: revocation and termination stop
-further delivery.
-
-Provider approval is an application workflow step, not enforcement against raw DSP
-clients. The organization directory shows signed-in members the approved organizations of
-their dataspace (name, BPN, DID and running connectors' DSP addresses), never user data.
+Providers see who uses their data and can revoke agreements and stop transfers; see
+[Discover and exchange data](/guide/exchange#as-a-provider-see-and-control-use). The
+organization directory shows signed-in members the approved organizations of their dataspace
+(name, BPN, DID and running connectors' DSP addresses), never user data.
 
 ## Login-protected data sources
 
@@ -163,44 +141,3 @@ headers and token lifetime. A worker next to the connector logs in and refreshes
 before it expires; self-hosted connectors use their agent. The login details stay on the
 connector. Private login services need an explicit allowance
 ([Configuration](/administration/configuration#private-networks)).
-
-## Repository layout
-
-```text
-frontend/
-  src/
-    app/                 Router, providers, application layout
-    theme/               Ant Design theme and global styles
-    features/            Pages grouped by business capability
-    shared/              Code used by several features, including the API client
-  e2e/                   Browser workflow tests
-backend/
-  src/
-    platform/            Collections, permissions, workflows, jobs and migrations
-      domain/            Exchange, discovery, onboarding and agent actions
-    app/(payload)/       REST and platform administration routes
-    connectors/
-      adapters/tractusx/ Tractus-X API, policy, identity and configuration adapter
-      hosting/
-        kubernetes/      Platform-hosted provisioning and health
-        docker/          Self-host Compose bundle and agent
-runtimes/
-  tractusx/              Pinned runtime profile, chart, values and Docker templates
-  common/                Connector-local source-token worker
-infra/
-  identity/              Identity stacks (test and production) in Docker Compose
-  identity-host/         Production identity stack on a separate host
-  selfhost-identity/     Wallet bundle for organizations with their own wallet
-  public/                HTTPS edge (Caddy)
-  kubernetes/            Cluster connection and the connector ingress (Traefik)
-  local/                 Same-host kind networking and connector gateway
-  charts/                Upstream licenses and chart checksums
-scripts/                 Setup, backups, identity installers and tests
-docker-compose.yml       Platform services; the files under infra/ add to it
-manage.sh                Setup, operations and test commands
-```
-
-Tests sit beside their modules, except browser flows in `frontend/e2e/` and deployment and
-exchange tests in `scripts/`. Feature components, API calls, types and tests stay in their
-feature folder; shared code is only what several features use. Kubernetes and Docker hosting
-stay separate, so a runtime upgrade does not change who operates a connector.
