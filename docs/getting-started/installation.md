@@ -90,9 +90,11 @@ downloads and server resources. When it finishes, it prints:
 OpenDS is ready: https://<your domain>
 ```
 
-Open that address and sign in with `PAYLOAD_ADMIN_EMAIL` and `PAYLOAD_ADMIN_PASSWORD` from
-`.env`. Setup generated the password if you left it empty. With `EDGE_TLS=internal`, trust the dataspace CA first as described above. Running
-setup again later keeps your settings and data.
+With `EDGE_TLS=internal`, first trust the dataspace CA as described above. Then open that
+address and sign in with the email and password from `PAYLOAD_ADMIN_EMAIL` and
+`PAYLOAD_ADMIN_PASSWORD` in `.env`. If you left the password empty, setup generated one.
+
+You can run setup again later. It keeps your settings and data.
 
 :::warning Choose your domain once
 The domain is part of every DID in the dataspace. If you change it later:
