@@ -35,10 +35,10 @@ Linux capabilities, and connector pods are not given a Kubernetes API token.
   agreements and transfers. OpenDS reads this information directly from the connectors
   without maintaining copies.
 - **Connector Vaults**: source credentials and connector secrets. For self-hosted connectors,
-  credentials are stored on the organization's own host.
+  credentials are entered and stored on the organization's own host.
 - **Not stored by OpenDS**: EDR access tokens, dataset bytes, and self-hosted Management API
   request and response bodies. Self-hosted EDR responses are held in backend memory only and
-  discarded after delivery.
+  discarded after delivery. Downloads go directly through the connector's data plane.
 
 ## Connector hosting
 

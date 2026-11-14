@@ -98,6 +98,8 @@ versions OpenDS does not implement.
   creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key is kept on
   the Vault's volume, which protects against restarts, not against access to the volume;
   production deployments use an external auto-unseal.
+- **Single backend instance**: EDR responses of self-hosted connectors pass through backend
+  memory and are discarded after delivery, which assumes one backend instance.
 - **Participant context**: each connector has a unique, persisted participant-context ID. It
   never changes when a bundle is rendered, a connector restarts, is reprovisioned or switches
   hosting mode.
