@@ -68,18 +68,15 @@ integrates with the runtime through its Management API and policy adapters. It d
 modify the EDC Java implementation, implement DSP or DCP itself, or maintain a connector
 fork.
 
-Unsupported runtime versions fail explicitly, and upgrades are described under
-[Development](/development#runtime-upgrades).
-
 ## Identity
 
-Each organization has exactly one DID and one BPN, and all of its connectors operate under
-that identity. The DID is the primary protocol identity (DCP 1.0, DSP 2025-1), while the BPN
-and the BDRS directory are additionally required by the runtime and remain inside the
-Tractus-X adapter. OpenDS allocates BPNs within its own dataspace. These are not registered
-business BPNs, and joining an OpenDS dataspace is not a Catena-X onboarding or certification.
-Catalog requests use DID-based DSP version discovery with a known provider address. Identity
-types, wallets and hosting are described in [Identity services](/identity/identity-hosting).
+Each organization has one DID and one BPN, shared by all its connectors. The DID serves as the
+primary protocol identity for DCP 1.0 and DSP 2025-1. The BPN and BDRS directory are also
+required by the Tractus-X runtime and are handled within the Tractus-X adapter.
+
+OpenDS allocates BPNs within its own dataspace. Catalog requests use DID-based DSP version
+discovery with a known provider address. Identity types, wallets and hosting are described in
+[Identity services](/identity/identity-hosting).
 
 ## Offers, policies and enforcement
 
