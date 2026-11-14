@@ -4,9 +4,11 @@ title: Architecture
 
 # Architecture
 
-OpenDS is the management platform around a dataspace, not a connector itself. Each
-organization's connectors do the actual data exchange; OpenDS creates and runs them, gives
-them identities, and offers one app for publishing, discovering and exchanging data.
+OpenDS manages the dataspace infrastructure and coordinates connector operations. Data
+exchange is performed by the connectors of the participating organizations, while OpenDS
+provides centralized management of connector deployments, identities and data exchange
+workflows. Connectors are either hosted by the platform on Kubernetes or self-hosted on a
+participant's own infrastructure and controlled through the OpenDS agent.
 
 ![OpenDS architecture: the platform manages platform-hosted connectors on Kubernetes and self-hosted connectors through their agent; connectors exchange data with other participants and read from data sources](./img/architecture.png)
 
