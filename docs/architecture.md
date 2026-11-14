@@ -24,7 +24,7 @@ participant's own infrastructure and controlled through the OpenDS agent.
 | Identity services | Tractus-X IdentityHub, IssuerService and BDRS, as described in [Identity services](/identity/identity-hosting) |
 
 The backend enforces all permissions, so the browser never accesses Vault, Kubernetes or the
-connectors' Management APIs directly. The backend and worker run without root privileges or
+Management APIs of the connectors directly. The backend and worker run without root privileges or
 Linux capabilities, and connector pods are not given a Kubernetes API token.
 
 ## Where data lives
