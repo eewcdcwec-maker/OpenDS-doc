@@ -5,8 +5,8 @@ slug: /development/development
 
 # Development
 
-How to propose a change is described in `CONTRIBUTING.md`, while this page covers running
-OpenDS from source. How to test it is under [Testing](/development/testing).
+This page covers running OpenDS from source. How to propose a change is described in
+`CONTRIBUTING.md`, and how to test it under [Testing](/development/testing).
 
 ## Running locally
 
@@ -32,7 +32,7 @@ API_PROXY_TARGET=http://localhost:8080 npm run dev:frontend
 ```
 
 Run the API and the worker in separate terminals with the same settings and cluster access.
-Backend resource operations use the official Kubernetes client, while kubectl is only used by
+Backend resource operations use the official Kubernetes client. kubectl is only used by
 infrastructure scripts and tests. Rendering tests need Helm on `PATH`, in `.tools/helm`
 (installed by setup), or set through `HELM_BIN`.
 
@@ -57,14 +57,14 @@ npm --prefix backend run platform:types
 ```
 
 For these commands on the host, set `PAYLOAD_DATABASE_URL` to the local PostgreSQL in your
-shell, while containers and CI set it themselves. `platform:types` regenerates the checked-in API
+shell. Containers and CI set it themselves. `platform:types` regenerates the checked-in API
 types for both backend and frontend.
 
 ## Dependencies
 
 The dependency gate is `npm audit --audit-level=high` in all three packages. Overrides for
-DOMPurify and graphql-scalars address high advisories in upstream packages, while remaining low and
-moderate upstream advisories are reported by the audit, not hidden.
+DOMPurify and graphql-scalars address high advisories in upstream packages. Remaining low and moderate
+upstream advisories are reported by the audit, not hidden.
 
 ## Runtime upgrades
 
@@ -97,10 +97,10 @@ versions OpenDS does not implement.
   is run by a regular user) and without Linux capabilities.
 - **Connector Vaults**: an unseal sidecar initializes each Vault, unseals it after restarts and
   creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key is kept on
-  the Vault's volume, which protects against restarts but not against access to the volume, so
+  the Vault's volume. This protects against restarts but not against access to the volume, so
   production deployments use an external auto-unseal.
 - **Single backend instance**: EDR responses of self-hosted connectors pass through backend
-  memory and are discarded after delivery, which assumes one backend instance.
+  memory and are discarded after delivery. This assumes one backend instance.
 - **Participant context**: each connector has a unique, persisted participant-context ID. It
   never changes when a bundle is rendered, a connector restarts, is reprovisioned or switches
   hosting mode.
@@ -108,7 +108,7 @@ versions OpenDS does not implement.
 ## Identity services
 
 The test and production identity stacks are two instances of `infra/identity/compose.yaml`,
-managed with `./manage.sh identity`, and Kubernetes runs connectors only.
+managed with `./manage.sh identity`. Kubernetes runs connectors only.
 
 | Component               | Version | Role                                                         |
 | ----------------------- | ------- | ------------------------------------------------------------ |
@@ -123,8 +123,8 @@ and UsagePurposeCredential.
 Known limitations of these versions:
 
 - **Issuer DID**: IssuerService 0.4.1 has no DID management API, so OpenDS republishes the
-  issuer's DID document, and the installer only allows changing the issuer's DID while no
-  holders exist.
+  issuer's DID document. The installer only allows changing the issuer's DID while no holders
+  exist.
 - **Credential requests**: IdentityHub 0.4.1 cannot delete them, so OpenDS removes them with a
   database role restricted to that table.
 - **STS secret**: all connectors of an organization share one STS secret, because IdentityHub
@@ -158,7 +158,7 @@ runtimes/
 infra/
   identity/              Identity stacks (test and production) in Docker Compose
   identity-host/         Production identity stack on a separate host
-  selfhost-identity/     Wallet bundle for organizations with their own wallet
+  selfhost-identity/     Wallet bundle for organizations with a self-hosted identity
   public/                HTTPS edge (Caddy)
   kubernetes/            Cluster connection and the connector ingress (Traefik)
   local/                 Same-host kind networking and connector gateway
