@@ -85,18 +85,15 @@ Tractus-X policy engine. Terms the connector can check are enforced on every neg
 transfer, while contractual terms are recorded in the agreement and cannot be technically
 controlled once the data has been received.
 
-| Policy term                              | Connector constraint                                              | Enforced by |
-| ---------------------------------------- | ----------------------------------------------------------------- | ----------- |
-| Verified participants                    | `Membership`                                                      | Connector   |
-| Allowed organizations                    | `BusinessPartnerNumber`                                           | Connector   |
-| Partner group                            | `BusinessPartnerGroup`                                            | Connector   |
-| Time limit                               | `inForceDate`, a fixed date or `contractAgreement+<n>d`           | Connector   |
-| Usage purpose                            | `UsagePurpose`                                                    | Contract    |
-| Contract reference and document          | `ContractReference`, with the SHA-256 of an uploaded contract PDF | Contract    |
-| Jurisdictions, onward sharing, deletion  | Recorded as values of `ContractReference`                         | Contract    |
-
-Every usage policy also carries `Membership` and `FrameworkAgreement`, which Tractus-X
-requires.
+| Policy term                             | Enforced by | How                                                              |
+| --------------------------------------- | ----------- | ---------------------------------------------------------------- |
+| Verified participants                   | Connector   | Checks the consumer's membership credential                      |
+| Allowed organizations                   | Connector   | Checks the consumer's BPN against the list                       |
+| Partner group                           | Connector   | Checks the consumer's BPN against the group stored on the connector |
+| Time limit                              | Connector   | Refuses transfers once the agreement has expired                 |
+| Usage purpose                           | Contract    | Recorded in the agreement                                        |
+| Contract reference and document         | Contract    | Recorded in the agreement, with a checksum of the contract PDF   |
+| Jurisdictions, onward sharing, deletion | Contract    | Recorded in the agreement                                        |
 
 Partner groups are stored on the provider's connectors in the runtime's business partner group
 store, and a policy refers to the group rather than to a copy of its members. OpenDS writes
