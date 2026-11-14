@@ -12,7 +12,7 @@ services stay on the OpenDS server and are reached through the platform's public
 After the switch, connectors on the local cluster keep running, but OpenDS ignores them. They
 disappear from **Discover** and refuse lifecycle actions, so they can no longer be managed, and
 you create new connectors on the remote cluster. If the installation already has connectors,
-export their data before you switch.
+export their data before you switch, and import it into the new connectors afterwards.
 :::
 
 The cluster needs:
