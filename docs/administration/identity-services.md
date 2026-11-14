@@ -4,25 +4,25 @@ title: Identity services
 
 # Identity services
 
-This page is for operators and describes where the identity services of a dataspace run and how
+This page is for operators. It describes where the identity services of a dataspace run and how
 to move them to a separate host. Organizations choose and change their identity as described
 under [Identity](/user-guide/identity).
 
 The production identity services form one **identity stack**, consisting of the production
 issuer, one wallet service for all organizations with a managed identity, the production
 directory, and their own Vault and PostgreSQL. Test identities have a separate test stack, which
-always runs on the OpenDS server, so that an installation without a domain is complete on its
-own and test participants never appear in the production directory. Both stacks run in Docker
+always runs on the OpenDS server. This way, an installation without a domain is complete on its
+own, and test participants never appear in the production directory. Both stacks run in Docker
 Compose with the official Tractus-X images.
 
 ## Choosing the domain
 
 Every production DID contains the identity domain, including the issuer named in every
 credential, so **changing the domain later invalidates all production identities and
-credentials**. Managed identities then need new identities, and organizations with their own
-wallet must request their credentials again. Choose a name you will keep, such as
-`dataspace.example.org` or `id.example.org`, rather than an address-based name, before approving
-the first production organization.
+credentials**. Managed identities then need new identities, and organizations with a self-hosted
+identity must request their credentials again. Before approving the first production
+organization, choose a name you will keep, such as `dataspace.example.org` or `id.example.org`,
+rather than an address-based name.
 
 ## Layouts
 
@@ -46,7 +46,7 @@ name.
 | Self-hosted connectors and wallets           | Servers operated by the organizations         | As chosen by the organization                                  |
 
 Only DID documents, the wallet and token endpoints, credential requests, revocation lists and
-the directory are public, while all management APIs, the Vaults and the databases stay private.
+the directory are public. All management APIs, the Vaults and the databases stay private.
 
 ## DIDs
 
@@ -54,9 +54,9 @@ the directory are public, while all management APIs, the Vaults and the database
 | ---------------------------- | --------------------------------------- | --------------------------------------- |
 | Production issuer            | `did:web:<domain>:api:dataspace:issuer` | `did:web:<identity host>:opends:issuer` |
 | Managed identity             | `did:web:<domain>:api:identities:<id>`  | `did:web:<identity host>:opends:<id>`   |
-| Organization with own wallet | `did:web:<its own domain>`              | `did:web:<its own domain>`              |
+| Self-hosted identity         | `did:web:<its own domain>`              | `did:web:<its own domain>`              |
 
-`<id>` is the identity's ID in OpenDS, and test identities always use the domain of the OpenDS
+`<id>` is the identity's ID in OpenDS. Test identities always use the domain of the OpenDS
 server.
 
 ## Separate host
@@ -77,8 +77,8 @@ The script can be run again to update the stack. It:
   updates. Docker itself is updated by hand, because an update restarts the stack. Turning off
   SSH password logins is recommended once every administrator logs in with a key.
 - **Links the OpenDS server to the host** over SSH. The OpenDS server connects out, so it needs
-  no inbound access, while the management APIs stay on the host's loopback interface and are
-  only reachable through this link.
+  no inbound access. The management APIs stay on the host's loopback interface and are only
+  reachable through this link.
 - **Includes the host in the platform backups** by fetching its database and Vault state with a
   separate, restricted key.
 
@@ -89,19 +89,19 @@ Notes:
   organizations there use a managed identity.
 - **Moving from a local stack** changes the production issuer's DID, which affects every
   production organization:
-  - **Managed identities** cannot keep their DIDs, because these contain the old domain, and
+  - **Managed identities** cannot keep their DIDs, because these contain the old domain. They
     receive new identities on the identity host automatically.
   - **Self-hosted wallets** keep their DID, but their credentials came from the old issuer. Their
-    identity returns to **Awaiting credentials**, and the **Organization** page shows the new
-    issuer's DID, with which they run `./wallet.sh request-credentials <that DID>`.
-  - **Existing connectors** keep the old identity until they are provisioned again, and new
-    negotiations and transfers fail until then. Because reprovisioning removes a connector's
+    identity returns to **Awaiting credentials**, and The **Organization** page shows the new
+    issuer's DID, and they run `./wallet.sh request-credentials <that DID>`.
+  - **Existing connectors** keep the old identity until they are provisioned again. Until then,
+    new negotiations and transfers fail. Because reprovisioning removes a connector's
     products and policies, export each connector first under **More → Export connector data**
     and import the data afterwards.
   - **Rollback**: the previous `.env` is kept in `.deploy/env.before-identity-host`, and the old
     production stack keeps running on the OpenDS server. Once the rollback is no longer needed,
-    stop it with `docker compose -p opends-identity-production down`, and add `-v` only when you
-    are sure, because that deletes its keys.
+    stop it with `docker compose -p opends-identity-production down`. Add `-v` only when you are
+    sure, because that deletes its keys.
 
 ## Rebuilding a lost identity host
 
@@ -116,16 +116,15 @@ name, so that the production DIDs stay the same:
    ```
 
    A server without the stack receives a new production issuer, new Vault keys and empty
-   wallets, and the installer links the OpenDS server to it as before.
+   wallets. The installer links the OpenDS server to it as before.
 
 3. Under **Platform Admin → Operations**, select **Check now**. The **Organization identities**
-   check lists each organization with a managed identity whose wallet is missing, and those
+   check lists each organization with a managed identity whose wallet is missing. Those
    organizations see an **Identity setup needs attention** notice.
-4. The owners of those organizations select **Retry** on the **Organization** page, and OpenDS
+4. The owners of those organizations select **Retry** on the **Organization** page. OpenDS then
    sets the identity up again with the same DID.
-5. Organizations with a self-hosted identity keep their own wallets, but because their
-   credentials were signed by the old issuer, they request their credentials again from their
-   wallet.
+5. Organizations with a self-hosted identity keep their own wallets. Their credentials were
+   signed by the old issuer, so they request their credentials again from their wallet.
 
 Platform backups contain the identity host's database and Vault, but `backup restore` does not
-restore them onto an identity host, so rebuilding as described above is the supported path.
+restore them onto an identity host. Rebuilding as described above is the supported path.

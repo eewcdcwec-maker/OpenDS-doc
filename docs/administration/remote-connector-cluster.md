@@ -5,9 +5,8 @@ title: Remote connector cluster
 # Remote connector cluster
 
 By default, setup creates a local kind cluster for platform-hosted connectors. Connectors can
-instead run on an existing Kubernetes cluster, which then runs only the connectors, while the
-identity services stay on the OpenDS server and are reached through the platform's public HTTPS
-address. The remote settings are set in `.env`, as listed in the advanced section of
+instead run on an existing Kubernetes cluster, which then runs only the connectors. The identity
+services stay on the OpenDS server and are reached through the platform's public HTTPS address. The remote settings are set in `.env`, as listed in the advanced section of
 `.env.example`, or passed to setup:
 
 ```bash
@@ -27,8 +26,9 @@ The cluster needs:
   resolve.
 - **Private ingress address**: serves both classes and is reachable only by the platform
   (`--ingress-gateway`), so that the management API never uses the public ingress.
-- **Outbound HTTPS**: from the pods to the platform domain, which must resolve reliably inside
-  the pods, because connectors otherwise cannot fetch their credentials (see step 4 below).
+- **Outbound HTTPS**: from the pods to the platform domain. The domain must resolve reliably
+  inside the pods, because connectors otherwise cannot fetch their credentials (see step 4
+  below).
 - **Storage**: a default StorageClass for the connector databases and Vaults.
 
 ## Example: a kind cluster on a second server
@@ -38,8 +38,8 @@ the same private network. Connector names use sslip.io, so no DNS records are ne
 run on the second server from a copy of the OpenDS repository, with Docker, `kind`, `kubectl`
 and `helm` installed.
 
-1. Create the cluster. The API listens on the private address, while the public ingress uses
-   port 80 and the private one only the loopback port 19090:
+1. Create the cluster. The API listens on the private address. The public ingress uses port 80,
+   and the private one only the loopback port 19090:
 
    ```yaml title="connectors-kind.yaml"
    kind: Cluster
@@ -63,7 +63,7 @@ and `helm` installed.
    ```
 
 2. Install the two ingress controllers from the chart in the repository. The public one uses
-   the repository's values, while the private one serves the class `nginx-internal`:
+   the repository's values. The private one serves the class `nginx-internal`:
 
    ```yaml title="traefik-internal-values.yaml"
    providers:
@@ -97,7 +97,7 @@ and `helm` installed.
    EOF
    ```
 
-3. Start the private gateway, an nginx that only the OpenDS server may use and that sends
+3. Start the private gateway. It is an nginx that only the OpenDS server may use, and it sends
    management host names to the private ingress and everything else to the public one:
 
    ```nginx title="connector-gateway/default.conf"
@@ -170,8 +170,8 @@ and `helm` installed.
      --target connectors-1 --ingress-gateway http://10.0.0.20:19080
    ```
 
-   New connectors then start on the second server, while existing connectors stay on their
-   old target, so create new ones.
+   New connectors then start on the second server. Existing connectors stay on their old
+   target, so create new ones.
 
 One Kubernetes target serves one OpenDS installation, and each connector records its target.
 Connectors on another target are ignored and refuse lifecycle actions, so never point an

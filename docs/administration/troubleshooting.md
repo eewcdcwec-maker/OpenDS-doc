@@ -43,7 +43,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Symptom                                                    | What to do                                                                                     |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | DID verification says the domain "resolves to … a private network address" | The wallet is on a private network. An operator allows that network with `ORGANIZATION_PRIVATE_NETWORKS`. |
-| Credentials are not issued, the wallet log shows "JWT signature not valid" | The published `did.json` does not match the wallet's key. Publish the `did.json` that OpenDS generated for the wallet's current key, and note that the issuer may keep the old document for a few minutes. |
+| Credentials are not issued, the wallet log shows "JWT signature not valid" | The published `did.json` does not match the wallet's key. Publish the `did.json` that OpenDS generated for the wallet's current key. The issuer may keep the old document for a few minutes. |
 | The wallet is unreachable after a restart                  | Start it with `sudo ./wallet.sh start`, which also unseals its Vault.                          |
 
 ## Exchange and API

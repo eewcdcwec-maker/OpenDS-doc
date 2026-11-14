@@ -4,9 +4,9 @@ title: Configuration
 
 # Configuration
 
-Installation settings are kept in `.env`, which setup creates from your values and completes,
-with all optional settings listed in `.env.example`. Settings that change while the platform
-runs are made in the app under **Platform Admin**, which platform administrators open from the
+Installation settings are kept in `.env`. Setup creates it from your values and completes it.
+All optional settings are listed in `.env.example`. Settings that change while the platform
+runs are made in the app under **Platform Admin**. Platform administrators open it from the
 account menu.
 
 ## Settings in the app
@@ -17,9 +17,9 @@ account menu.
 | Dataspace  | Registration and the support contact shown when it is closed, the participation terms, the usage purposes, product categories and suggested tags, and identity hosting           |
 | Operations | Monitoring and backups, as described under [Operations](/administration/operations#backups)                                                                                     |
 
-- **Email**: the SMTP password is stored encrypted, and `SMTP_*` values in `.env` are only used
-  when no server is saved in the app. Port 465 uses TLS, while every other port requires
-  STARTTLS, so a local relay without it needs `SMTP_ALLOW_PLAINTEXT=true` in `.env`. Without
+- **Email**: the SMTP password is stored encrypted. `SMTP_*` values in `.env` are only used
+  when no server is saved in the app. Port 465 uses TLS. Every other port requires STARTTLS, so
+  a local relay without STARTTLS needs `SMTP_ALLOW_PLAINTEXT=true` in `.env`. Without
   email, password resets are not available and inviters set an initial password.
 - **Private networks**: shown read-only on the **Dataspace** tab, because they are set in `.env`
   as described [below](#private-networks).
@@ -28,29 +28,29 @@ Organization owners and administrators have two settings under **Organization â†
 settings**:
 
 - **Track activity** (default Yes): with No, the organization stops recording new activity
-  audit entries, while existing entries, memberships, permissions and server logs remain.
+  audit entries. Existing entries, memberships, permissions and server logs remain.
 - **Access requests** (default Yes): lets offers require provider approval. Offers that require
   approval must be withdrawn before it can be turned off.
 
 ## Administrator account
 
 Setup creates the first platform administrator from `PAYLOAD_ADMIN_EMAIL` and
-`PAYLOAD_ADMIN_PASSWORD`, which is generated when empty and has at least 16 characters. Use a
+`PAYLOAD_ADMIN_PASSWORD`. The password is generated if empty and has at least 16 characters. Use a
 real mailbox, because password resets and alerts are sent there. To change the address later,
-edit `.env` and run `docker compose up -d backend worker`, after which the platform
-administrator signs in with the new address. Nothing changes if the address is already taken
+edit `.env` and run `docker compose up -d backend worker`. The platform administrator then
+signs in with the new address. Nothing changes if the address is already taken
 or if there are several administrators.
 
 ## Domain and certificates
 
-With `PUBLIC_DOMAIN` set, everything is served over HTTPS on that domain, while without it
-OpenDS runs in the unencrypted HTTP evaluation mode described under
+With `PUBLIC_DOMAIN` set, everything is served over HTTPS on that domain. Without it, OpenDS
+runs in the unencrypted HTTP evaluation mode described under
 [Installation](/getting-started/installation#http-evaluation-mode). A private network does not need a public
 domain, because an address-based name such as `opends.192-168-1-50.sslip.io` with
 `EDGE_TLS=internal` provides full HTTPS.
 
-Choose the domain once before approving production organizations, because every production DID
-contains it and a later change invalidates all production identities and credentials.
+Choose the domain once, before approving production organizations. Every production DID
+contains it, so a later change invalidates all production identities and credentials.
 
 | Setting         | Value            | Use it when                                                                                                                         |
 | --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -64,19 +64,18 @@ contains it and a later change invalidates all production identities and credent
 without any setup. Let's Encrypt verifies the domain by connecting to the server, so the
 platform and each self-hosted connector need a public address and an open TCP port 443.
 `CONNECTOR_TLS` defaults to `dataspace` with `EDGE_TLS=internal` and to `public` otherwise. A
-common production layout is `acme` with `CONNECTOR_TLS=dataspace`, which gives a public platform
-that people and scripts reach without setup, while self-hosted connectors need no public
-certificate.
+common production layout is `acme` with `CONNECTOR_TLS=dataspace`. People and scripts reach the
+public platform without setup, and self-hosted connectors need no public certificate.
 
 ### Trusting the dataspace CA
 
 The dataspace CA is a certificate authority that OpenDS creates for the installation.
-Connectors and identity services trust it automatically, while any other client that connects
-to a server using it must trust its root certificate once. The certificate is stored on the
+Connectors and identity services trust it automatically. Any other client that connects to a
+server using it must trust its root certificate once. The certificate is stored on the
 OpenDS server in `.deploy/ca/dataspace-ca.crt` and published at
 `https://<domain>/dataspace-ca.crt`. Because that address is itself served with the dataspace
-CA, the first download shows a certificate warning, so compare the fingerprint of a downloaded
-copy with the one on the server before trusting it:
+CA, the first download shows a certificate warning. Before trusting a downloaded copy, compare
+its fingerprint with the one on the server:
 
 ```bash
 openssl x509 -in .deploy/ca/dataspace-ca.crt -noout -fingerprint -sha256
@@ -94,18 +93,18 @@ Then add it to your clients:
 
 By default, OpenDS only connects to public addresses, so addresses that organizations enter
 cannot point it at internal services. Three settings in `.env` allow specific private
-destinations, and the backend must be restarted after changing them with
+destinations. After changing them, restart the backend with
 `docker compose up -d backend worker`.
 
-- **Self-hosted wallets**: OpenDS fetches the DID document of an organization with its own wallet over
-  HTTPS. On a private network, list the hosts or ranges where organizations run their wallets:
+- **Self-hosted wallets**: OpenDS fetches the DID document of an organization with its own
+  wallet over HTTPS. On a private network, list the hosts or ranges where organizations run their wallets:
 
   ```bash
   ORGANIZATION_PRIVATE_NETWORKS=192.168.0.10/32,10.20.0.0/24
   ```
 
-  Entries must be private ranges no wider than /16 (IPv6 /48), and the backend refuses to start
-  otherwise. Do not list networks that contain the platform's own services.
+  Entries must be private ranges no wider than /16 (IPv6 /48). Otherwise, the backend refuses to
+  start. Do not list networks that contain the platform's own services.
 
 - **Login-protected sources**: to allow a login service on a private network for a
   platform-hosted connector, list its exact origins with scheme, host and port:
