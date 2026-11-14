@@ -6,9 +6,9 @@ title: Your first data exchange
 # Your first data exchange
 
 This walk-through takes two organizations from registration to a downloaded file in about
-half an hour. One provides data, the other consumes it. You need an OpenDS installation
-([Installation](/getting-started)) and a data source reachable over HTTP, for example a
-JSON file on a web server.
+half an hour once the connectors run. One provides data, the other consumes it. You need an
+OpenDS installation ([Installation](/getting-started)). As data, use the sample every
+installation serves at `https://<your domain>/api/test-data`.
 
 ## 1. Register both organizations
 
@@ -34,7 +34,8 @@ connector of an installation takes longer while the software downloads. Then sel
 2. **Policies → Usage policies → New usage policy**: name it, choose the connector, the rule
    **Allowed usage purposes** and a purpose. Consumers accept these terms in the agreement.
 3. **Data products → New data product**: a name, a description, the connector, a category
-   and the **Provider source URL** of your data.
+   and the **Provider source URL**: `https://<your domain>/api/test-data`. For your own data
+   later, use an address the connector can reach, not `localhost`.
 
 ## 4. Publish the offer (provider)
 
@@ -43,8 +44,7 @@ usage policy, keep **Automatic** approval, and publish.
 
 ![The Publish an offer dialog: connector, data product, access and usage policy, and approval, with a summary on the right](./img/publish-offer.png)
 
-The summary on the right shows what partners will see. (This example uses **Request
-approval**; keep **Automatic** for your first exchange.)
+The summary on the right shows what partners will see.
 
 ## 5. Find it and agree (consumer)
 
