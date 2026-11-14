@@ -20,4 +20,32 @@ OpenDS provides **Connector-as-a-Service (CaaS)** capabilities, allowing organiz
 - **Provider control**: monitor who accesses published data, revoke or restore agreements, and stop ongoing transfers.
 - **Platform operations**: configure HTTPS, manage encrypted backups, monitor services with email alerts, and export or import connector data.
 
+## Hosting choices
+
+Each organization decides what it runs itself. Connector and identity are independent choices.
+
+|           | Run by OpenDS                             | Run by the organization |
+| --------- | ----------------------------------------- | ----------------------- |
+| Connector | Platform-hosted connector                 | Self-hosted connector   |
+| Identity  | Test identity or wallet hosted by OpenDS  | Own wallet              |
+
+## Where to start
+
+- Try it: [Installation](/getting-started), then [Your first data exchange](/guide/first-exchange)
+- Use the app: [User guide](/guide/overview)
+- Run connectors or a wallet on your own servers: [Self-hosting](/guide/self-hosted-connector)
+- Operate an installation: [Administration](/administration/configuration)
+- Contribute: [Development](/development)
+
 OpenDS is released under the Apache-2.0 license.
+
+## Contact
+
+[<img src="https://www.acs.eonerc.rwth-aachen.de/global/show_picture.asp?id=aaaaaaaaaakevlz" alt="ACS, Institute for Automation of Complex Power Systems" width="300" />](https://www.acs.eonerc.rwth-aachen.de/)
+
+- **Katharina Wehrmeister**, [katharina.wehrmeister@eonerc.rwth-aachen.de](mailto:katharina.wehrmeister@eonerc.rwth-aachen.de)
+- **Rezeq Direya**, [rezeq.direya@eonerc.rwth-aachen.de](mailto:rezeq.direya@eonerc.rwth-aachen.de)
+
+[Institute for Automation of Complex Power Systems (ACS)](https://www.acs.eonerc.rwth-aachen.de/)<br />
+[E.ON Energy Research Center (E.ON ERC)](https://www.eonerc.rwth-aachen.de/)<br />
+[RWTH Aachen University, Germany](https://www.rwth-aachen.de/)
