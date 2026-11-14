@@ -17,7 +17,7 @@ participant's own infrastructure and controlled through the OpenDS agent.
 | Part              | Description                                                                                                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------- |
 | Frontend          | The web application, built with React, Ant Design and TanStack Query                                          |
-| Backend           | Payload 3 on Next.js, which provides the REST API, authentication, permissions and business rules             |
+| Backend           | Payload 3 on Next.js, which provides the REST API, authentication and permissions                             |
 | Worker            | Runs queued jobs such as connector provisioning, identity tasks, health checks and notifications              |
 | PostgreSQL        | Stores users, organizations, permissions, approvals and operational records                                   |
 | Connectors        | Official Tractus-X EDC, each with its own control plane, data plane, PostgreSQL and Vault                     |
