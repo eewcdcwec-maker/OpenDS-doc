@@ -5,11 +5,11 @@ title: Remote connector cluster
 
 # Remote connector cluster
 
-By default setup creates a local kind cluster for platform-hosted connectors. Connectors can
-instead run on an existing Kubernetes cluster: it only runs connectors, and the identity
-services stay in Docker Compose on the OpenDS server. Connectors there reach them through
-the platform's public HTTPS address. Set the remote settings in `.env` (see the Advanced
-section of `.env.example`) or pass them to setup:
+By default, setup creates a local kind cluster for platform-hosted connectors. Connectors can
+instead run on an existing Kubernetes cluster, which then runs only the connectors, while the
+identity services stay on the OpenDS server and are reached through the platform's public HTTPS
+address. The remote settings are set in `.env`, as listed in the advanced section of
+`.env.example`, or passed to setup:
 
 ```bash
 bash manage.sh setup --public-domain <DOMAIN> --connector-cluster remote \
@@ -18,28 +18,29 @@ bash manage.sh setup --public-domain <DOMAIN> --connector-cluster remote \
 ```
 
 Setup keeps a private copy of the kubeconfig in `.deploy/kubeconfig-remote`. Each connector
-gets `<slug>-controlplane.<domain>` and `<slug>-dataplane.<domain>` on the public
+receives `<slug>-controlplane.<domain>` and `<slug>-dataplane.<domain>` on the public
 IngressClass (`nginx` by default, with the ingress-nginx CORS annotations) and
-`<slug>.management.<domain>` on a private one (`nginx-internal`). The cluster needs:
+`<slug>.management.<domain>` on a private one (`nginx-internal`).
 
-- wildcard DNS for the connector domain, resolvable by partners and by the platform;
-- a private ingress address that serves both classes, reachable only by the platform
-  (`--ingress-gateway`): the platform sends every connector request there by host name, so
-  the management API never uses the public ingress;
-- outbound HTTPS from pods to the platform domain, which must resolve reliably inside the
-  pods. Remove node DNS search domains whose resolvers fail lookups under them, as setup
-  does for the local cluster; otherwise connectors cannot fetch their credentials;
-- a default StorageClass for the connector databases and Vaults.
+The cluster needs:
+
+- **DNS**: a wildcard record for the connector domain that partners and the platform can
+  resolve.
+- **Private ingress address**: serves both classes and is reachable only by the platform
+  (`--ingress-gateway`), so that the management API never uses the public ingress.
+- **Outbound HTTPS**: from the pods to the platform domain, which must resolve reliably inside
+  the pods, because connectors otherwise cannot fetch their credentials (see step 4 below).
+- **Storage**: a default StorageClass for the connector databases and Vaults.
 
 ## Example: a kind cluster on a second server
 
-In this example the OpenDS server is at `10.0.0.10` and the second server at `10.0.0.20`,
-on the same private network. Connector names use sslip.io, so no DNS records
-are needed. Run the steps on the second server from a copy of the OpenDS repository, with
-Docker, `kind`, `kubectl` and `helm` installed.
+In this example, the OpenDS server is at `10.0.0.10` and the second server at `10.0.0.20` on
+the same private network. Connector names use sslip.io, so no DNS records are needed. The steps
+run on the second server from a copy of the OpenDS repository, with Docker, `kind`, `kubectl`
+and `helm` installed.
 
-1. Create the cluster. The API listens on the private address; the public ingress uses
-   port 80, the private one only the loopback port 19090:
+1. Create the cluster. The API listens on the private address, while the public ingress uses
+   port 80 and the private one only the loopback port 19090:
 
    ```yaml title="connectors-kind.yaml"
    kind: Cluster
@@ -63,7 +64,7 @@ Docker, `kind`, `kubectl` and `helm` installed.
    ```
 
 2. Install the two ingress controllers from the chart in the repository. The public one uses
-   the repository's values; the private one serves the class `nginx-internal`:
+   the repository's values, while the private one serves the class `nginx-internal`:
 
    ```yaml title="traefik-internal-values.yaml"
    providers:
@@ -97,7 +98,7 @@ Docker, `kind`, `kubectl` and `helm` installed.
    EOF
    ```
 
-3. Start the private gateway: an nginx that only the OpenDS server may use. It sends
+3. Start the private gateway, an nginx that only the OpenDS server may use and that sends
    management host names to the private ingress and everything else to the public one:
 
    ```nginx title="connector-gateway/default.conf"
@@ -126,13 +127,13 @@ Docker, `kind`, `kubectl` and `helm` installed.
      nginx:1.27-alpine
    ```
 
-4. Check DNS inside the pods. Connector images use Alpine, whose resolver gives up on a name
-   as soon as one lookup fails ("Try again"). Two cases need a fix in the `coredns`
-   ConfigMap (`kubectl -n kube-system edit configmap coredns`, then
+4. Check DNS inside the pods. Connector images give up on a name as soon as one lookup fails,
+   so two cases need a fix in the `coredns` ConfigMap
+   (`kubectl -n kube-system edit configmap coredns`, then
    `kubectl -n kube-system rollout restart deployment coredns`):
 
-   - sslip.io names of private addresses: some resolvers refuse to answer them. Answer them
-     in the cluster:
+   - **sslip.io names of private addresses**: some resolvers refuse to answer them, so the
+     cluster answers them itself:
 
      ```text
      10-0-0-20.sslip.io:53 {
@@ -146,10 +147,9 @@ Docker, `kind`, `kubectl` and `helm` installed.
      }
      ```
 
-   - a DNS search domain of the server (`search` in `/etc/resolv.conf`) whose resolver fails
-     lookups under it: pods inherit it, and short names such as
-     `<service>.<namespace>.svc.cluster.local` are tried under it first. Answer "no such
-     name" for it, here for `example.internal`:
+   - **Failing search domains**: pods inherit the server's DNS search domains from
+     `/etc/resolv.conf` and try short names under them first. If a search domain's resolver
+     fails such lookups, answer "no such name" for it, here for `example.internal`:
 
      ```text
      example.internal:53 {
@@ -161,7 +161,7 @@ Docker, `kind`, `kubectl` and `helm` installed.
      ```
 
    Test with `kubectl run dnstest --rm -i --restart=Never --image=alpine:3.20 -- getent hosts
-   <your platform domain>`; it must print an address every time.
+   <your platform domain>`, which must print an address every time.
 
 5. On the OpenDS server, copy `kubeconfig-connectors` over and run setup:
 
@@ -171,9 +171,9 @@ Docker, `kind`, `kubectl` and `helm` installed.
      --target connectors-1 --ingress-gateway http://10.0.0.20:19080
    ```
 
-   New connectors then start on the second server. Existing connectors stay on their old
-   target; create new ones.
+   New connectors then start on the second server, while existing connectors stay on their
+   old target, so create new ones.
 
-One Kubernetes target serves one OpenDS deployment, and connectors record their target.
-Connectors on another target are skipped by reads and discovery and refuse lifecycle
-actions; do not point an existing target name at another cluster.
+One Kubernetes target serves one OpenDS installation, and each connector records its target.
+Connectors on another target are ignored and refuse lifecycle actions, so never point an
+existing target name at another cluster.
