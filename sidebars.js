@@ -27,7 +27,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Self-hosting',
-      items: ['self-hosting/self-hosted-connector', 'self-hosting/your-own-wallet'],
+      items: ['self-hosting/self-hosted-connector', 'self-hosting/self-hosted-wallet'],
     },
     {
       type: 'category',

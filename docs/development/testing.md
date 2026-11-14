@@ -102,5 +102,5 @@ The test uses `sslip.io` names built from the second server's IP address. To use
 hostname instead, set `OPENDS_TWO_HOST_WALLET_DOMAIN=wallet.example.org` and point its A record
 at the second server.
 
-For a manual setup, use [Your own wallet](/self-hosting/your-own-wallet) and create
+For a manual setup, use [Self-hosted wallet](/self-hosting/self-hosted-wallet) and create
 a self-hosted connector from the app.

@@ -1,8 +1,8 @@
 ---
-title: Your own wallet
+title: Self-hosted wallet
 ---
 
-# Your own wallet
+# Self-hosted wallet
 
 This guide applies when your organization chooses **Self-hosted identity**. The wallet runs on
 your server and gives your organization its own `did:web` identity, while its private key never
