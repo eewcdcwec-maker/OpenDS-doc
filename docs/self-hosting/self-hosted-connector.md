@@ -4,10 +4,10 @@ title: Self-hosted connector
 
 # Self-hosted connector
 
-A self-hosted connector runs on your organization's own server with Docker, while it is
-managed from OpenDS like any other connector. A small agent next to the connector picks up the
-work queued in OpenDS, such as creating products, publishing offers and health checks, and runs
-it locally, so OpenDS never needs access to the management interfaces of your server. Source
+A self-hosted connector runs on your organization's own server with Docker. It is managed from
+OpenDS like any other connector. A small agent next to the connector picks up the work queued
+in OpenDS, such as creating products, publishing offers and health checks, and runs it locally.
+OpenDS therefore never needs access to the management interfaces of your server. Source
 passwords and cloud keys are entered on your server and never pass through OpenDS.
 
 ## Requirements
@@ -25,8 +25,8 @@ passwords and cloud keys are entered on your server and never pass through OpenD
 1. Open the connector, go to its **Hosting** tab and select **Use self-hosting**. A dialog
    shows the install commands, with a one-time installer link, and the commands to start,
    stop and delete it later.
-2. On your server, run the first command, which downloads the bundle into a folder named
-   after the connector together with a `README.md`.
+2. On your server, run the first command. It downloads the bundle, together with a
+   `README.md`, into a folder named after the connector.
 3. Start the connector, with your DNS name if you have one:
 
    ```bash
@@ -45,8 +45,8 @@ use **Reinstall** as described below if the link leaks or the server is lost.
 ## HTTPS options
 
 By default, the connector runs its own HTTPS server on TCP port 443 and obtains its
-certificate from Let's Encrypt, or from the dataspace CA on a private network. Another layout
-can be chosen when the server already runs other services:
+certificate from Let's Encrypt, or from the dataspace CA on a private network. If the server
+already runs other services, you can choose another layout:
 
 | Your server                                     | Start with                                                   |
 | ----------------------------------------------- | ------------------------------------------------------------ |
@@ -56,7 +56,7 @@ can be chosen when the server already runs other services:
 | Is the OpenDS server itself                     | `sudo env CONNECTOR_HTTP_PORT=18080 AGENT_STATUS_PORT=17070 sh ./start.sh` |
 
 With **shared**, one HTTPS entry on TCP port 443 serves every connector and the wallet on the
-server, and each connector needs its own `AGENT_STATUS_PORT`.
+server. Each connector needs its own `AGENT_STATUS_PORT`.
 
 With **external**, the connector listens on `127.0.0.1:8443` only and writes
 `external-proxy/nginx.conf` and `external-proxy/traefik.yml` for its host name:
@@ -81,15 +81,16 @@ The offer dialog shows the command for a login-protected product, for example:
 sudo sh ./source-secret.sh <product-id> bearer      # or basic, header, login-body
 ```
 
-Run it in the connector folder before publishing, and it asks for the secret and stores it on
-the connector. Keys for Amazon S3 or Azure are stored the same way, after which the region,
-buckets, accounts and containers are recorded without keys on the connector's **Cloud
-storage** tab:
+Run it in the connector folder before publishing. It asks for the secret and stores it on the
+connector. Keys for Amazon S3 or Azure are stored the same way:
 
 ```bash
 sudo sh ./cloud-storage.sh aws
 sudo sh ./cloud-storage.sh azure <storage account>
 ```
+
+Then record the region, buckets, accounts and containers without keys on the connector's
+**Cloud storage** tab.
 
 ## Everyday operation
 
@@ -100,7 +101,7 @@ sudo sh ./cloud-storage.sh azure <storage account>
 | Remove completely          | `sudo sh ./delete.sh`                   |
 | Agent status               | `curl http://localhost:7070`, or your `AGENT_STATUS_PORT` |
 
-While the connector is stopped, OpenDS shows it as **Degraded** with **Agent offline**, and
+While the connector is stopped, OpenDS shows it as **Degraded** with **Agent offline**.
 **Platform Admin → Operations → Monitoring** lists it as not working. Deleting the connector in
 OpenDS or switching it to platform hosting is refused while its agent is online, so stop it on
 the server first.
@@ -119,12 +120,12 @@ installation starts empty. To move the connector:
 4. Run `source-secret.sh` and `cloud-storage.sh` again on the new server, because secrets are
    never exported.
 5. Rotate the STS secret under **Organization → Rotate STS secret**, because the old setup
-   files contained it, and publish the offers again.
+   files contained it. Then publish the offers again.
 
 Existing agreements and transfers cannot be moved, so partners negotiate again.
 
 ## Switching to platform hosting
 
-Stop the connector on its server, then select **Use platform hosting** on the **Hosting** tab
-and **Provision**, after which OpenDS runs it on Kubernetes. Export its data first if you want
+Stop the connector on its server. Then select **Use platform hosting** on the **Hosting** tab
+and **Provision**. OpenDS then runs it on Kubernetes. Export its data first if you want
 to keep its products and policies.

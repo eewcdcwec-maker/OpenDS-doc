@@ -5,8 +5,8 @@ title: Self-hosted wallet
 # Self-hosted wallet
 
 This guide applies when your organization chooses **Self-hosted identity**. The wallet runs on
-your server and gives your organization its own `did:web` identity, while its private key never
-leaves that server. OpenDS only receives the public key, proof that you control it, and the
+your server and gives your organization its own `did:web` identity. Its private key never leaves
+that server. OpenDS only receives the public key, proof that you control it, and the
 STS secret that your connectors use. The identity types and the effects of changing them are
 described under [Identity](/user-guide/identity).
 
@@ -46,7 +46,7 @@ wallet:
 ```
 
 Start the connectors with `CONNECTOR_EDGE=shared`, so that the wallet and the connectors share
-one HTTPS entry on TCP port 443. Stopping the wallet removes its entry from that shared entry.
+one HTTPS entry on TCP port 443. Stopping the wallet removes it from that shared entry.
 
 ### Using an existing reverse proxy
 
@@ -61,8 +61,8 @@ sudo ./wallet.sh start
 For a proxy on another host, use the wallet server's private address and add
 `--proxy-allow <proxy-address>`. After startup, add either `external-proxy/nginx.conf` or
 `external-proxy/traefik.yml` to your proxy configuration, and give the proxy a certificate for
-the wallet domain. Only the DID document, the credential service and the STS are public, while
-the management API stays private and must never be published.
+the wallet domain. Only the DID document, the credential service and the STS are public. The
+management API stays private and must never be published.
 
 ## Connecting the wallet to OpenDS
 
@@ -93,7 +93,7 @@ In OpenDS, open **Organization → Dataspace identity** and complete the steps s
 
 4. OpenDS shows **Waiting for a platform administrator**. An administrator confirms that the
    domain belongs to your organization and approves the identity under **Platform Admin →
-   Production identities awaiting approval**, separately from the earlier approval of the
+   Production identities awaiting approval**. This is separate from the earlier approval of the
    organization.
 5. After approval, request credentials using the issuer DID displayed by OpenDS:
 
@@ -106,13 +106,13 @@ In OpenDS, open **Organization → Dataspace identity** and complete the steps s
 
    ![The Dataspace identity card with all six steps done: DID document, ownership, wallet, approval, credentials, ready](../img/wallet-progress.png)
 
-After you add connectors, OpenDS lists their `DataService` entries, which you add to the
-`service` array in `./did/did.json` so that partners can find the connectors.
+After you add connectors, OpenDS lists their `DataService` entries. Add them to the `service`
+array in `./did/did.json` so that partners can find the connectors.
 
 ## Operation and backup
 
 - **Start and stop**: `sudo ./wallet.sh start` and `sudo ./wallet.sh stop`.
-- **STS secret**: rotated with `./wallet.sh rotate-secret`, as described under
+- **STS secret**: rotate it with `./wallet.sh rotate-secret`, as described under
   [Identity](/user-guide/identity#rotating-the-sts-secret).
 - **Backup**: back up the `vault`, `vault-keys` and `postgres` Docker volumes together, because
   losing them means losing the wallet's private keys.
