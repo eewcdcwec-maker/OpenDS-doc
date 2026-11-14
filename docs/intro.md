@@ -18,7 +18,7 @@ and management to participating organizations.
 
 - **Organization management**: register organizations, manage members and roles, assign connector permissions, and create personal API keys for scripts.
 - **Identity management**: use a test identity, a managed identity hosted by OpenDS, or a self-hosted identity with the organization's own wallet.
-- **Connector-as-a-Service (CaaS)**: create, deploy and manage dataspace connectors through the OpenDS web application. Connectors can be hosted and operated by OpenDS or deployed on an organization's own server. Export and import connector data to move a connector or keep a copy.
+- **Connector-as-a-Service (CaaS)**: create, deploy and manage dataspace connectors through the OpenDS web application, and export or import their data. Connectors can be hosted and operated by OpenDS or deployed on an organization's own server. 
 - **Data publication and access policies**: publish data from HTTP services, protected endpoints, Amazon S3 or Azure Blob, where you can also upload files. Define who can access data and under which conditions.
 - **Data discovery and exchange**: discover published data products across participating organizations, negotiate agreements and exchange data through secure connector-to-connector transfers.
 - **Provider control**: monitor who accesses published data, revoke or restore agreements, and stop ongoing transfers.
