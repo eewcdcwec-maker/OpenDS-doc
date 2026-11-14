@@ -5,7 +5,7 @@ title: Troubleshooting
 
 # Troubleshooting
 
-Start with these three commands on the OpenDS server; they answer most questions:
+These three commands on the OpenDS server answer most questions:
 
 ```bash
 bash manage.sh health            # API, database and backend reachable?
@@ -13,7 +13,7 @@ bash manage.sh status            # containers, Kubernetes target and connector p
 bash manage.sh logs backend      # what the backend reports
 ```
 
-Remove API keys, installer links and passwords from any logs you share.
+Remove API keys, installer links and passwords from any logs before sharing them.
 
 ## Installation
 
@@ -34,7 +34,7 @@ Remove API keys, installer links and passwords from any logs you share.
 | Provisioning fails with "no free capacity"                 | Each platform-hosted connector needs about 1.3 CPU cores and 2.3 GB RAM. Pause another connector or add capacity, then provision again. |
 | Self-hosted connector is not "Running"                     | Its control plane, data plane and proxy must be healthy and registered. Check `curl http://localhost:7070` on its server. |
 | Self-hosted connector shows **Degraded**, **Agent offline** | It is stopped or cannot reach OpenDS. Run `sudo sh ./start.sh` in its folder.                   |
-| Cannot create or edit a product or policy                  | Choose a running connector; paused or stopped connectors cannot be edited.                       |
+| Cannot create or edit a product or policy                  | Choose a running connector, because paused or stopped connectors cannot be edited.               |
 | Cannot change or delete a product or policy                | Withdraw the offers that use it first.                                                          |
 | Publishing a login-protected offer fails with "destination is not public" | The login service is on a private network. An operator allows its exact origin with `SOURCE_LOGIN_PRIVATE_ORIGINS`. |
 | A self-hosted server was lost or replaced                  | **Reinstall** on the Hosting tab, then rotate the STS secret ([Move to another server](/guide/self-hosted-connector#moving-to-another-server)). |
@@ -44,7 +44,7 @@ Remove API keys, installer links and passwords from any logs you share.
 | Symptom                                                    | What to do                                                                                     |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | DID verification says the domain "resolves to … a private network address" | The wallet is on a private network. An operator allows that network with `ORGANIZATION_PRIVATE_NETWORKS`. |
-| Credentials are not issued, the wallet log shows "JWT signature not valid" | The published `did.json` does not match the wallet's key. Publish the `did.json` OpenDS generated for the wallet's current key; the issuer may keep the old document for a few minutes. |
+| Credentials are not issued, the wallet log shows "JWT signature not valid" | The published `did.json` does not match the wallet's key. Publish the `did.json` that OpenDS generated for the wallet's current key, and note that the issuer may keep the old document for a few minutes. |
 | The wallet is unreachable after a restart                  | Start it with `sudo ./wallet.sh start`, which also unseals its Vault.                          |
 
 ## Exchange and API
