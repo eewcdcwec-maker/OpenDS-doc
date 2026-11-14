@@ -5,45 +5,42 @@ title: Overview
 
 # User guide overview
 
-This guide is for people who use the OpenDS web app: members of an organization that shares or
-consumes data in a dataspace.
+This guide is for members of organizations that share or consume data in an OpenDS dataspace
+and work with the OpenDS web application.
 
-## The path from data to exchange
+## From data to exchange
 
-```text
-Join ─ Identity ─ Connector ─ Data product ─ Policies ─ Offer ─ Agreement ─ Transfer
- you      you        you          provider      provider  provider  consumer    consumer
-```
-
-1. **Join** the dataspace: [register or be invited](/guide/organization).
-2. Get an **identity**: a test identity to try things, or a production identity.
-3. Start a **connector**: [hosted by OpenDS or on your own server](/guide/connectors).
-4. As a provider, add a **data product** and the **policies** that govern it, then
+1. **Join** the dataspace by [registering or accepting an invitation](/guide/organization).
+2. **Get an identity**, either a test identity to try things out or a production identity
+   ([Identity](/guide/identity)).
+3. **Start a connector**, hosted by OpenDS or on your own server
+   ([Connectors](/guide/connectors)).
+4. **As a provider**, add a data product and the policies that govern it, then
    [publish an offer](/guide/publish).
-5. As a consumer, [discover offers](/guide/exchange), request or negotiate an agreement and
-   start a transfer.
+5. **As a consumer**, [discover offers](/guide/exchange), request an agreement and start a
+   transfer.
 
 ## Key terms
 
-| Term              | Meaning                                                                                      |
-| ----------------- | -------------------------------------------------------------------------------------------- |
-| Organization      | A legal entity in the dataspace. It has one identity (a DID and a BPN) and any number of connectors. |
-| Connector         | The Tractus-X software that exchanges data on your organization's behalf.                    |
-| Data product      | A data source offered through a connector: HTTP, login-protected HTTP, Amazon S3, Azure Blob or an uploaded file. |
-| Access policy     | Decides who can discover and agree to an offer.                                              |
-| Usage policy      | Terms the consumer accepts: time limits, usage purposes, contract reference and others.      |
-| Offer             | One data product with an access policy and a usage policy, published in the catalog.         |
-| Agreement         | The result of a successful negotiation between a consumer and a provider.                    |
-| Transfer          | One delivery of data under an agreement.                                                     |
+| Term          | Meaning                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| Organization  | A legal entity in the dataspace with one identity and any number of connectors                       |
+| Connector     | The software that exchanges data on behalf of an organization                                        |
+| Data product  | A data source offered through a connector, such as an HTTP endpoint, Amazon S3, Azure Blob or a file |
+| Access policy | Decides who can discover an offer and agree to it                                                    |
+| Usage policy  | The terms the consumer accepts, such as time limits, usage purposes or a contract reference          |
+| Offer         | A data product published with an access policy and a usage policy                                    |
+| Agreement     | The result of a successful negotiation between a consumer and a provider                             |
+| Transfer      | One delivery of data under an agreement                                                              |
 
-## Roles in the app
+## Roles
 
-| Role                                | Can                                                                  |
-| ----------------------------------- | -------------------------------------------------------------------- |
-| Organization owner or administrator  | Manage the organization, identity and team; Manager on every connector |
-| Organization member                 | Work on the connectors they are granted                              |
-| Connector Manager                   | Everything on that connector                                         |
-| Connector Viewer                    | Read that connector's resources                                      |
-| Platform administrator              | Approve, suspend and offboard organizations; platform settings       |
+| Role                                | Permissions                                                                   |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| Organization owner or administrator | Manages the organization, its identity and team, and is Manager on every connector |
+| Organization member                 | Works on the connectors they have been granted                                |
+| Connector Manager                   | Can do everything on that connector                                           |
+| Connector Viewer                    | Can view the resources of that connector                                      |
+| Platform administrator              | Approves, suspends and offboards organizations and manages platform settings  |
 
-See [API and permissions](/reference/api#roles) for the exact rules.
+The exact permissions are listed under [API](/reference/api#roles).
