@@ -6,9 +6,15 @@ slug: /
 
 # OpenDS
 
-OpenDS is an open-source platform for deploying and managing dataspaces. It provides a web-based environment for organizations to establish identities, manage dataspace connectors, publish data products, define access policies, and exchange data with other participants.
+OpenDS is an open-source platform for deploying and operating a dataspace. It provides a
+web-based environment where participating organizations can join the dataspace, establish
+their identities, deploy connectors, publish data products, define access policies, and
+exchange data.
 
-OpenDS provides **Connector-as-a-Service (CaaS)** capabilities, allowing organizations to provision and manage connectors without having to operate the full connector infrastructure themselves. Connectors can run on infrastructure managed by OpenDS or on servers operated independently by participating organizations. An OpenDS installation also provides identity services for its participants and is built on the official Eclipse Tractus-X connector and identity components.
+OpenDS provides **Connector-as-a-Service (CaaS)**, enabling the dataspace operator to offer
+connector provisioning and management to participating organizations. Connectors can be hosted
+by the operator or run on infrastructure operated by the participating organizations. The
+platform also provides identity services for its participants.
 
 ## What you can do with it
 
