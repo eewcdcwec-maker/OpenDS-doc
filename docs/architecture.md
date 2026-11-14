@@ -29,33 +29,34 @@ Linux capabilities, and connector pods are not given a Kubernetes API token.
 
 ## Where data lives
 
-- **Platform database**: users, organizations, memberships, permissions, approval
-  workflows, audit entries and operational records.
-- **Connectors**: products, policies, offers, source configuration, negotiations,
-  agreements and transfers. OpenDS reads them live and keeps no copies.
-- **Connector Vaults**: source credentials and connector secrets. Self-hosted credentials
-  are entered on the connector's own host.
-- **Never stored**: access tokens (EDRs), dataset bytes, and self-hosted Management API
-  request and response bodies. Self-host EDR responses pass through backend memory and are
-  discarded after delivery, which assumes one backend instance. Downloads go directly
-  through the connector's data plane.
+- **Platform database**: users, organizations, memberships, permissions, approval workflows,
+  audit entries and operational records.
+- **Connectors**: data products, policies, offers, source configurations, negotiations,
+  agreements and transfers. OpenDS reads this information directly from the connectors
+  without maintaining copies.
+- **Connector Vaults**: source credentials and connector secrets. For self-hosted connectors,
+  credentials are stored on the organization's own host.
+- **Not stored by OpenDS**: EDR access tokens, dataset bytes, and self-hosted Management API
+  request and response bodies. Self-hosted EDR responses are held in backend memory only and
+  discarded after delivery.
 
 ## Connector hosting
 
 Runtime and hosting are independent:
 
-- **Platform-hosted**: OpenDS manages the connector on Kubernetes, either the local cluster
-  setup creates or a [separate cluster](/administration/remote-cluster).
-- **Self-hosted**: the organization runs the connector with Docker Compose on its own server.
-  A small agent next to it polls OpenDS for queued operations and runs them locally, so
-  OpenDS never needs inbound access to the management API. See
+- **Platform-hosted**: OpenDS manages connectors on Kubernetes, either in the local cluster
+  created during setup or in a [separate cluster](/administration/remote-cluster).
+- **Self-hosted**: the organization runs the connector using Docker Compose on its own server.
+  A lightweight agent polls OpenDS for queued operations and executes them locally. OpenDS
+  therefore requires no inbound access to the connector's Management API. See
   [Self-hosted connector](/guide/self-hosted-connector).
 
-Each platform-hosted connector runs in its own namespace with a network policy. Its pods can
-reach their own namespace, the cluster's DNS and ingress, and addresses outside the cluster,
-while other connectors' pods and the link-local range of cloud metadata services stay
-blocked. The policy is applied when a connector is provisioned and requires a cluster network
-that enforces NetworkPolicy, which the local cluster does.
+Each platform-hosted connector runs in its own Kubernetes namespace with a network policy. The
+policy allows its pods to communicate within that namespace, access cluster DNS and ingress,
+and reach external addresses. It blocks communication with pods in other connector namespaces
+and prevents access to cloud infrastructure metadata services. The policy is applied during
+provisioning and requires a Kubernetes network implementation that enforces NetworkPolicy, as
+provided by the local cluster.
 
 ## Connector runtime
 
