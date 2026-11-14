@@ -9,11 +9,13 @@ title: Discover and exchange data
 Under **Discover**, you can search by product name, topic, tag or category, or filter by
 provider organization. Discover offers two views:
 
-- **Data products**: the offers that providers have published on listed connectors. Choose your
+- **Data products**: every offer that providers have published on listed connectors, including
+  offers you cannot request. Each offer shows a summary of its access policy. Choose your
   consumer connector for requests, then select **Search**.
 - **Live catalog**: a request to a provider's running connector, which returns only the offers
   its access policies allow for you. If a provider's connector is not listed, select **The
-  provider is not listed** and enter the DSP address and DID that the provider gives you.
+  provider is not listed** and enter the DSP address and DID that the provider gives you. The
+  provider finds both on its connector page.
 
 Credentials and private source configuration never appear in discovery results.
 
@@ -46,8 +48,9 @@ Start a transfer with **Start transfer** under **Agreements** and choose the tra
 Pull is available only for products with an HTTP source. S3 and Azure products are delivered by
 push.
 
-- **Pull**: after starting the transfer, open **Access details** under **Transfers**. It shows
-  the endpoint, token and expiry, with curl and Python examples. **Fetch the data once** uses
+- **Pull**: after starting the transfer, **Transfers** shows **Download** and **Access
+  details** for it. **Download** fetches the data directly. **Access details** shows the
+  endpoint, token and expiry, with curl and Python examples. **Fetch the data once** uses
   the current token, and **Get a new token** issues a fresh one. **Fetch it repeatedly** is a
   script that requests current access details before every download. It reads a personal API
   key (from **API access**) from the environment variable `OPENDS_API_KEY`.

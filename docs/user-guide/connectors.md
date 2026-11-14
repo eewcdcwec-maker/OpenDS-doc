@@ -42,7 +42,8 @@ self-hosting actions. **Export connector data** is under **More**.
   provisioned again, but its products, policies and offers are lost.
 - **List in discovery**: lets other organizations find the connector's offers under
   **Discover**. A connector that is not listed still exchanges data, but partners can only
-  reach it with its DSP address.
+  reach it with its DSP address and your DID. The connector page shows both, as **Protocol
+  endpoint** and **DID**, each with a copy button.
 - **Export connector data**: saves the connector's data while it is online, to move it or keep
   a copy ([API](/user-guide/api#connector-data-export-and-import)).
 - **Delete**: removes the connector and its platform record. Stop a self-hosted connector on its

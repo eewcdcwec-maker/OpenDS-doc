@@ -4,8 +4,10 @@ title: Configuration
 
 # Configuration
 
-Installation settings are kept in `.env`. Setup creates it from your values and completes it.
-All optional settings are listed in `.env.example`. Settings that can be changed while the
+Installation settings are kept in `.env`. Setup creates the file if it does not exist and fills
+in missing values, such as the database password, the secrets and the administrator's email
+and password. You can start from `.env.example`, which lists all optional settings, but you
+don't have to. Settings that can be changed while the
 platform is running are made in the app under **Platform Admin**. Platform administrators open
 it from the account menu.
 
@@ -37,6 +39,9 @@ edit `.env` and run `docker compose up -d backend worker`. The platform administ
 signs in with the new address. The change is skipped if the address is already taken
 or if there are several administrators.
 
+To make another account a platform administrator, run `bash manage.sh make-admin <email>`. The
+account must already exist, and the person signs out and in again afterwards.
+
 ## Domain and certificates
 
 With `PUBLIC_DOMAIN` set, everything is served over HTTPS on that domain. Without it, OpenDS
@@ -61,7 +66,11 @@ change invalidates all production identities and credentials.
 without any setup. Let's Encrypt verifies the domain by connecting to the server, so the
 platform and each self-hosted connector need a public address and an open TCP port 443.
 `CONNECTOR_TLS` defaults to `dataspace` with `EDGE_TLS=internal` and to `public` otherwise. A
-common production layout is `acme` with `CONNECTOR_TLS=dataspace`. People and scripts reach the public platform without installing a CA certificate, and self-hosted connectors need no public certificate.
+common production layout is `acme` with `CONNECTOR_TLS=dataspace`. People and scripts reach the
+public platform without installing a CA certificate, and self-hosted connectors need no public
+certificate. A script that pulls data directly from such a connector must trust the dataspace
+CA, because the connector's data address is served with it. **Access details** shows a notice,
+and its code samples already include `--cacert`.
 
 ### Trusting the dataspace CA
 
@@ -126,7 +135,7 @@ destinations. After changing them, restart the backend with
 | PostgreSQL                  | 5432                   | Loopback only                                                    |
 | Backend                     | 8080                   | Internal Docker network                                          |
 | Frontend development server | 5173                   | Local by default                                                 |
-| Self-hosted connector proxy | 443 on connector host  | Public, or 80 with `CONNECTOR_TLS=off` for tests only            |
+| Self-hosted connector proxy | 443 on connector host  | Public                                                           |
 | Self-hosted agent status    | 7070 on connector host | This host only by default, opened with `AGENT_STATUS_BIND=0.0.0.0` |
 
 Run one OpenDS installation per server, because the HTTPS entry needs TCP port 443 for itself.

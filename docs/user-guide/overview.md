@@ -32,7 +32,7 @@ and work with the OpenDS web application.
 | Agreement     | The result of a successful negotiation between a consumer and a provider                             |
 | Transfer      | One delivery of data under an agreement                                                              |
 | DID           | The decentralized identifier of an organization, which partners use to verify its identity           |
-| DSP address   | The address at which partners reach a connector, needed when the connector is not listed in discovery |
+| DSP address   | The address at which partners reach a connector, shown on the connector page as **Protocol endpoint**. Needed when the connector is not listed in discovery |
 | Wallet        | The service that holds an organization's keys and credentials. It is hosted by OpenDS or self-hosted |
 | STS secret    | The secret all connectors of an organization use to obtain tokens from its wallet                    |
 
@@ -40,7 +40,7 @@ and work with the OpenDS web application.
 
 | Role                                | Permissions                                                                                                                        |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Organization owner or administrator | Manages the organization settings, identity and team, and is Manager on every connector of the organization                        |
+| Organization owner or administrator | Manages the organization settings and team, and is Manager on every connector of the organization. Only the owner can change the identity                        |
 | Organization member                 | Works on the connectors they have been granted                                                                                     |
 | Connector Manager                   | Can do everything on that connector, including products, policies, offers, imports, lifecycle, exchanges and access for other members |
 | Connector Viewer                    | Can view the resources of that connector                                                                                           |

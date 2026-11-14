@@ -80,7 +80,8 @@ it with `external-proxy/upstream-ca.crt`.
 
 ## Source passwords and cloud keys
 
-The offer dialog shows the command for a login-protected product, for example:
+For a product with HTTP source authentication, the offer dialog shows the command that stores
+its secret, for example:
 
 ```bash
 sudo sh ./source-secret.sh <product-id> bearer      # or basic, header, login-body

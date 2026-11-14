@@ -13,6 +13,9 @@ Authorization: users API-Key <your-api-key>
 x-tenant-id: <organization-id>
 ```
 
+The organization ID is shown under **API access**, in the **Connect** card, in the row for your
+organization, with a copy button.
+
 Creating a key asks for your password and an expiry, which is 90 days by default. An expired
 key stops working within a minute. The API guide in the app has curl and Python examples, including
 file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dataspace CA
@@ -24,9 +27,11 @@ file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dat
   `limit`). Creates and updates return `{doc}`.
 - **Permissions**: API keys apply the same organization and connector permissions as the app,
   as listed under [Roles](/user-guide/overview#roles).
-- **Platform administration**: the admin interface at `/platform-admin` is the dataspace operator's
-  support and recovery tool. It gives platform administrators access to every record of every
-  organization. Day-to-day work happens in the app.
+- **Records panel**: `/platform-admin` is the raw admin interface with full edit access to
+  every record of every organization. Platform administrators open it with the **Records
+  panel** button on the **Platform Admin** page. It is for support and recovery only.
+  Day-to-day administration, such as approvals, email and backups, happens on the **Platform
+  Admin** page itself.
 
 ## Products, policies and offers
 

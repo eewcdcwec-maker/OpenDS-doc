@@ -66,7 +66,7 @@ without keys, so that product forms and transfers offer them.
 - **Azure source**: a storage account and container from the connector's list, then the file
   in the same way.
 
-The product kinds Amazon S3 and Azure Blob appear in the product form only when the connector has that
+The source types Amazon S3 and Azure Blob Storage appear in the product form only when the connector has that
 storage configured.
 
 ## File upload
@@ -99,8 +99,9 @@ Permissions the IAM user needs, limited to the exchange buckets (for example `op
 | `sts:AssumeRole`                                              | Receiving: using the temporary role                    |
 
 A connector that only offers data needs the first row, plus `s3:PutObject` for file uploads.
-The IAM rights can be limited to roles tagged `dataspaceconnector:process`. Delete rights on
-objects are not needed, so old files must be removed manually.
+The IAM rights can be limited to roles tagged `dataspaceconnector:process`. OpenDS never
+deletes objects in S3 or Azure, so delete rights are not needed and old files must be removed
+by hand.
 
 The same permissions as a policy, to paste into the IAM console's JSON editor (replace
 `111122223333` with your account ID, `opends-exchange` with the IAM user's name, and

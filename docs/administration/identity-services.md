@@ -103,14 +103,18 @@ Notes:
   - **Self-hosted wallets** keep their DID, but their credentials came from the old issuer. Their
     identity returns to **Awaiting credentials**. The **Organization** page shows the new
     issuer's DID, and they run `./wallet.sh request-credentials <that DID>`.
-  - **Existing connectors** keep the old identity until they are provisioned again. Until then,
-    new negotiations and transfers fail. Because reprovisioning removes a connector's
-    products and policies, export each connector first under **More → Export connector data**
-    and import the data afterwards.
-  - **Rollback**: the previous `.env` is kept in `.deploy/env.before-identity-host`, and the old
-    production stack keeps running on the OpenDS server. Once the rollback is no longer needed,
-    stop it with `docker compose -p opends-identity-production down`. Add `-v` only when you are
-    sure, because that deletes its keys.
+  - **All production connectors** still trust the old issuer, because a connector receives the
+    issuer's DID when it is provisioned. Until a connector is provisioned again, its new
+    negotiations and transfers fail. For a self-hosted connector, this means **Reinstall** with
+    a new installer. Because reprovisioning removes a connector's products and policies, export
+    each connector first under **More → Export connector data** and import the data afterwards.
+  - **Rollback**: there is no scripted rollback, and the manual path is untested. The previous
+    `.env` is kept in `.deploy/env.before-identity-host`, and the old production stack keeps
+    running on the OpenDS server. To go back, copy that file back to `.env` and run
+    `bash manage.sh setup`. Connectors that were already provisioned again must be provisioned
+    once more. Once the rollback is no longer needed, stop the old stack with
+    `docker compose -p opends-identity-production down`. Add `-v` only when you are sure,
+    because that deletes its keys.
 
 ## Rebuilding a lost identity host
 
@@ -135,5 +139,6 @@ name, so that the production DIDs stay the same:
 5. Organizations with a self-hosted identity keep their own wallets. Their credentials were
    signed by the old issuer, so they request their credentials again from their wallet.
 
-Platform backups contain the identity host's database and Vault, but `backup restore` does not
-restore them onto an identity host. Rebuilding as described above is the supported path.
+Platform backups contain the identity host's database and Vault for manual recovery only.
+`backup restore` does not restore them onto an identity host. Rebuilding as described above is
+the supported path.

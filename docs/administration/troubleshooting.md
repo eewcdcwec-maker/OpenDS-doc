@@ -20,7 +20,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Setup says "permission denied" for the Docker socket              | Add the user to the `docker` group (`sudo usermod -aG docker $USER`), sign in again, rerun setup. |
 | Setup stops with "Run sudo sysctl -w fs.inotify…"                 | Set the two kernel limits once as root, as shown under [Requirements](/getting-started/installation#requirements), then rerun setup. |
-| After changing the domain, setup stops with "The test issuer was created for another address" | Run the command it names (`docker compose -p opends-identity-test down -v`) and rerun setup. Test identities start over. |
+| After changing the domain, setup stops with "The test issuer was created for another address" | Run the command it names (`docker compose -p opends-identity-test down -v`) and rerun setup. Test identities start over. The local production stack behaves the same way, and removing it deletes all production identities. |
 | Browser warns about the certificate                               | With `EDGE_TLS=internal`, trust the [dataspace CA](/administration/configuration#trusting-the-dataspace-ca) once. |
 | No HTTPS certificate, Let's Encrypt reports a rate limit (429)    | Let's Encrypt limits how many certificates one name gets per week. Wait, or use your own certificate (`EDGE_TLS=files`). |
 | The app is not on port 443 without a domain                       | Without `PUBLIC_DOMAIN` it runs over plain HTTP at `http://<PUBLIC_HOST>:8081`.                  |
@@ -51,5 +51,5 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Symptom                                                    | What to do                                                                                     |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | A provider's offers do not appear under **Discover**       | Its connector must be running and listed (**List in discovery**). Paused connectors are hidden. |
-| Partners cannot negotiate an offer                         | Republish it if the app marks it as needing a fix.                                             |
+| Discover tags an offer **Connector offer**, and partners cannot request it | The offer exists on the connector without an OpenDS record, for example because it was created directly through the connector's Management API. The provider republishes it in OpenDS with an explicit approval setting. |
 | Scripts get empty results or authentication errors         | Check the `Authorization` header, `x-tenant-id` (the organization's ID), the key's expiry and your permissions. `GET /api/users/me` shows whether the key signs you in. |

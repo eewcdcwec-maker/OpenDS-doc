@@ -44,6 +44,11 @@ connector data**, so that you can import its products and policies into the new 
 Self-hosted connectors must be stopped on their servers first, because the change is refused
 while one of them is online.
 
+You can also export before **Leave test mode**. Do it while the connectors are still running,
+because leaving test mode deletes them. An import brings back products, policies and offers,
+but not agreements and transfers, and partner groups that name test identities must be
+updated. This path has not been tested end to end.
+
 :::caution Your domain becomes part of your DID
 With a self-hosted identity, the domain is part of the DID and cannot change after approval.
 Contact the dataspace operator if it must change.

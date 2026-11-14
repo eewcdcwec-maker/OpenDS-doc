@@ -82,12 +82,13 @@ EDGE_TLS=internal
 ```
 
 :::warning Choose your domain once
-The domain is part of the issuer's DID and of the DID of every test and managed identity. If
-you change it later:
+The domain is part of the issuer's DID and of the DID of every test and managed identity.
+Setup therefore refuses to run with a changed domain and stops with a "created for another
+address" error. The only way forward is to remove the affected identity stack, after which its
+identities start over:
 
-- All credentials must be issued again, because the issuer's DID changes.
-- Setup stops and names a command that removes the test identity stack. Run that command, then
-  run setup again. Test identities start over.
+- Removing the test stack resets all test identities.
+- Removing the local production stack deletes all production identities.
 
 For an installation you intend to keep, use a stable hostname. Address-based `sslip.io` names
 change whenever the server's IP address changes.

@@ -8,6 +8,13 @@ By default, setup creates a local kind cluster for platform-hosted connectors. C
 instead run on an existing Kubernetes cluster, which then runs only the connectors. The identity
 services stay on the OpenDS server and are reached through the platform's public HTTPS address.
 
+:::warning Switch before you create connectors
+After the switch, connectors on the local cluster keep running, but OpenDS ignores them. They
+disappear from **Discover** and refuse lifecycle actions, so they can no longer be managed, and
+you create new connectors on the remote cluster. If the installation already has connectors,
+export their data before you switch.
+:::
+
 The cluster needs:
 
 - **DNS**: a wildcard record for the connector domain that partners and the platform can
@@ -175,8 +182,7 @@ and `helm` installed.
      --target connectors-1 --ingress-gateway http://10.0.0.20:19080
    ```
 
-   New connectors then start on the second server. Existing connectors stay on their old
-   target, so create new ones.
+   New connectors then start on the second server.
 
 One Kubernetes target serves one OpenDS installation, and each connector records its target.
 Connectors on another target are ignored and refuse lifecycle actions, so never point an

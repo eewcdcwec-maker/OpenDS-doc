@@ -38,7 +38,8 @@ that other organizations can find its offers.
    with the rule **Allowed usage purposes** and choose a purpose. Consumers accept these terms
    as part of the agreement.
 3. Under **Data products → New data product**, enter a name, a description, the connector, a
-   category and `https://<your domain>/api/test-data` as the **Provider source URL**. When you
+   category and `https://<your domain>/api/test-data` as the **Provider source URL**. Keep **Source type** at **HTTP API
+   or file URL**. When you
    later offer your own data, use an address that the connector can reach rather than
    `localhost`.
 

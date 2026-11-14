@@ -16,30 +16,44 @@ before creating them.
 
 ## Data products
 
-Under **Data products**, add a product of one of these kinds:
+Under **Data products**, add a product and choose its **Source type**:
 
-| Kind                 | Source                                                                    |
-| -------------------- | ------------------------------------------------------------------------- |
-| HTTP                 | A URL that the connector fetches                                          |
-| Login-protected HTTP | A URL that requires a login, which the connector performs and renews itself |
-| Amazon S3            | An object in a bucket that the connector can read                         |
-| Azure Blob           | A blob in a container that the connector can read                         |
+| Source type          | Source                                            |
+| -------------------- | ------------------------------------------------- |
+| HTTP API or file URL | A URL that the connector fetches                  |
+| Amazon S3            | An object in a bucket that the connector can read |
+| Azure Blob Storage   | A blob in a container that the connector can read |
 
-For Amazon S3 and Azure Blob, you can choose an existing file or upload a new one. These kinds
-appear only when the connector has cloud storage set up, as described under
+For Amazon S3 and Azure Blob Storage, you can choose an existing file or upload a new one.
+These source types appear only when the connector has cloud storage set up, as described under
 [Cloud storage](/user-guide/cloud-storage).
 
 Give each product a name, a description, categories and tags so that consumers can find it.
 
-### Login-protected sources
+### Protected HTTP sources
 
-- **Login settings**: the login URL and method, token extraction, outgoing headers and token
-  lifetime are set in the product form.
-- **Credentials**: the login request body with the credentials is entered when the offer is
-  published. For self-hosted connectors, it is entered on the connector's own server.
-- **Storage**: the login details stay on the connector and are never stored in OpenDS.
-- **Private networks**: for a platform-hosted connector, a login service on a private network
-  must first be allowed by the dataspace operator ([Configuration](/administration/configuration#private-networks)).
+If an HTTP source requires authentication, choose the type under **HTTP source
+authentication**:
+
+- None
+- Bearer token
+- Username and password (Basic)
+- API key in a header
+- Custom header
+- Login endpoint that returns a token. The connector logs in and renews the token itself.
+
+The settings and the secret are entered in two places:
+
+- **On the product**: the authentication type and, depending on it, the username or the header
+  name. For a login endpoint, the product form also takes the login URL and method, token
+  extraction, outgoing headers and token lifetime.
+- **When you publish the offer**: the secret itself, such as the token, the password or the
+  login request body. For self-hosted connectors, it is entered on the connector's own server
+  ([Self-hosted connector](/self-hosting/self-hosted-connector#source-passwords-and-cloud-keys)).
+
+The credentials stay on the connector and are never stored in OpenDS. For a platform-hosted
+connector, a login service on a private network must first be allowed by the dataspace operator
+([Configuration](/administration/configuration#private-networks)).
 
 ## Policies
 

@@ -103,8 +103,8 @@ The platform and connector databases use PostgreSQL 18.
   is run by a regular user) and without Linux capabilities.
 - **Connector Vaults**: an unseal sidecar initializes each Vault, unseals it after restarts and
   creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key is kept on
-  the Vault's volume. This protects against restarts but not against access to the volume, so
-  production deployments use an external auto-unseal.
+  the Vault's volume. This protects against restarts but not against access to the volume.
+  OpenDS has no support for an external auto-unseal, so this is a known limitation.
 - **Single backend instance**: EDR responses of self-hosted connectors pass through backend
   memory and are discarded after delivery. This assumes one backend instance.
 - **Participant context**: each connector has a unique, persisted participant-context ID. It
@@ -130,8 +130,9 @@ and UsagePurposeCredential.
 Known limitations of these versions:
 
 - **Issuer DID**: IssuerService 0.4.1 has no DID management API, so OpenDS republishes the
-  issuer's DID document. The installer only allows changing the issuer's DID while no holders
-  exist.
+  issuer's DID document. Setup refuses any change of the issuer's address, for the test stack
+  and the local production stack, whether or not holders exist. The only way forward is to
+  remove that stack, which deletes its identities.
 - **Credential requests**: IdentityHub 0.4.1 cannot delete them, so OpenDS removes them with a
   database role restricted to that table.
 - **STS secret**: all connectors of an organization share one STS secret, because IdentityHub

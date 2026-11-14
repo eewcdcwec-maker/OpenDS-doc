@@ -20,6 +20,20 @@ storage and certificates. Email alerts are sent once monitoring and email are co
 
 ![The Monitoring card: daily alert email, connector health check interval and the current checks](../img/monitoring.png)
 
+## Updates
+
+Updating from an earlier release has not yet been verified end to end. The expected steps are:
+
+1. Create a backup with `bash manage.sh backup create`.
+2. Get the new version with `git pull`.
+3. Run `bash manage.sh setup` again. It keeps your settings and data and also refreshes the
+   identity services.
+
+Database migrations run automatically when the backend starts. For code-only changes,
+`bash manage.sh rebuild backend` and `bash manage.sh rebuild frontend` are enough. Updating does
+not upgrade running connectors, or self-host bundles that organizations have already
+downloaded.
+
 ## Backups
 
 Backups are encrypted with `BACKUP_PASSPHRASE` from `.env`. The passphrase is generated on first
@@ -41,7 +55,7 @@ consistent recovery point, pause contract uploads and deletions while taking a b
 
 | Command                                   | Effect                                                                                                         |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `bash manage.sh backup create`            | Writes an encrypted backup                                                                                     |
+| `bash manage.sh backup create`            | Writes an encrypted backup to `backups/` in the OpenDS folder, readable only by its owner. `OPENDS_BACKUP_DIR` changes the location |
 | `bash manage.sh backup verify <file>`     | Test-restores the backup in temporary containers and checks its contents                                       |
 | `bash manage.sh backup restore <file>`    | Replaces the platform state of this installation with the backup, after confirmation (`OPENDS_RESTORE_CONFIRM=yes` without a terminal) |
 
@@ -55,8 +69,8 @@ BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>
 - **Platform-hosted connectors**: on the same server, they keep their runtime data. On a new
   server, they must be provisioned again, with their products, policies and offers imported and their
   credentials entered again.
-- **Separate identity host**: `backup restore` skips its data, which has to be restored on that
-  host, as described under
+- **Separate identity host**: `backup restore` skips its data. The backup holds that data for
+  manual recovery only. The supported path is to rebuild the host, as described under
   [Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
 
 ## Self-hosted connectors

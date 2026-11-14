@@ -11,15 +11,19 @@ title: Organization and team
   registration is closed, ask to be invited. A platform administrator approves the organization
   before it can exchange data. Until then, you can sign in and look around. A notice at the top
   shows whether the organization is awaiting approval, rejected or suspended.
-- **Be invited**: an owner or administrator adds you as a member. The invitation email
-  contains a code that you enter when accepting. Without an email server, the inviter is shown
-  the code once and passes it on. If you already have an account with the invited email address,
-  that account is added and keeps its name and password.
+- **Be invited**: an owner or administrator invites you by email address. What happens next
+  depends on whether you already have an account:
+  - **No account yet**: OpenDS creates your account and emails you a **Choose a password**
+    link, which is valid for seven days. If the platform has no email server, the inviter sets
+    an initial password and passes it on.
+  - **Existing account**: you receive an invitation with an invitation code. The link in the
+    email opens OpenDS with that code, and you accept the invitation at the top of the page
+    after signing in. If the platform has no email server, the inviter is shown the code once
+    and passes it on. Your account keeps its name and password.
 
-A new account receives an email with a link to choose a password. The link is valid for seven
-days. Only the most recent link works, so requesting a password reset replaces an unused
-invitation link. If the platform has no email server, password resets are not available and
-inviters set the initial password themselves.
+Only the most recent password link works, so requesting a password reset replaces an unused
+**Choose a password** link. If the platform has no email server, password resets are not
+available.
 
 You can decline an invitation or leave an organization at any time. If you are its last owner,
 appoint another owner first. An owner or administrator can also remove a member. Whether you leave
