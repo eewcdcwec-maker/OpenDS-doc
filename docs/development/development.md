@@ -1,6 +1,6 @@
 ---
 title: Development
-slug: /development/development
+slug: /development
 ---
 
 # Development

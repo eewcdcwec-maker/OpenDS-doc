@@ -14,7 +14,7 @@ exchange data.
 With **Connector-as-a-Service (CaaS)**, the dataspace operator can offer connector provisioning
 and management to participating organizations.
 
-## What you can do with it
+## Features
 
 - **Organization management**: register organizations, manage members and roles, assign connector permissions, and create personal API keys for scripts.
 - **Identity management**: use a test identity, a managed identity hosted by OpenDS, or a self-hosted identity with the organization's own wallet.
@@ -40,7 +40,7 @@ Each organization decides what it runs itself. Connector and identity are indepe
 - Use the app: [User guide](/user-guide/overview)
 - Run connectors or a wallet on your own servers: [Self-hosting](/self-hosting/self-hosted-connector)
 - Operate an installation: [Administration](/administration/configuration)
-- Contribute: [Development](/development/development)
+- Contribute: [Development](/development)
 
 ## License
 
