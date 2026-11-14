@@ -50,7 +50,7 @@ computer and add it as described in
 If you leave `PUBLIC_DOMAIN` empty and set `PUBLIC_HOST` to the server's IP address, the app
 runs over plain HTTP at `http://<PUBLIC_HOST>:8081`.
 
-:::danger Unencrypted
+:::danger[Unencrypted]
 HTTP evaluation mode supports test identities only. Login details, tokens and data sent over
 its endpoints are not encrypted. Use it only on a trusted network. For HTTPS on a private
 network, set a hostname in `PUBLIC_DOMAIN` together with `EDGE_TLS=internal`.
@@ -81,19 +81,20 @@ PUBLIC_DOMAIN=opends.192-168-1-50.sslip.io   # for a server at 192.168.1.50
 EDGE_TLS=internal
 ```
 
-:::warning Choose your domain once
-The domain is part of the issuer's DID and of the DID of every test and managed identity.
-Setup therefore refuses to run with a changed domain and stops with a "created for another
-address" error. The only way forward is to remove the affected identity stack with the
-command that the error names, after which its identities start over:
+:::warning[Choose your domain before organizations join]
+The domain is part of the DID of the issuer and of every test and managed identity. Changing
+it later does not require a new installation, but all existing identities stop matching the
+new domain:
 
-- Removing the test stack resets all test identities.
-- Removing the local production stack deletes all production identities and their keys. Every
-  production organization then sets up its identity again, and self-hosted wallets request
-  their credentials again.
+1. Setup stops with a "created for another address" error.
+2. You remove the affected identity stack with the command that the error names.
+3. Setup then creates new identity services for the new domain, and the identities start over:
+   - **Test identities** are reset.
+   - **Production identities** and their keys are deleted. Every production organization sets
+     up its identity again, and self-hosted wallets request their credentials again.
 
 For an installation you intend to keep, use a stable hostname. Address-based `sslip.io` names
-change whenever the server's IP address changes.
+change whenever the server's IP address changes, which counts as a domain change.
 :::
 
 Start the setup:

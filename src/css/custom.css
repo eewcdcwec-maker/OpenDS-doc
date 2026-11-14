@@ -4,6 +4,8 @@
  * work well for content-centric websites.
  */
 
+@import '@fontsource-variable/inter';
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #007d6c;
@@ -13,6 +15,7 @@
   --ifm-color-primary-light: #008a77;
   --ifm-color-primary-lighter: #00907c;
   --ifm-color-primary-lightest: #00a28c;
+  --ifm-font-family-base: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ifm-code-font-size: 95%;
   --ifm-navbar-height: 4rem;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);

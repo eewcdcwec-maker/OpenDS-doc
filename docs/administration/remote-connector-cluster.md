@@ -8,7 +8,7 @@ By default, setup creates a local kind cluster for platform-hosted connectors. C
 instead run on an existing Kubernetes cluster, which then runs only the connectors. The identity
 services stay on the OpenDS server and are reached through the platform's public HTTPS address.
 
-:::warning Switch before you create connectors
+:::warning[Switch before you create connectors]
 After the switch, connectors on the local cluster keep running, but OpenDS ignores them. They
 disappear from **Discover** and refuse lifecycle actions, so they can no longer be managed, and
 you create new connectors on the remote cluster. If the installation already has connectors,

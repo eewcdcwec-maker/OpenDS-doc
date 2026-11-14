@@ -65,7 +65,7 @@ A separate identity host needs a Linux server with Docker, an SSH user with sudo
 and 443 open to the internet, and a DNS name pointing at it. A server with 2 vCPUs, 4 GB RAM and
 swap enabled is sufficient.
 
-:::warning Moving an existing dataspace
+:::warning[Moving an existing dataspace]
 Moving from a local stack changes the production issuer's DID, which affects every production
 organization. If production organizations already exist, read the notes on moving from a local
 stack below before you run the installer.

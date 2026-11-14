@@ -22,7 +22,7 @@ passwords and cloud keys are entered on your server and never pass through OpenD
 
 ## Installation
 
-:::warning Keep the installer link private
+:::warning[Keep the installer link private]
 The install commands in step 1 contain a one-time installer link. Until the connector has
 started once, anyone with the link can download setup files that
 contain your connector's identity credentials. Treat the link and the folder as secrets, and
