@@ -35,12 +35,13 @@ and work with the OpenDS web application.
 
 ## Roles
 
-| Role                                | Permissions                                                                   |
-| ----------------------------------- | ----------------------------------------------------------------------------- |
-| Organization owner or administrator | Manages the organization, its identity and team, and is Manager on every connector |
-| Organization member                 | Works on the connectors they have been granted                                |
-| Connector Manager                   | Can do everything on that connector                                           |
-| Connector Viewer                    | Can view the resources of that connector                                      |
-| Platform administrator              | Approves, suspends and offboards organizations and manages platform settings  |
+| Role                                | Permissions                                                                                                                        |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Organization owner or administrator | Manages the organization settings, identity and team, and is Manager on every connector of the organization                        |
+| Organization member                 | Works on the connectors they have been granted                                                                                     |
+| Connector Manager                   | Can do everything on that connector, including products, policies, offers, imports, lifecycle, exchanges and access for other members |
+| Connector Viewer                    | Can view the resources of that connector                                                                                           |
+| Platform administrator              | Approves, suspends and offboards organizations and manages platform settings, and works in the app only in their own organizations |
 
-The exact permissions are listed under [API](/reference/api#roles).
+A connector grant does not give access to other connectors or to the administration of the
+organization. API keys carry the same permissions as their owner.
