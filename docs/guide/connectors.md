@@ -5,48 +5,44 @@ title: Connectors
 
 # Connectors
 
-A connector is the software that exchanges data for your organization. Under **Connectors** you
-create and manage them.
+A connector is the software that exchanges data on behalf of your organization. Connectors are
+created and managed under **Connectors**.
 
-## Choose where it runs
+## Hosting modes
 
-| Mode              | Where it runs                                    | Good for                                      |
-| ----------------- | ------------------------------------------------ | --------------------------------------------- |
-| Platform-hosted   | On Kubernetes managed by the platform operator   | No connector installation for your organization |
-| Self-hosted       | On your organization's Docker host               | Your organization operates the connector      |
+| Mode            | Where it runs                                  | Suitable for                                       |
+| --------------- | ---------------------------------------------- | -------------------------------------------------- |
+| Platform-hosted | On Kubernetes, managed by the platform operator | Organizations that do not want to install anything |
+| Self-hosted     | On your organization's own Docker host         | Organizations that operate the connector themselves |
 
-All three identity types work with either hosting mode. You can change hosting from the
-connector page, but it is a migration: export the connector data first, configure the new
-runtime, import portable definitions and enter source credentials again.
+The hosting mode can be changed on the connector page. This is a migration, in which you export
+the connector data first, set up the new runtime, import the definitions and enter the source
+credentials again.
 
-## Self-hosting a connector
-
-Create the connector, then select **Use self-hosting** on its **Hosting** tab and run the
-commands shown on your Docker host. [Self-hosted connector](/guide/self-hosted-connector)
-covers installing, the HTTPS options (own, shared with a wallet, behind nginx or Traefik),
-source and cloud credentials, and moving to another server.
+To self-host a connector, create it, select **Use self-hosting** on its **Hosting** tab and run
+the commands shown on your Docker host. Installation, HTTPS options, source credentials and
+moving to another server are described under
+[Self-hosted connector](/guide/self-hosted-connector).
 
 ## Lifecycle
 
-**Provision**, **Pause** and **Resume** are at the top of the connector page; the
-**Hosting** tab holds them too, with **Deprovision**, **Delete connector** and the
-self-hosting actions.
+**Provision**, **Pause** and **Resume** are at the top of the connector page, and the
+**Hosting** tab also contains **Deprovision**, **Delete connector** and the self-hosting
+actions.
 
-- **Provision** a new platform-hosted connector from its page. Provisioning may take several
-  minutes while images download and services start. **Pause** stops connector services while
-  retaining their data, and hides its offers from **Discover**; **Resume** starts them again. **Deprovision** uninstalls the runtime.
-- **List in discovery** on the connector page, so other organizations find its offers under
-  **Discover**. A connector that is not listed still exchanges data, but partners only reach
-  it with its DSP address.
-- **Export connector data** while it is online, to move it or keep a copy
-  ([API](/reference/api#connector-data-export-and-import)).
-- **Delete** removes the connector and its platform record. Stop a self-hosted connector on its
-  host first; OpenDS cannot erase a remote machine. Export portable definitions before removal
-  if you need them later.
-- **Health checks** run regularly; the connector page shows the result and recent events.
+- **Provision**: installs a new platform-hosted connector, which may take several minutes while
+  images are downloaded and services start.
+- **Pause** and **Resume**: stop and start the connector services while keeping their data. A
+  paused connector's offers are hidden from **Discover**.
+- **Deprovision**: uninstalls the runtime.
+- **List in discovery**: lets other organizations find the connector's offers under
+  **Discover**. A connector that is not listed still exchanges data, but partners can only
+  reach it with its DSP address.
+- **Export connector data**: saves the connector's data while it is online, to move it or keep
+  a copy ([API](/reference/api#connector-data-export-and-import)).
+- **Delete**: removes the connector and its platform record. Stop a self-hosted connector on its
+  host first, because OpenDS cannot erase a remote machine, and export the definitions
+  beforehand if you need them later.
 
-## Who can do what
-
-Connector **Managers** can do anything on their connectors, including giving other members
-access. **Viewers** can read. Owners and administrators are Managers on every connector of
-their organization.
+Health checks run regularly, and the connector page shows their result together with recent
+events. Who may perform these actions is listed under [Roles](/guide/overview#roles).
