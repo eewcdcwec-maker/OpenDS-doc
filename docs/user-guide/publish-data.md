@@ -38,8 +38,8 @@ Give each product a name, a description, categories and tags so that consumers c
 - **Credentials**: the login request body with the credentials is entered when the offer is
   published. For self-hosted connectors, it is entered on the connector's own server.
 - **Storage**: the login details stay on the connector and are never stored in OpenDS.
-- **Private networks**: a login service on a private network needs an explicit allowance from
-  the operator ([Configuration](/administration/configuration#private-networks)).
+- **Private networks**: for a platform-hosted connector, a login service on a private network
+  must first be allowed by the dataspace operator ([Configuration](/administration/configuration#private-networks)).
 
 ## Policies
 
@@ -50,14 +50,16 @@ Under **Policies**, create two kinds of policies:
 - **Usage policy**: defines the terms of use, such as time limits, usage purposes, a contract
   reference with an attached contract document, jurisdictions, onward sharing and deletion.
   Partners download the contract PDF from the offer in **Discover** before they agree, and a
-  checksum lets both sides verify the file.
+  checksum lets both sides verify the file. The platform administrator defines the list of usage
+  purposes for the whole dataspace, and you choose from it.
 
 Some terms are enforced by the connector. Others are contractual and recorded in the
 agreement, because data that a consumer has already received cannot be technically controlled.
 [Policy enforcement](/architecture#policy-enforcement) shows which terms belong to which group.
 
 **Partner groups** let you change who is allowed without republishing: changes to a group also
-apply to offers that are already published. Removing a member prevents new agreements, but an
+apply to offers that are already published. Owners and administrators create them under
+**Partner groups** in the sidebar. Removing a member prevents new agreements, but an
 existing agreement stays valid until you revoke it. A group used by active offers cannot be
 renamed or deleted until those offers are withdrawn.
 

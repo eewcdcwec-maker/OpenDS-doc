@@ -66,7 +66,8 @@ container images and Helm chart are used without modifications. Runtime-specific
 including image versions, API version, endpoints and chart checksum, are maintained in
 `runtimes/tractusx/profile.json`. OpenDS handles connector deployment and configuration, and
 integrates with the runtime through its Management API and policy adapters. It does not
-modify the EDC Java implementation, implement DSP or DCP itself, or maintain a connector
+modify the EDC Java implementation, implement the Dataspace Protocol (DSP) or the Decentralized Claims Protocol
+(DCP) itself, or maintain a connector
 fork.
 
 ## Identity
@@ -75,7 +76,8 @@ Each organization has one DID and one BPN, shared by all its connectors. The DID
 primary protocol identity for DCP 1.0 and DSP 2025-1. The BPN and BDRS directory are also
 required by the Tractus-X runtime and are handled within the Tractus-X adapter.
 
-OpenDS allocates BPNs within its own dataspace. Identity types, wallets and hosting are described in
+OpenDS allocates BPNs within its own dataspace. Identity types are described under
+[Identity](/user-guide/identity), and where the identity services run under
 [Identity services](/administration/identity-services).
 
 ## Policy enforcement

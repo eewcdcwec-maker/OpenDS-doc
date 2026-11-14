@@ -18,11 +18,11 @@ described under [Identity](/user-guide/identity).
 - Inbound TCP port 443, which the wallet also uses to obtain its certificate.
 - An OpenDS organization configured for **Self-hosted identity**.
 
+## Starting the wallet
+
 Download the wallet bundle from **Organization → Dataspace identity**. The bundle is configured
 for your dataspace and includes its CA certificate when the dataspace uses a private CA. Keep
 the extracted directory private, because setup writes secrets to its `.env` file.
-
-## Starting the wallet
 
 If this server also runs your connectors or already has a reverse proxy, read the two sections
 below before running setup. Otherwise, on the wallet server, extract the bundle, open its
@@ -94,7 +94,7 @@ In OpenDS, open **Organization → Dataspace identity** and complete the steps s
    ./wallet.sh secret
    ```
 
-4. OpenDS shows **Waiting for a platform administrator**. An administrator confirms that the
+4. OpenDS shows **Waiting for a platform administrator**. A platform administrator confirms that the
    domain belongs to your organization and approves the identity under **Platform Admin →
    Production identities awaiting approval**. This is separate from the earlier approval of the
    organization.
@@ -114,7 +114,8 @@ array in `./did/did.json` so that partners can find the connectors.
 
 ## Operation and backup
 
-- **Start and stop**: `sudo ./wallet.sh start` and `sudo ./wallet.sh stop`.
+- **Start and stop**: `sudo ./wallet.sh start` and `sudo ./wallet.sh stop`. After a server
+  restart, run `start` again. It also unseals the wallet's Vault.
 - **STS secret**: rotate it with `./wallet.sh rotate-secret`, as described under
   [Identity](/user-guide/identity#rotating-the-sts-secret).
 - **Backup**: back up the `vault`, `vault-keys` and `postgres` Docker volumes together, because

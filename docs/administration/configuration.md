@@ -24,13 +24,9 @@ it from the account menu.
 - **Private networks**: shown read-only on the **Dataspace** tab, because they are set in `.env`
   as described [below](#private-networks).
 
-Organization owners and administrators have two settings under **Organization → Organization
-settings**:
-
-- **Track activity** (default Yes): with No, the organization stops recording new activity
-  audit entries. Existing entries, memberships, permissions and server logs remain.
-- **Access requests** (default Yes): lets offers require provider approval. Offers that require
-  approval must be withdrawn before it can be turned off.
+Organization owners and administrators have their own settings under **Organization →
+Organization settings**, described under
+[Organization and team](/user-guide/organization-and-team#organization-settings).
 
 ## Administrator account
 
@@ -49,8 +45,9 @@ runs in the unencrypted HTTP evaluation mode described under
 domain, because an address-based name such as `opends.192-168-1-50.sslip.io` with
 `EDGE_TLS=internal` provides full HTTPS.
 
-Choose the domain once, before approving production organizations. Every production DID
-contains it, so a later change invalidates all production identities and credentials.
+Choose the domain once, before approving production organizations. The issuer's DID and
+every managed identity's DID contain it, and the issuer is named in every credential, so a later
+change invalidates all production identities and credentials.
 
 | Setting         | Value            | Use it when                                                                                                                         |
 | --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -72,8 +69,8 @@ The dataspace CA is a certificate authority that OpenDS creates for the installa
 Connectors and identity services trust it automatically. Any other client that connects to a
 server using it must trust its root certificate once. The certificate is stored on the
 OpenDS server in `.deploy/ca/dataspace-ca.crt` and published at
-`https://<domain>/dataspace-ca.crt`. Because that address is itself served with the dataspace
-CA, the first download shows a certificate warning. Before trusting a downloaded copy, compare
+`https://<domain>/dataspace-ca.crt`. With `EDGE_TLS=internal`, that address is itself
+served with the dataspace CA, so the first download shows a certificate warning. Before trusting a downloaded copy, compare
 its fingerprint with the one on the server:
 
 ```bash
@@ -95,8 +92,8 @@ cannot point it at internal services. Three settings in `.env` allow specific pr
 destinations. After changing them, restart the backend with
 `docker compose up -d backend worker`.
 
-- **Self-hosted wallets**: OpenDS fetches the DID document of an organization with its own
-  wallet over HTTPS. On a private network, list the hosts or ranges where organizations run their wallets:
+- **Self-hosted wallets**: OpenDS fetches the DID document of an organization with a self-hosted
+  identity over HTTPS. On a private network, list the hosts or ranges where organizations run their wallets:
 
   ```bash
   ORGANIZATION_PRIVATE_NETWORKS=192.168.0.10/32,10.20.0.0/24

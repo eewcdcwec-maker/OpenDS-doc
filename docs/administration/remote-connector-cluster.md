@@ -6,7 +6,23 @@ title: Remote connector cluster
 
 By default, setup creates a local kind cluster for platform-hosted connectors. Connectors can
 instead run on an existing Kubernetes cluster, which then runs only the connectors. The identity
-services stay on the OpenDS server and are reached through the platform's public HTTPS address. The remote settings are set in `.env`, as listed in the advanced section of
+services stay on the OpenDS server and are reached through the platform's public HTTPS address.
+
+The cluster needs:
+
+- **DNS**: a wildcard record for the connector domain that partners and the platform can
+  resolve.
+- **Private ingress address**: serves both the public and the private IngressClass and is
+  reachable only by the platform
+  (`--ingress-gateway`), so that the management API never uses the public ingress.
+- **Outbound HTTPS**: from the pods to the platform domain. The domain must resolve reliably
+  inside the pods, because connectors otherwise cannot fetch their credentials (see step 4
+  below).
+- **Storage**: a default StorageClass for the connector databases and Vaults.
+- **Network policies**: a network implementation that enforces NetworkPolicy, which isolates
+  the connectors from each other ([Architecture](/architecture#connector-hosting)).
+
+The remote settings are set in `.env`, as listed in the advanced section of
 `.env.example`, or passed to setup:
 
 ```bash
@@ -19,17 +35,6 @@ Setup keeps a private copy of the kubeconfig in `.deploy/kubeconfig-remote`. Eac
 receives `<slug>-controlplane.<domain>` and `<slug>-dataplane.<domain>` on the public
 IngressClass (`nginx` by default, with the ingress-nginx CORS annotations) and
 `<slug>.management.<domain>` on a private one (`nginx-internal`).
-
-The cluster needs:
-
-- **DNS**: a wildcard record for the connector domain that partners and the platform can
-  resolve.
-- **Private ingress address**: serves both classes and is reachable only by the platform
-  (`--ingress-gateway`), so that the management API never uses the public ingress.
-- **Outbound HTTPS**: from the pods to the platform domain. The domain must resolve reliably
-  inside the pods, because connectors otherwise cannot fetch their credentials (see step 4
-  below).
-- **Storage**: a default StorageClass for the connector databases and Vaults.
 
 ## Example: a kind cluster on a second server
 

@@ -12,18 +12,19 @@ whom they are dealing with. All connectors of an organization share its identity
 
 | Type in the app          | Wallet                       | Accepted by        | Suitable for                                  |
 | ------------------------ | ---------------------------- | ------------------ | --------------------------------------------- |
-| **Test**                 | Hosted by OpenDS, disposable | Test partners only | Trying out the dataspace                      |
+| **Test**                 | Hosted by OpenDS, disposable | Other test identities only | Trying out the dataspace                      |
 | **Managed identity**     | Hosted by OpenDS             | All partners       | Exchanging real data without running a wallet |
 | **Self-hosted identity** | Your own domain and wallet   | All partners       | Keeping your keys on your own server          |
 
 You choose the type when you register. Managed and self-hosted identities are production
 identities. They receive their credentials from the production issuer of the dataspace. Test
-identities can therefore only exchange data with other test identities.
+identities receive theirs from a separate test issuer, so they can only exchange data with
+other test identities.
 
-- **Test and managed identities** are ready a few seconds after an administrator approves your
+- **Test and managed identities** are ready a few seconds after a platform administrator approves your
   organization.
 - **Self-hosted identities** need your wallet first, as described under
-  [Self-hosted wallet](/self-hosting/self-hosted-wallet). An administrator then confirms that the domain
+  [Self-hosted wallet](/self-hosting/self-hosted-wallet). A platform administrator then confirms that the domain
   belongs to you before credentials are issued.
 
 Every identity type works with both platform-hosted and self-hosted connectors.
@@ -34,9 +35,9 @@ Only the organization owner can change the identity, on the **Organization** pag
 
 | Change                          | Action                        | Effect                                                                                                                                                              |
 | ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Test to managed or self-hosted  | **Leave test mode**           | The organization starts over: connectors, products, policies, offers, partner groups, agreements and transfers are deleted. Members stay. An administrator approves the new identity. |
+| Test to managed or self-hosted  | **Leave test mode**           | The organization starts over: connectors, products, policies, offers, partner groups, agreements and transfers are deleted. Members stay. A platform administrator approves the new identity. |
 | Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn. Connectors are removed together with their products, policies and agreements. Partner groups stay. |
-| Correct the self-hosted domain  | **Change** next to the domain | Possible only until an administrator approves the identity                                                                                                          |
+| Correct the self-hosted domain  | **Change** next to the domain | Possible only until a platform administrator approves the identity                                                                                                          |
 
 Before **Change wallet hosting**, export the data of each connector under **More → Export
 connector data**, so that you can import its products and policies into the new connectors.
@@ -57,8 +58,8 @@ folder and enter the secret it prints in the **New secret from your wallet** fie
 dialog. OpenDS delivers the new secret to every connector, and
 self-hosted connectors receive it through their agent within a minute.
 
-## When an organization leaves
+## When an organization is offboarded
 
-When an administrator offboards an organization, OpenDS immediately withdraws its DID document,
+When a platform administrator offboards an organization, OpenDS immediately withdraws its DID document,
 removes its directory entry and revokes its credentials, so partners stop trusting it at once.
 Its members lose access, and accounts without another organization are removed.

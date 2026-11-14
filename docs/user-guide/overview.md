@@ -7,11 +7,11 @@ title: Overview
 This guide is for members of organizations that share or consume data in an OpenDS dataspace
 and work with the OpenDS web application.
 
-## From data to exchange
+## From joining to exchange
 
 1. **Join** the dataspace by [registering or accepting an invitation](/user-guide/organization-and-team).
-2. **Get an identity**, either a test identity to try things out or a production identity
-   ([Identity](/user-guide/identity)).
+2. **Choose an identity type** when you register: a test identity to try things out, or a
+   production identity ([Identity](/user-guide/identity)).
 3. **Start a connector**, hosted by OpenDS or on your own server
    ([Connectors](/user-guide/connectors)).
 4. **As a provider**, add a data product and the policies that govern it, then
@@ -33,6 +33,7 @@ and work with the OpenDS web application.
 | Transfer      | One delivery of data under an agreement                                                              |
 | DID           | The decentralized identifier of an organization, which partners use to verify its identity           |
 | DSP address   | The address at which partners reach a connector, needed when the connector is not listed in discovery |
+| Wallet        | The service that holds an organization's keys and credentials. It is hosted by OpenDS or self-hosted |
 | STS secret    | The secret all connectors of an organization use to obtain tokens from its wallet                    |
 
 ## Roles
@@ -46,4 +47,4 @@ and work with the OpenDS web application.
 | Platform administrator              | Approves, suspends and offboards organizations and manages platform settings. In the app, they can only work in organizations they belong to |
 
 A connector grant does not give access to other connectors or to the administration of the
-organization. API keys carry the same permissions as their owner.
+organization. An API key has the same permissions as the member who created it.

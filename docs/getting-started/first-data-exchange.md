@@ -16,8 +16,9 @@ the organization name, your name, email address and password, the role **Data pr
 registration. Then register the consumer in the same way, choosing **Data
 consumer** as its role. Use another browser profile so that you can stay signed in to both.
 
-As the platform administrator, approve both organizations under **Platform Admin → Organizations
-awaiting approval**. A few seconds later, the **Organization** page of each organization shows
+Sign in as the platform administrator (the account from the installation) in a third browser
+profile, and approve both organizations under **Platform Admin → Organizations awaiting
+approval**. A few seconds later, the **Organization** page of each organization shows
 its identity as **Ready**.
 
 ## 2. Start a connector for each organization
@@ -75,4 +76,5 @@ connector.
 - [Discover and exchange data](/user-guide/discover-and-exchange-data) explains how to receive data into your own
   storage or download it repeatedly from a script.
 - To exchange real data, move to a managed or self-hosted identity as described under
-  [Identity](/user-guide/identity).
+  [Identity](/user-guide/identity). Leaving test mode deletes the organization's connectors,
+  products, policies, offers and agreements.

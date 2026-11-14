@@ -64,11 +64,12 @@ Notes for the integration tests:
 
   `OPENDS_TWO_HOST_KEEP=1` keeps its organizations and containers for inspection.
 
-  - `OPENDS_TWO_HOST_WALLET=own`: the second organization runs its own wallet instead of one
-    hosted by OpenDS. The issuer must be able to reach that wallet. On a private network, allow
+  - `OPENDS_TWO_HOST_WALLET=own`: the second organization uses a self-hosted identity instead
+    of a managed identity. The issuer must be able to reach its wallet. On a private network, allow
     the second server with `ORGANIZATION_PRIVATE_NETWORKS`
     ([Configuration](/administration/configuration#private-networks)).
-  - `OPENDS_TWO_HOST_SWITCH=1`: with `own`, the test also moves the wallet to OpenDS and back.
+  - `OPENDS_TWO_HOST_SWITCH=1`: with `own`, the test also switches the organization to a managed
+    identity and back.
     The switch is refused while that organization's self-hosted connectors are online.
   - `OPENDS_TWO_HOST_WALLET_DOMAIN=wallet.example.org`: uses a stable wallet hostname instead
     of an `sslip.io` name. Point its A record at the second server.

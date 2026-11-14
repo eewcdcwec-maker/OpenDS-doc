@@ -24,7 +24,7 @@ file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dat
   `limit`). Creates and updates return `{doc}`.
 - **Permissions**: API keys apply the same organization and connector permissions as the app,
   as listed under [Roles](/user-guide/overview#roles).
-- **Platform administration**: the admin interface at `/platform-admin` is the operator's
+- **Platform administration**: the admin interface at `/platform-admin` is the dataspace operator's
   support and recovery tool. It gives platform administrators access to every record of every
   organization. Day-to-day work happens in the app.
 
@@ -53,7 +53,7 @@ then resource ID. Offers are published with `POST /api/offers/publish`.
 
 Transfers of type `AmazonS3-PUSH` and `AzureStorage-PUSH` take only the location in
 `dataDestination` (`bucketName` and `objectName`, or `account`, `container` and `blobName`).
-The login comes from the consumer's connector. See [Cloud storage](/user-guide/cloud-storage).
+The keys come from the consumer's connector. See [Cloud storage](/user-guide/cloud-storage).
 
 ## Discovery and exchanges
 
@@ -100,10 +100,6 @@ connector, either on the connector page or with these routes:
   connector.
 - **Limits**: the configuration part is limited to 5 million characters, 1,000 products, 2,000
   policies and 1,000 offers.
-
-Before a connector is deleted or deprovisioned, the confirmation offers **Download connector
-data first**, because OpenDS does not archive connector data itself. A paused or offline
-connector must be started first.
 
 ## Organizations
 

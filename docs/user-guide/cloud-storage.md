@@ -5,7 +5,7 @@ title: Cloud storage
 # Cloud storage
 
 Connectors can offer data stored in Amazon S3 or Azure Blob Storage and receive data into
-their own bucket or container. The storage login is set once per connector rather than per
+their own bucket or container. The storage keys are set once per connector rather than per
 product, by a connector Manager on the connector's **Cloud storage** tab.
 
 ## Supported transfer types
@@ -20,11 +20,13 @@ product, by a connector Manager on the connector's **Cloud storage** tab.
   a short-lived token. S3 and Azure products are delivered by push.
 - **Push to S3 or Azure**: requires cloud storage on the consumer's connector. The consumer
   only enters the bucket and object name, or the storage account, container and blob name.
-  The login comes from their connector.
+  The keys come from their connector.
 
 ## Setting it up
 
-On the connector's **Cloud storage** tab, set up one or both providers:
+Before you create keys, read [A restricted AWS account](#a-restricted-aws-account) and
+[Azure](#azure) below. Then, on the connector's **Cloud storage** tab, set up one or both
+providers:
 
 - **AWS**: the region, access key ID, secret access key and the **buckets** the connector
   uses. S3-compatible services such as MinIO or Garage are not supported.
@@ -64,7 +66,7 @@ without keys, so that product forms and transfers offer them.
 - **Azure source**: a storage account and container from the connector's list, then the file
   in the same way.
 
-The source types S3 and Azure appear in the product form only when the connector has that
+The product kinds Amazon S3 and Azure Blob appear in the product form only when the connector has that
 storage configured.
 
 ## File upload

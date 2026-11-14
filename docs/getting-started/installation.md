@@ -82,7 +82,8 @@ EDGE_TLS=internal
 ```
 
 :::warning Choose your domain once
-The domain is part of every DID in the dataspace. If you change it later:
+The domain is part of the issuer's DID and of the DID of every test and managed identity. If
+you change it later:
 
 - All credentials must be issued again, because the issuer's DID changes.
 - Setup stops and names a command that removes the test identity stack. Run that command, then

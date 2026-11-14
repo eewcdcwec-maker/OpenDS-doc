@@ -43,6 +43,9 @@ Start a transfer with **Start transfer** under **Agreements** and choose the tra
 | Push to S3    | The provider's connector writes to a bucket of your connector's cloud storage    |
 | Push to Azure | The provider's connector writes to a container of your connector's cloud storage |
 
+Pull is available only for products with an HTTP source. S3 and Azure products are delivered by
+push.
+
 - **Pull**: after starting the transfer, open **Access details** under **Transfers**. It shows
   the endpoint, token and expiry, with curl and Python examples. **Fetch the data once** uses
   the current token, and **Get a new token** issues a fresh one. **Fetch it repeatedly** is a

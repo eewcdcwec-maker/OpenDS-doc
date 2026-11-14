@@ -22,6 +22,13 @@ passwords and cloud keys are entered on your server and never pass through OpenD
 
 ## Installation
 
+:::warning Keep the installer link private
+The install commands in step 1 contain a one-time installer link. Until the connector has
+started once, anyone with the link can download setup files that
+contain your connector's identity credentials. Treat the link and the folder as secrets, and
+use **Reinstall** as described below if the link leaks or the server is lost.
+:::
+
 1. Open the connector, go to its **Hosting** tab and select **Use self-hosting**. A dialog
    shows the install commands, with a one-time installer link, and the commands to start,
    stop and delete it later.
@@ -40,12 +47,6 @@ passwords and cloud keys are entered on your server and never pass through OpenD
 4. After about half a minute, the connector shows **Running** in OpenDS. Then select
    **List in discovery** on the **Hosting** tab so that partners find its offers.
 
-:::warning Keep the installer link private
-Until the connector has started once, anyone with the link can download setup files that
-contain your connector's identity credentials. Treat the link and the folder as secrets, and
-use **Reinstall** as described below if the link leaks or the server is lost.
-:::
-
 ## HTTPS options
 
 By default, the connector runs its own HTTPS server on TCP port 443 and obtains its
@@ -55,7 +56,7 @@ already runs other services, you can choose another layout:
 | Your server                                     | Start with                                                   |
 | ----------------------------------------------- | ------------------------------------------------------------ |
 | Runs only this connector                        | `sudo sh ./start.sh` (the default)                           |
-| Runs several connectors, or your own wallet too | `sudo env CONNECTOR_EDGE=shared AGENT_STATUS_PORT=7071 sh ./start.sh`, and the wallet with `--shared-edge` |
+| Runs several connectors, or your self-hosted wallet too | `sudo env CONNECTOR_EDGE=shared AGENT_STATUS_PORT=7071 sh ./start.sh`, and the wallet with `--shared-edge` |
 | Already has nginx or Traefik on TCP 443         | `sudo env CONNECTOR_EDGE=external EXTERNAL_PORT=8443 sh ./start.sh` |
 | Is the OpenDS server itself                     | `sudo env CONNECTOR_HTTP_PORT=18080 AGENT_STATUS_PORT=17070 sh ./start.sh` |
 
@@ -106,14 +107,14 @@ Then record the region, buckets, accounts and containers without keys on the con
 | Agent status               | `curl http://localhost:7070`, or your `AGENT_STATUS_PORT` |
 
 While the connector is stopped, OpenDS shows it as **Degraded** with **Agent offline**.
-**Platform Admin → Operations → Monitoring** lists it as not working. Deleting the connector in
-OpenDS or switching it to platform hosting is refused while its agent is online, so stop it on
-the server first.
+Deleting the connector in OpenDS or switching it to platform hosting is refused while its agent
+is online, so stop it on the server first.
 
 ## Moving to another server
 
 Products, policies and offers are stored in the connector's database on the server, so a new
-installation starts empty. To move the connector:
+installation starts empty. Existing agreements and transfers cannot be moved, so partners
+negotiate again. To move the connector:
 
 1. On the connector page, select **More → Export connector data** while the old server still
    runs.
@@ -126,10 +127,12 @@ installation starts empty. To move the connector:
 5. Rotate the STS secret under **Organization → Rotate STS secret**, because the old setup
    files contained it. Then publish the offers again.
 
-Existing agreements and transfers cannot be moved, so partners negotiate again.
-
 ## Switching to platform hosting
 
-If you want to keep its products and policies, export its data first. Then stop the connector
-on its server, select **Use platform hosting** on the **Hosting** tab and **Provision**. OpenDS
-then runs it on Kubernetes.
+Existing agreements cannot be moved, so partners negotiate again. To switch:
+
+1. If you want to keep the connector's products and policies, export its data.
+2. Stop the connector on its server.
+3. Select **Use platform hosting** on the **Hosting** tab, then **Provision**. OpenDS then runs
+   the connector on Kubernetes.
+4. Import the data, enter the source credentials again and publish the offers again.

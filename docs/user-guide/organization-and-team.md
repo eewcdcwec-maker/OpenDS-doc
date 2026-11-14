@@ -4,12 +4,13 @@ title: Organization and team
 
 # Organization and team
 
-## Joining
+## Joining and leaving
 
 - **Register**: when the platform allows self-registration, create an account and an
-  organization on the sign-up page and accept the participation terms of the dataspace. A
-  platform administrator approves the organization before it can exchange data. If
-  registration is closed, ask to be invited.
+  organization on the sign-up page and accept the participation terms of the dataspace. If
+  registration is closed, ask to be invited. A platform administrator approves the organization
+  before it can exchange data. Until then, you can sign in and look around. A notice at the top
+  shows whether the organization is awaiting approval, rejected or suspended.
 - **Be invited**: an owner or administrator adds you as a member. The invitation email
   contains a code that you enter when accepting. Without an email server, the inviter is shown
   the code once and passes it on. If you already have an account with the invited email address,
@@ -19,10 +20,6 @@ A new account receives an email with a link to choose a password. The link is va
 days. Only the most recent link works, so requesting a password reset replaces an unused
 invitation link. If the platform has no email server, password resets are not available and
 inviters set the initial password themselves.
-
-Until your organization is approved, you can sign in and look around but cannot exchange data.
-A notice at the top shows whether the organization is awaiting approval, rejected or
-suspended.
 
 You can decline an invitation or leave an organization at any time. If you are its last owner,
 appoint another owner first. An owner or administrator can also remove a member. Whether you leave
@@ -45,14 +42,21 @@ but never any user data.
 Owners and administrators also manage:
 
 - **Members**: the members and their roles, on the same page.
-- **Organization settings**: access requests and activity tracking.
+- **Organization settings**: access requests and activity tracking, as described
+  [below](#organization-settings).
 - **Connector access**: Manager or Viewer rights for a member, granted and revoked on the
   connector's page.
 - **Partner groups** and the **Organization activity** log, each on its own page in the
   sidebar.
 
-The platform administrator defines the list of usage purposes for the whole dataspace.
-Providers choose from it in their usage policies.
+### Organization settings
+
+Owners and administrators have two settings under **Organization → Organization settings**:
+
+- **Track activity** (default Yes): with No, the organization stops recording new activity
+  audit entries. Existing entries, memberships, permissions and server logs remain.
+- **Access requests** (default Yes): lets offers require provider approval. Offers that require
+  approval must be withdrawn before it can be turned off.
 
 ## API keys
 

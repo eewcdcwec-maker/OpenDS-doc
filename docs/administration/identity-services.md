@@ -17,8 +17,8 @@ Compose with the official Tractus-X images.
 
 ## Choosing the domain
 
-Every production DID contains the identity domain, including the issuer named in every
-credential, so **changing the domain later invalidates all production identities and
+The DIDs of the production issuer and of every managed identity contain the identity domain,
+and the issuer is named in every credential, so **changing the domain later invalidates all production identities and
 credentials**. Organizations with a managed identity then get new identities, and organizations with a self-hosted
 identity must request their credentials again. Before approving the first production
 organization, choose a name you will keep, such as `dataspace.example.org` or `id.example.org`,
@@ -40,7 +40,7 @@ name.
 | Component                                    | Runs on                                       | Reachable from                                                 |
 | -------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------- |
 | Platform                                     | OpenDS server                                 | Users and administrators                                       |
-| Test identity stack                          | OpenDS server                                 | Participants of the test phase                                 |
+| Test identity stack                          | OpenDS server                                 | Organizations with a test identity                              |
 | Production identity stack                    | OpenDS server (default) or a separate host    | All participants over HTTPS, management only from the platform |
 | Platform-hosted connectors                   | Kubernetes, locally or in a remote cluster    | Participants over HTTPS                                        |
 | Self-hosted connectors and wallets           | Servers operated by the organizations         | As chosen by the organization                                  |
@@ -63,7 +63,16 @@ server.
 
 A separate identity host needs a Linux server with Docker, an SSH user with sudo, TCP ports 80
 and 443 open to the internet, and a DNS name pointing at it. A server with 2 vCPUs, 4 GB RAM and
-swap enabled is sufficient. After setup, run on the OpenDS server:
+swap enabled is sufficient.
+
+:::warning Moving an existing dataspace
+Moving from a local stack changes the production issuer's DID, which affects every production
+organization. If production organizations already exist, read the notes on moving from a local
+stack below before you run the installer.
+:::
+
+After `bash manage.sh setup` has finished, run this on the OpenDS server, with the SSH user and
+address of the identity host and its DNS name:
 
 ```bash
 bash scripts/identity-host-install.sh opends@203.0.113.20 id.example.org

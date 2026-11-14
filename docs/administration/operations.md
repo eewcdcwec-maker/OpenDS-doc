@@ -34,7 +34,10 @@ on demand and downloads are configured under **Platform Admin → Operations**.
 | The database and Vault of a linked separate identity host       |                                                      |
 
 Connector data is saved separately with **Export connector data** on each connector. The export
-contains the definitions and exchange history, but no secrets or source files.
+contains the products, policies, offers and exchange history, but no secrets or source files.
+
+The database and the contract files are copied one after the other. If you need a fully
+consistent recovery point, pause contract uploads and deletions while taking a backup.
 
 | Command                                   | Effect                                                                                                         |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
@@ -50,14 +53,11 @@ BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>
 ```
 
 - **Platform-hosted connectors**: on the same server, they keep their runtime data. On a new
-  server, they must be provisioned again, with their definitions imported and their credentials
-  entered again.
+  server, they must be provisioned again, with their products, policies and offers imported and their
+  credentials entered again.
 - **Separate identity host**: `backup restore` skips its data, which has to be restored on that
   host, as described under
   [Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
-
-The database and the contract files are copied one after the other. If you need a fully
-consistent recovery point, pause contract uploads and deletions while taking a backup.
 
 ## Self-hosted connectors
 
