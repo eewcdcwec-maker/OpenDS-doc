@@ -67,14 +67,6 @@ including image versions, API version, endpoints and chart checksum, are maintai
 integrates with the runtime through its Management API and policy adapters. It does not
 modify the EDC Java implementation or maintain a connector fork.
 
-The OpenDS code around the connector covers:
-
-- the app and API, permissions, product search and approvals
-- the Management API and policy adapters (`backend/src/connectors/adapters/tractusx/`)
-- Kubernetes provisioning
-- the self-hosted Docker bundle and agent
-- the source token renewal worker
-
 Unsupported runtime versions fail explicitly, and upgrades are described under
 [Development](/development#runtime-upgrades).
 
