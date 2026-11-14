@@ -30,6 +30,19 @@ These source types appear only when the connector has cloud storage set up, as d
 
 Give each product a name, a description, categories and tags so that consumers can find it.
 
+### HTTP sources
+
+For an HTTP source, two more fields describe how consumers use it:
+
+- **What consumers can request**:
+  - **Only this exact URL**: for a single file or report.
+  - **This URL plus a sub-path and query** (the default): consumers read below the URL, for
+    example `/meters/42?from=2026-01-01`.
+  - **Any request to this API, including writes**: consumers also choose the HTTP method and
+    send a body. Use it only for APIs that are meant to accept partner input.
+- **How to use**: free text for paths, parameters and a link to the API documentation.
+  Consumers see it with the offer and next to their endpoint.
+
 ### Protected HTTP sources
 
 If an HTTP source requires authentication, choose the type under **HTTP source
