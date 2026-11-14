@@ -60,12 +60,12 @@ provided by the local cluster.
 
 ## Connector runtime
 
-The connector is the official Tractus-X EDC 0.13.0 distribution. Its version, images, chart
-checksum, API version and endpoints are declared in `runtimes/tractusx/profile.json`. The
-images are unmodified upstream releases, and the packaged Helm chart is the upstream archive,
-verified against its recorded SHA-256. OpenDS does not patch Java classes, build a connector
-fork or implement DSP or DCP itself, while deployment values and startup ordering are part of
-the OpenDS configuration.
+OpenDS uses the Tractus-X EDC 0.13.0 distribution as its connector runtime. The upstream
+container images and Helm chart are used without modifications. Runtime-specific settings,
+including image versions, API version, endpoints and chart checksum, are maintained in
+`runtimes/tractusx/profile.json`. OpenDS handles connector deployment and configuration, and
+integrates with the runtime through its Management API and policy adapters. It does not
+modify the EDC Java implementation or maintain a connector fork.
 
 The OpenDS code around the connector covers:
 
