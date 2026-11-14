@@ -88,8 +88,8 @@ controlled once the data has been received.
 | Policy term                             | Enforced by | How                                                              |
 | --------------------------------------- | ----------- | ---------------------------------------------------------------- |
 | Verified participants                   | Connector   | Checks the consumer's membership credential                      |
-| Allowed organizations                   | Connector   | Checks the consumer's BPN against the list                       |
-| Partner group                           | Connector   | Checks the consumer's BPN against the group stored on the connector |
+| Allowed organizations                   | Connector   | Checks that the consumer is one of the allowed organizations     |
+| Partner group                           | Connector   | Checks that the consumer is a member of the group                |
 | Time limit                              | Connector   | Refuses transfers once the agreement has expired                 |
 | Usage purpose                           | Contract    | Recorded in the agreement                                        |
 | Contract reference and document         | Contract    | Recorded in the agreement, with a checksum of the contract PDF   |
