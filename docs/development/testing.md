@@ -11,7 +11,7 @@ title: Testing
 | `bash manage.sh smoke`              | API: organizations, accounts, permissions, planned connectors, discovery, approvals, contract documents                                                                                                                                                                  |
 | `bash manage.sh runtime-e2e`        | Real connectors: provisioning, policies, approvals, HTTP and file sources, source credentials, cloud storage, token renewal, discovery, organization isolation, exchanges, partner group changes on published offers, agreement revocation and provider-side termination |
 | `bash manage.sh self-host-e2e`      | A self-hosted connector on the same host: both exchange directions, local source credentials, STS rotation, stop and resume, reinstall                                                                                                                                   |
-| `scripts/two-host-identity-e2e.mjs` | An organization with its own wallet and connectors on a second host ([below](#two-host-integration-test))                                                                                                                                             |
+| `scripts/two-host-identity-e2e.mjs` | An organization on a second server joins the dataspace and exchanges data with an organization OpenDS hosts                                                                                                                                             |
 
 CI runs `npm run check`, dependency audits, fresh database migrations, the API smoke test and
 the browser workflows on every pull request. Run the real connector tests on a deployment
@@ -54,56 +54,17 @@ Notes for the integration tests:
   (an existing bucket), `_S3_REGION`, `_S3_KEY_ID` and `_S3_SECRET`, and optionally
   `_AZURE_ACCOUNT`, `_AZURE_KEY` and `_AZURE_CONTAINER` (an existing container). Test files stay
   under `opends-tests/`.
-- The two-host test needs a second Docker host reachable over SSH (`OPENDS_TWO_HOST_SSH`,
-  `OPENDS_TWO_HOST_HOST`). `OPENDS_TWO_HOST_KEEP=1` keeps its organizations and containers for
-  inspection.
+- The two-host test needs OpenDS installed with `PUBLIC_DOMAIN`, and a second Linux server with
+  Docker, reachable over SSH from the OpenDS server and with inbound TCP port 443. Run it with:
+
+  ```bash
+  OPENDS_TWO_HOST_SSH=user@second-server OPENDS_TWO_HOST_HOST=<second-server-ip> \
+    node scripts/two-host-identity-e2e.mjs
+  ```
+
+  `OPENDS_TWO_HOST_KEEP=1` keeps its organizations and containers for inspection.
 - `PAYLOAD_PROOF_PRODUCTION=1 npm run test:platform` starts an isolated production API
   (port 8082 by default) against a disposable database and checks API isolation, sessions,
   restarts, duplicate jobs and admin routing. Do not run another worker against that
   database.
 - Keep database URLs and installer tokens out of logs and source archives.
-
-## Two-host integration test
-
-`scripts/two-host-identity-e2e.mjs` checks that an organization on another server can join an
-OpenDS dataspace and exchange data with an organization OpenDS hosts. It covers the production
-issuer, administrator approval, HTTPS `did:web` resolution, the BDRS directory and DSP between
-independent hosts.
-
-|              | OpenDS server                    | Second server                                               |
-| ------------ | -------------------------------- | ----------------------------------------------------------- |
-| Organization | "Org A", managed identity        | "Org B"                                                     |
-| Wallet       | OpenDS IdentityHub               | Hosted by OpenDS, or its own (`OPENDS_TWO_HOST_WALLET=own`) |
-| Connectors   | Hosted by OpenDS                 | Two self-hosted connectors behind one shared HTTPS entry    |
-| Credentials  | OpenDS production issuer         | OpenDS production issuer                                    |
-
-The test registers and approves both organizations, exchanges data in both directions,
-offboards Org B, and removes the resources it created on the second server.
-
-### Requirements
-
-- OpenDS installed with `PUBLIC_DOMAIN`, so that the production issuer exists.
-- A second Linux server with Docker, reachable over SSH from the OpenDS server, with inbound
-  TCP port 443.
-- For `OPENDS_TWO_HOST_WALLET=own`, an issuer that can reach the organization's wallet. Allow
-  a private second server with `ORGANIZATION_PRIVATE_NETWORKS`
-  ([Configuration](/administration/configuration#private-networks)). A separate identity host
-  cannot reach a private wallet.
-
-### Run the test
-
-```bash
-OPENDS_TWO_HOST_SSH=user@second-server OPENDS_TWO_HOST_HOST=<second-server-ip> \
-  NODE_EXTRA_CA_CERTS=.deploy/ca/dataspace-ca.crt node scripts/two-host-identity-e2e.mjs
-```
-
-Set `OPENDS_TWO_HOST_KEEP=1` to keep organizations and containers for inspection. With
-`OPENDS_TWO_HOST_WALLET=own`, `OPENDS_TWO_HOST_SWITCH=1` also moves Org B's wallet to OpenDS and back. That switch is
-refused while Org B's self-hosted connectors are online.
-
-The test uses `sslip.io` names built from the second server's IP address. To use a stable wallet
-hostname instead, set `OPENDS_TWO_HOST_WALLET_DOMAIN=wallet.example.org` and point its A record
-at the second server.
-
-For a manual setup, use [Self-hosted wallet](/self-hosting/self-hosted-wallet) and create
-a self-hosted connector from the app.
