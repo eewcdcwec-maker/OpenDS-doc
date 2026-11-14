@@ -65,7 +65,8 @@ container images and Helm chart are used without modifications. Runtime-specific
 including image versions, API version, endpoints and chart checksum, are maintained in
 `runtimes/tractusx/profile.json`. OpenDS handles connector deployment and configuration, and
 integrates with the runtime through its Management API and policy adapters. It does not
-modify the EDC Java implementation or maintain a connector fork.
+modify the EDC Java implementation, implement DSP or DCP itself, or maintain a connector
+fork.
 
 Unsupported runtime versions fail explicitly, and upgrades are described under
 [Development](/development#runtime-upgrades).
