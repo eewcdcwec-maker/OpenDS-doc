@@ -8,15 +8,7 @@ OpenDS is the management platform around a dataspace, not a connector itself. Ea
 organization's connectors do the actual data exchange; OpenDS creates and runs them, gives
 them identities, and offers one app for publishing, discovering and exchanging data.
 
-```text
-Browser ── OpenDS app (frontend) ── OpenDS API and worker (backend) ── PostgreSQL
-                                          │
-              ┌───────────────────────────┼──────────────────────────────┐
-              │                           │                              │
-   Platform-hosted connectors     Self-hosted connectors       Identity services
-   (Kubernetes, managed by        (Docker on the organization's (issuer, wallets, BDRS;
-    OpenDS)                        server, driven by its agent)   Docker Compose)
-```
+![OpenDS architecture: the platform manages platform-hosted connectors on Kubernetes and self-hosted connectors through their agent; connectors exchange data with other participants and read from data sources](./img/architecture.png)
 
 ## Components
 
