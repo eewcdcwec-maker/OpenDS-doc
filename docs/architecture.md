@@ -20,12 +20,12 @@ participant's own infrastructure and controlled through the OpenDS agent.
 | Backend           | Payload 3 on Next.js, which provides the REST API, authentication, permissions and business rules             |
 | Worker            | Runs queued jobs such as connector provisioning, identity tasks, health checks and notifications              |
 | PostgreSQL        | Stores users, organizations, permissions, approvals and operational records                                   |
-| Connectors        | Official, unmodified Tractus-X EDC 0.13, each with its own control plane, data plane, PostgreSQL and Vault    |
+| Connectors        | Official Tractus-X EDC, each with its own control plane, data plane, PostgreSQL and Vault                     |
 | Identity services | Tractus-X IdentityHub, IssuerService and BDRS, as described in [Identity services](/identity/identity-hosting) |
 
-The backend owns every permission and business rule, so the browser never communicates with
-Vault, Kubernetes or a connector's management API directly. Backend and worker run without
-root rights or Linux capabilities, and connector pods receive no Kubernetes API token.
+The backend enforces all permissions, so the browser never accesses Vault, Kubernetes or the
+connectors' Management APIs directly. The backend and worker run without root privileges or
+Linux capabilities, and connector pods are not given a Kubernetes API token.
 
 ## Where data lives
 
@@ -39,9 +39,6 @@ root rights or Linux capabilities, and connector pods receive no Kubernetes API 
   request and response bodies. Self-host EDR responses pass through backend memory and are
   discarded after delivery, which assumes one backend instance. Downloads go directly
   through the connector's data plane.
-
-Connector Vaults keep their data across restarts and unseal themselves; see
-[Development](/development#internals) for how.
 
 ## Connector hosting
 
