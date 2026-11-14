@@ -22,7 +22,7 @@ and management to participating organizations.
 - **Data publication and access policies**: publish data from HTTP services, protected endpoints, Amazon S3, Azure Blob or file uploads. Define who can access data and under which conditions.
 - **Data discovery and exchange**: discover published data products across participating organizations, negotiate agreements and exchange data through secure connector-to-connector transfers.
 - **Provider control**: monitor who accesses published data, revoke or restore agreements, and stop ongoing transfers.
-- **Platform operations**: configure HTTPS, manage encrypted backups, monitor services with email alerts, and export or import connector data.
+- **Platform operations** (for operators): configure HTTPS, manage encrypted backups, monitor services with email alerts, and export or import connector data.
 
 ## Hosting choices
 
@@ -36,6 +36,7 @@ Each organization decides what it runs itself. Connector and identity are indepe
 ## Where to start
 
 - Try it: [Installation](/getting-started/installation), then [Your first data exchange](/getting-started/first-data-exchange)
+- Understand how it works: [Architecture](/architecture)
 - Use the app: [User guide](/user-guide/overview)
 - Run connectors or a wallet on your own servers: [Self-hosting](/self-hosting/self-hosted-connector)
 - Operate an installation: [Administration](/administration/configuration)
