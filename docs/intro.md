@@ -37,7 +37,9 @@ Each organization decides what it runs itself. Connector and identity are indepe
 - Operate an installation: [Administration](/administration/configuration)
 - Contribute: [Development](/development)
 
-OpenDS is released under the Apache-2.0 license.
+## License
+
+OpenDS is released under the [Apache License 2.0](https://github.com/kwe712/OpenDS/blob/main/LICENSE).
 
 ## Contact
 
