@@ -68,25 +68,31 @@ upstream advisories are reported by the audit, not hidden.
 
 ## Runtime upgrades
 
-A Tractus-X release is an explicit dependency upgrade, not an automatic image change. The
-platform and connector databases use PostgreSQL 18.
+A new Tractus-X release is never picked up automatically. Moving to it is a deliberate
+dependency upgrade:
 
-1. Review the release notes: database migrations, Management API, DSP, identity, policy and
-   configuration changes.
-2. Add the matching chart under `runtimes/tractusx/charts`. Update its checksum, version,
-   images and endpoints in the profile, and `infra/charts/SHA256SUMS`. Adapt the Tractus-X
-   integration where the upstream contract changed.
-3. Update the platform schema and defaults where needed.
-4. Run `npm run check`, the smoke test, real connector exchanges and the self-host test in an
-   isolated deployment, with the same candidate images for both hosting modes
-   ([Testing](/development/testing)).
-5. Reprovision connectors and regenerate self-host bundles. Updating the backend does not
-   upgrade running connectors or bundles organizations already downloaded.
+1. Read the release notes for changes to database migrations, the Management API, DSP,
+   identity, policies and configuration.
+2. Add the matching chart under `runtimes/tractusx/charts`. In the runtime profile
+   (`runtimes/tractusx/profile.json`), update the chart's checksum, version, images and
+   endpoints. Also update `infra/charts/SHA256SUMS`. Where the upstream contract changed, adapt
+   the Tractus-X integration.
+3. Update the platform schema and defaults if needed.
+4. In an isolated deployment, run `npm run check`, the smoke test, real connector exchanges and
+   the self-host test ([Testing](/development/testing)). Use the same candidate images for
+   platform-hosted and self-hosted connectors.
+5. Reprovision the connectors and regenerate the self-host bundles. Updating the backend does
+   not upgrade running connectors, or bundles that organizations have already downloaded.
 
-`bash manage.sh runtime-e2e` also watches BDRS traffic through a temporary forwarding proxy,
-keeping only method, path and status. The exchange flows use the BDRS directory, so it stays
-enabled. The profile tests check that chart dependencies and images agree, and reject
-versions OpenDS does not implement.
+Two tests help with an upgrade:
+
+- **Profile tests** check that chart dependencies and images match, and reject versions that
+  OpenDS does not implement.
+- **`bash manage.sh runtime-e2e`** also records BDRS traffic through a temporary forwarding
+  proxy, keeping only method, path and status. The exchange flows use the BDRS directory, so
+  it stays enabled.
+
+The platform and connector databases use PostgreSQL 18.
 
 ## Internals
 
