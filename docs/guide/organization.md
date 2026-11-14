@@ -39,7 +39,9 @@ password. After five wrong passwords in a row the account is locked for ten minu
 ## Organization details
 
 Under **Organization** you describe what your organization shares or uses in the dataspace.
-Partners see this description. Owners and administrators also manage:
+Partners see this description. The organization directory shows signed-in members the approved
+organizations of their dataspace, including name, BPN, DID and the DSP addresses of running
+connectors, but never any user data. Owners and administrators also manage:
 
 - **Members** and their roles, on the same page, and the **Organization settings** (access
   requests and activity tracking).

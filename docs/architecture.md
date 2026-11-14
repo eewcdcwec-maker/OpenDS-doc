@@ -78,48 +78,28 @@ OpenDS allocates BPNs within its own dataspace. Catalog requests use DID-based D
 discovery with a known provider address. Identity types, wallets and hosting are described in
 [Identity services](/identity/identity-hosting).
 
-## Offers, policies and enforcement
+## Policy enforcement
 
-```text
-Data product + Access policy + Usage policy -> Offer
-Offer -> Optional provider approval -> Negotiation -> Agreement -> Transfer
-```
+When an offer is published, OpenDS translates each policy term into a constraint of the
+Tractus-X policy engine. Terms the connector can check are enforced on every negotiation and
+transfer, while contractual terms are recorded in the agreement and cannot be technically
+controlled once the data has been received.
 
-Access policies decide who can discover an offer and agree to it. Allow-lists contain BPNs,
-which are selected from the organization directory and become the runtime's
-`BusinessPartnerNumber` constraint when the offer is published.
+| Policy term                              | Connector constraint                                              | Enforced by |
+| ---------------------------------------- | ----------------------------------------------------------------- | ----------- |
+| Verified participants                    | `Membership`                                                      | Connector   |
+| Allowed organizations                    | `BusinessPartnerNumber`                                           | Connector   |
+| Partner group                            | `BusinessPartnerGroup`                                            | Connector   |
+| Time limit                               | `inForceDate`, a fixed date or `contractAgreement+<n>d`           | Connector   |
+| Usage purpose                            | `UsagePurpose`                                                    | Contract    |
+| Contract reference and document          | `ContractReference`, with the SHA-256 of an uploaded contract PDF | Contract    |
+| Jurisdictions, onward sharing, deletion  | Recorded as values of `ContractReference`                         | Contract    |
 
-Partner groups are kept on the provider's connectors in the runtime's business partner group
-store, and a policy refers to the group (`BusinessPartnerGroup`) rather than to a copy of its
-members.
+Every usage policy also carries `Membership` and `FrameworkAgreement`, which Tractus-X
+requires.
 
-- Adding or removing a member also applies to offers that are already published, without
-  republishing them.
-- OpenDS writes each change to every running connector of the organization when the group is
-  saved, and again before an offer with a group policy is published.
-- The health check corrects connectors that missed a change, within a minute for
-  platform-hosted connectors and within ten minutes of the agent being online for self-hosted
-  ones.
-- Removing a member prevents new agreements, while an existing agreement of that member stays
-  valid until the provider revokes it.
-- A group used by a published offer cannot be renamed or deleted.
-
-Each policy term states who enforces it:
-
-| Enforcement | Terms                                                                      | Meaning                                                                                              |
-| ----------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Connector   | Verified participants, allowed organizations, partner groups, time limits  | The provider's connector checks credentials and BPN, and the contract expiry on each transfer        |
-| Contractual | Usage purpose, contract reference, jurisdictions, onward sharing, deletion | Recorded in the agreement, while data that has already been received cannot be technically controlled |
-
-Time limits become the connector's contract expiry constraint (`inForceDate`, with a fixed date
-or `contractAgreement+<n>d`), so transfers are refused after expiry. Every usage policy carries
-`UsagePurpose`, with the chosen purposes or the default, and `FrameworkAgreement`, which
-Tractus-X requires. A contract reference becomes `ContractReference`, and an uploaded contract
-PDF, which is stored only in OpenDS, adds its SHA-256.
-
-## Provider controls
-
-Providers can see who uses their data, revoke agreements and stop transfers, as described in
-[Discover and exchange data](/guide/exchange#as-a-provider-see-and-control-use). The
-organization directory shows signed-in members the approved organizations of their dataspace,
-including name, BPN, DID and the DSP addresses of running connectors, but never any user data.
+Partner groups are stored on the provider's connectors in the runtime's business partner group
+store, and a policy refers to the group rather than to a copy of its members. OpenDS writes
+each change to every running connector of the organization when the group is saved and again
+before an offer with a group policy is published, while the health check corrects connectors
+that missed a change.

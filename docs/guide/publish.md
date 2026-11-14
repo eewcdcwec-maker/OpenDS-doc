@@ -63,7 +63,7 @@ Every term shows who enforces it:
 
 Contractual terms are recorded in the agreement. They are not technically enforced: data a
 consumer has received cannot be controlled. See
-[Architecture](/architecture#offers-policies-and-enforcement).
+[Architecture](/architecture#policy-enforcement).
 
 **Partner groups** let you change who is allowed without republishing. Changes are synchronized
 to published offers on the configured health-check schedule. Removing a member stops new
