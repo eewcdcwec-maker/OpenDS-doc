@@ -16,11 +16,11 @@ product, by a connector Manager on the connector's **Cloud storage** tab.
 | S3                    | no                   | yes                      | yes        | yes           |
 | Azure Blob            | no                   | yes                      | yes        | yes           |
 
-- **Pull**: available for HTTP sources only, where the connector gives the consumer an
-  endpoint and a short-lived token. S3 and Azure products are delivered by push.
+- **Pull**: available for HTTP sources only. The connector gives the consumer an endpoint and
+  a short-lived token. S3 and Azure products are delivered by push.
 - **Push to S3 or Azure**: requires cloud storage on the consumer's connector. The consumer
-  only enters the bucket and object name, or the storage account, container and blob name,
-  while the login comes from their connector.
+  only enters the bucket and object name, or the storage account, container and blob name.
+  The login comes from their connector.
 
 ## Setting it up
 
@@ -34,8 +34,8 @@ Products and transfers choose from these buckets and containers, so a new one mu
 here before it can be used.
 
 On a platform-hosted connector, the keys are stored on the connector, which keeps its
-products, offers and agreements, and OpenDS never shows the keys again. Saving without keys
-keeps the stored ones, while removing AWS or an account deletes its keys. Before saving, OpenDS
+products, offers and agreements. OpenDS never shows the keys again. Saving without keys keeps
+the stored ones. Removing AWS or an account deletes its keys. Before saving, OpenDS
 checks that the AWS keys work and belong to an IAM user rather than the root account, that each
 bucket exists in the chosen region, and that each Azure account key is accepted and its
 containers exist. Nothing is stored when a check fails.
@@ -69,7 +69,7 @@ storage configured.
 
 **Upload a new file** stores a file of up to 100 MB in the chosen bucket or container under
 the path entered in **Save as** (default `opends-uploads/<file name>`). An existing file at
-that path is never replaced, so the upload is refused and you choose another path. The file is
+that path is never replaced: the upload is refused and you choose another path. The file is
 passed through OpenDS to the storage without being kept on the platform. On a self-hosted
 connector, the agent authorizes the upload with the keys on its host, so the keys never reach
 OpenDS.
@@ -78,8 +78,8 @@ OpenDS.
 
 Use an **IAM user access key** in a **dedicated AWS account** that holds only the exchange
 buckets. To receive data into S3, the consumer's connector creates a short-lived IAM role for
-each transfer, tagged `dataspaceconnector:process`, which it uses to write to the target bucket
-and deletes afterwards. Because this requires the right to create roles, a separate account
+each transfer, tagged `dataspaceconnector:process`. It uses the role to write to the target
+bucket and deletes it afterwards. Because this requires the right to create roles, a separate account
 limits what the credentials can reach.
 
 Permissions the IAM user needs, limited to the exchange buckets (for example `opends-*`):
@@ -144,6 +144,6 @@ if needed and writes with a short-lived SAS token derived from the key.
 
 ## Known limitations
 
-After a push into S3, expired short-lived credentials can remain stored on the connector.
-The transfer still completes and its IAM role is deleted, as this is a limitation of the
-connector runtime.
+After a push into S3, expired short-lived credentials can remain stored on the connector. This
+is a limitation of the connector runtime. The transfer still completes and its IAM role is
+deleted.

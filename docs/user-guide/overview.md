@@ -40,7 +40,7 @@ and work with the OpenDS web application.
 | Organization member                 | Works on the connectors they have been granted                                                                                     |
 | Connector Manager                   | Can do everything on that connector, including products, policies, offers, imports, lifecycle, exchanges and access for other members |
 | Connector Viewer                    | Can view the resources of that connector                                                                                           |
-| Platform administrator              | Approves, suspends and offboards organizations and manages platform settings, and works in the app only in their own organizations |
+| Platform administrator              | Approves, suspends and offboards organizations and manages platform settings; works in the app only in their own organizations |
 
 A connector grant does not give access to other connectors or to the administration of the
 organization. API keys carry the same permissions as their owner.

@@ -4,11 +4,11 @@ title: Architecture
 
 # Architecture
 
-OpenDS manages the dataspace infrastructure and coordinates connector operations. Data
-exchange is performed by the connectors of the participating organizations, while OpenDS
-provides centralized management of connector deployments, identities and data exchange
-workflows. Connectors are either hosted by the platform on Kubernetes or self-hosted on a
-participant's own infrastructure and controlled through the OpenDS agent.
+OpenDS manages the dataspace infrastructure and coordinates connector operations. The data
+itself is exchanged by the connectors of the participating organizations. OpenDS provides
+centralized management of connector deployments, identities and data exchange workflows.
+Connectors are either hosted by the platform on Kubernetes, or self-hosted on a participant's
+own infrastructure and controlled through the OpenDS agent.
 
 ![OpenDS architecture: the platform manages platform-hosted connectors on Kubernetes and self-hosted connectors through their agent, while connectors exchange data with other participants and read from data sources](./img/architecture.png)
 
@@ -82,8 +82,8 @@ discovery with a known provider address. Identity types, wallets and hosting are
 
 When an offer is published, OpenDS translates each policy term into a constraint of the
 Tractus-X policy engine. Terms the connector can check are enforced on every negotiation and
-transfer, while contractual terms are recorded in the agreement and cannot be technically
-controlled once the data has been received.
+transfer. Contractual terms are recorded in the agreement and cannot be technically controlled
+once the data has been received.
 
 | Policy term                             | Enforced by | How                                                              |
 | --------------------------------------- | ----------- | ---------------------------------------------------------------- |

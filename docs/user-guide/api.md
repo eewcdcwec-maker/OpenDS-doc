@@ -13,26 +13,26 @@ Authorization: users API-Key <your-api-key>
 x-tenant-id: <organization-id>
 ```
 
-Creating a key asks for your password and an expiry of 90 days by default, and an expired key
-stops working within a minute. The API guide in the app has curl and Python examples, including
+Creating a key asks for your password and an expiry, which is 90 days by default. An expired
+key stops working within a minute. The API guide in the app has curl and Python examples, including
 file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dataspace CA
 ([Configuration](/administration/configuration#trusting-the-dataspace-ca)).
 
 ## Conventions
 
 - **Collections**: `/api/<collection>` with paginated results (`docs`, `totalDocs`, `page`,
-  `limit`), while creates and updates return `{doc}`.
+  `limit`). Creates and updates return `{doc}`.
 - **Permissions**: API keys apply the same organization and connector permissions as the app,
   as listed under [Roles](/user-guide/overview#roles).
 - **Platform administration**: the admin interface at `/platform-admin` is the operator's
-  support and recovery tool and gives platform administrators access to every record of every
+  support and recovery tool. It gives platform administrators access to every record of every
   organization. Day-to-day work happens in the app.
 
 ## Products, policies and offers
 
-Products, policies and offers are stored on the connectors. A running connector must be
-selected when creating them, and active offers must be withdrawn before their product or
-policy can be changed or deleted.
+Products, policies and offers are stored on the connectors. Select a running connector
+when creating them. Active offers must be withdrawn before their product or policy can be
+changed or deleted.
 
 Lists are paged per connector:
 
@@ -41,19 +41,19 @@ GET /api/connector-resources?collection=products&connector=<uuid>&limit=20
 ```
 
 Follow `nextCursor` with the `cursor` parameter and reset it when changing filters. Policy
-lists also accept `purpose=ACCESS` or `purpose=USAGE`, and results are ordered by connector
-name, then resource ID. Offers are published with `POST /api/offers/publish`.
+lists also accept `purpose=ACCESS` or `purpose=USAGE`. Results are ordered by connector name,
+then resource ID. Offers are published with `POST /api/offers/publish`.
 
 ## Cloud storage
 
 | Endpoint                                                                                | Purpose                                                                                                                                                                                                                         |
 | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST /api/connectors/:id/cloud-storage`                                                | Sets the connector's AWS and Azure storage (Manager). Body `{ "aws": { region, buckets, ... } \| null, "azure": { accounts: [{ name, containers, key }] } \| null }`, where a missing key keeps the stored one. Keys are never returned, and the response contains the settings and a `taskId`. |
-| `POST /api/connectors/:id/files?bucket=<b>&path=` or `?account=<a>&container=<c>&path=` | Uploads the request body of up to 100 MB into one of the connector's buckets or containers at `path` (Manager). Returns 409 when a file already exists there, and otherwise the product source fields.                         |
+| `POST /api/connectors/:id/cloud-storage`                                                | Sets the connector's AWS and Azure storage (Manager). Body `{ "aws": { region, buckets, ... } \| null, "azure": { accounts: [{ name, containers, key }] } \| null }`. A missing key keeps the stored one. Keys are never returned. The response contains the settings and a `taskId`. |
+| `POST /api/connectors/:id/files?bucket=<b>&path=` or `?account=<a>&container=<c>&path=` | Uploads the request body of up to 100 MB into one of the connector's buckets or containers at `path` (Manager). Returns 409 when a file already exists there. Otherwise, returns the product source fields.                         |
 
 Transfers of type `AmazonS3-PUSH` and `AzureStorage-PUSH` take only the location in
-`dataDestination` (`bucketName` and `objectName`, or `account`, `container` and `blobName`),
-while the login comes from the consumer's connector. See [Cloud storage](/user-guide/cloud-storage).
+`dataDestination` (`bucketName` and `objectName`, or `account`, `container` and `blobName`).
+The login comes from the consumer's connector. See [Cloud storage](/user-guide/cloud-storage).
 
 ## Discovery and exchanges
 
@@ -67,15 +67,15 @@ while the login comes from the consumer's connector. See [Cloud storage](/user-g
 | `POST /api/exchange/agreements/<connector>/<agreement>/revoke`     | Revokes an agreement as provider, with an optional body `{ "reason": "..." }` |
 | `POST /api/exchange/agreements/<connector>/<agreement>/restore`    | Restores a revoked agreement as provider                                      |
 | `POST /api/exchange/transfers/<connector>/<transfer>/edr`          | Returns a current access token for repeated downloads as consumer             |
-| `POST /api/exchange/transfers/<connector>/<transfer>/suspend`      | Suspends a running transfer on either side, while `resume` and `terminate` work the same way |
+| `POST /api/exchange/transfers/<connector>/<transfer>/suspend`      | Suspends a running transfer on either side. `resume` and `terminate` work the same way |
 
 - **Provider view**: both lists show the organization as consumer by default. With
   `role=provider` they list the agreements and transfers of data it shares, with the consumer
   in `partner` and `retired` set for revoked agreements.
-- **Permissions**: these actions require the Manager role on the connector, and revoking and
-  restoring only work on the provider's own connector.
-- **Paging**: agreements and transfers come in pages of 20, 50 or 100 entries per connector,
-  and new records can shift page boundaries.
+- **Permissions**: these actions require the Manager role on the connector. Revoking and restoring
+  only work on the provider's own connector.
+- **Paging**: agreements and transfers come in pages of 20, 50 or 100 entries per connector.
+  New records can shift page boundaries.
 
 ## Connector data export and import
 
@@ -92,8 +92,8 @@ connector, either on the connector page or with these routes:
 - **Requirements**: the connector must be running or degraded and reachable, and a self-hosted
   connector's agent must be online.
 - **Excluded data**: credentials, secrets, tokens, private keys and source data are never
-  included, so source credentials must be entered again and policies reviewed before imported
-  offers are published.
+  included. Source credentials must therefore be entered again, and policies reviewed, before
+  imported offers are published.
 - **Import behavior**: imports create new resource IDs, keep existing resources and skip offers
   unless `publishOffers` is true. A failed import removes what that attempt created.
 - **Exchange history**: included for reference only, because it cannot be recreated on a

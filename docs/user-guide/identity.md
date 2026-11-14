@@ -6,7 +6,7 @@ title: Identity
 
 Every organization has exactly one identity, consisting of a DID and credentials issued by the
 dataspace operator. Connectors present these credentials when they negotiate, so partners know
-whom they are dealing with, and all connectors of an organization share its identity.
+whom they are dealing with. All connectors of an organization share its identity.
 
 ## Identity types
 
@@ -17,8 +17,8 @@ whom they are dealing with, and all connectors of an organization share its iden
 | **Self-hosted identity** | Your own domain and wallet   | All partners       | Keeping your keys on your own server          |
 
 You choose the type when you register. Managed and self-hosted identities are production
-identities, which receive their credentials from the production issuer of the dataspace, while
-test credentials never satisfy a production policy.
+identities. They receive their credentials from the production issuer of the dataspace. Test
+credentials never satisfy a production policy.
 
 - **Test and managed identities** are ready a few seconds after an administrator approves your
   organization.
@@ -34,8 +34,8 @@ Only the organization owner can change the identity, on the **Organization** pag
 
 | Change                          | Action                        | Effect                                                                                                                                                              |
 | ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Test to managed or self-hosted  | **Leave test mode**           | The organization starts over: connectors, products, policies, offers, partner groups, agreements and transfers are deleted, while members stay. An administrator approves the new identity. |
-| Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn and connectors are removed together with their products and policies, while partner groups stay. Agreements are removed with the connectors. |
+| Test to managed or self-hosted  | **Leave test mode**           | The organization starts over: connectors, products, policies, offers, partner groups, agreements and transfers are deleted. Members stay. An administrator approves the new identity. |
+| Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn and connectors are removed together with their products and policies. Partner groups stay. Agreements are removed with the connectors. |
 | Correct the self-hosted domain  | **Change** next to the domain | Possible only until an administrator approves the identity                                                                                                          |
 
 Before **Change wallet hosting**, export the data of each connector under **More → Export

@@ -22,14 +22,14 @@ Credentials and private source configuration never appear in discovery results.
 Choose a consumer connector and an offer, then:
 
 - **Offers with provider approval**: select **Request access**. The provider approves or rejects
-  the request, and an approval concludes the agreement for you. After a rejection, you can
+  the request. An approval concludes the agreement for you. After a rejection, you can
   select **Request again**.
 - **All other offers**: select **Request agreement**, which succeeds if the access policy allows
   you.
 
-The app then opens **Agreements**, where the new agreement appears as **Agreed** once the
-connectors have concluded it, usually within seconds. Transfers are started from there, and a
-negotiation that has not finished can be cancelled. The details of an agreement show the terms
+The app then opens **Agreements**. The new agreement appears as **Agreed** once the connectors
+have concluded it, usually within seconds. You start transfers from there, and you can cancel a
+negotiation that has not finished. The details of an agreement show the terms
 you accepted.
 
 ## Transferring data
@@ -49,10 +49,10 @@ Start a transfer with **Start transfer** under **Agreements** and choose the tra
   script that requests current access details before every download and needs a personal API
   key from **API access** in `OPENDS_API_KEY`.
 - **Push to HTTP**: enter your endpoint URL and, if needed, an authentication header name and
-  value. The endpoint must be reachable from the provider's connector, and the header is passed
-  to the provider's connector for this transfer only and is not stored by OpenDS.
+  value. The endpoint must be reachable from the provider's connector. The header is passed to
+  the provider's connector for this transfer only and is not stored by OpenDS.
 - **Push to S3 or Azure**: requires cloud storage on your own connector. You only enter the
-  bucket and object name, or the account, container and blob, and the provider receives
+  bucket and object name, or the account, container and blob. The provider receives
   short-lived write access for this transfer only.
 
 Progress and results appear under **Transfers**, where you can also suspend or terminate a
@@ -63,7 +63,7 @@ transfer.
 The **Consumers** page shows the agreements and transfers for the data you share, together with
 each consumer's name.
 
-- **Revoke an agreement**: new transfers are refused and running ones are terminated, while
+- **Revoke an agreement**: new transfers are refused and running ones are terminated.
   **Restore** allows transfers again. An optional reason is kept on your connector. The
   consumer still sees the agreement as **Agreed**, because the revocation is recorded on your
   connector only.
