@@ -45,13 +45,14 @@ Connector Vaults keep their data across restarts and unseal themselves; see
 
 ## Connector hosting
 
-The connector runtime and its hosting are independent of each other. A platform-hosted
-connector is managed by OpenDS on Kubernetes, either in the local cluster created by setup or
-in a [separate cluster](/administration/remote-cluster). A self-hosted connector runs with
-Docker Compose on the organization's own server, where a small agent polls OpenDS for queued
-operations and runs them locally. OpenDS therefore never needs inbound access to the management
-API of a self-hosted connector, as described in
-[Self-hosted connector](/guide/self-hosted-connector).
+Runtime and hosting are independent:
+
+- **Platform-hosted**: OpenDS manages the connector on Kubernetes, either the local cluster
+  setup creates or a [separate cluster](/administration/remote-cluster).
+- **Self-hosted**: the organization runs the connector with Docker Compose on its own server.
+  A small agent next to it polls OpenDS for queued operations and runs them locally, so
+  OpenDS never needs inbound access to the management API. See
+  [Self-hosted connector](/guide/self-hosted-connector).
 
 Each platform-hosted connector runs in its own namespace with a network policy. Its pods can
 reach their own namespace, the cluster's DNS and ingress, and addresses outside the cluster,
@@ -68,10 +69,15 @@ verified against its recorded SHA-256. OpenDS does not patch Java classes, build
 fork or implement DSP or DCP itself, while deployment values and startup ordering are part of
 the OpenDS configuration.
 
-The OpenDS code around the connector covers the app and API, permissions, product search and
-approvals, the Management API and policy adapters (`backend/src/connectors/adapters/tractusx/`),
-Kubernetes provisioning, the self-hosted Docker bundle and agent, and the source token renewal
-worker. Unsupported runtime versions fail explicitly, and upgrades are described under
+The OpenDS code around the connector covers:
+
+- the app and API, permissions, product search and approvals
+- the Management API and policy adapters (`backend/src/connectors/adapters/tractusx/`)
+- Kubernetes provisioning
+- the self-hosted Docker bundle and agent
+- the source token renewal worker
+
+Unsupported runtime versions fail explicitly, and upgrades are described under
 [Development](/development#runtime-upgrades).
 
 ## Identity
@@ -97,14 +103,18 @@ which are selected from the organization directory and become the runtime's
 
 Partner groups are kept on the provider's connectors in the runtime's business partner group
 store, and a policy refers to the group (`BusinessPartnerGroup`) rather than to a copy of its
-members. Adding or removing a member therefore also applies to offers that are already
-published, without republishing them. OpenDS writes each change to every running connector of
-the organization when the group is saved, and again before an offer with a group policy is
-published. The health check corrects connectors that missed a change, within a minute for
-platform-hosted connectors and within ten minutes of the agent being online for self-hosted
-ones. Removing a member prevents new agreements, while an existing agreement of that member
-stays valid until the provider revokes it. A group used by a published offer cannot be renamed
-or deleted.
+members.
+
+- Adding or removing a member also applies to offers that are already published, without
+  republishing them.
+- OpenDS writes each change to every running connector of the organization when the group is
+  saved, and again before an offer with a group policy is published.
+- The health check corrects connectors that missed a change, within a minute for
+  platform-hosted connectors and within ten minutes of the agent being online for self-hosted
+  ones.
+- Removing a member prevents new agreements, while an existing agreement of that member stays
+  valid until the provider revokes it.
+- A group used by a published offer cannot be renamed or deleted.
 
 Each policy term states who enforces it:
 
