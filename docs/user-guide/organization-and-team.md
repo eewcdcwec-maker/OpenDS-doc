@@ -12,7 +12,7 @@ title: Organization and team
   registration is closed, ask to be invited.
 - **Be invited**: an owner or administrator adds you as a member. The invitation email
   contains a code that you enter when accepting. Without an email server, the inviter is shown
-  the code once and passes it on. If you already have an account with this email address,
+  the code once and passes it on. If you already have an account with the invited email address,
   that account is added and keeps its name and password.
 
 A new account receives an email with a link to choose a password. The link is valid for seven
