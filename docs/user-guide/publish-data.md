@@ -51,6 +51,8 @@ The settings and the secret are entered in two places:
   login request body. For self-hosted connectors, it is entered on the connector's own server
   ([Self-hosted connector](/self-hosting/self-hosted-connector#source-passwords-and-cloud-keys)).
 
+![The Data source section of the New data product form, with Source type, Provider source URL and HTTP source authentication set to Bearer token](../img/product-form.png)
+
 The credentials stay on the connector and are never stored in OpenDS. For a platform-hosted
 connector, a login service on a private network must first be allowed by the dataspace operator
 ([Configuration](/administration/configuration#private-networks)).

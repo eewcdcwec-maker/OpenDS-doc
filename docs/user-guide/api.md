@@ -16,6 +16,8 @@ x-tenant-id: <organization-id>
 The organization ID is shown under **API access**, in the **Connect** card, in the row for your
 organization, with a copy button.
 
+![The Connect card under API access, with the base URL and the organization ID](../img/api-connect.png)
+
 Creating a key asks for your password and an expiry, which is 90 days by default. An expired
 key stops working within a minute. The API guide in the app has curl and Python examples, including
 file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dataspace CA

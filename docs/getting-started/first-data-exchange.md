@@ -58,7 +58,7 @@ provider under **Provider organization**, then select **Search**. The offer appe
 together with its policies. Select **Request agreement**. After a few seconds, the agreement
 appears under **Agreements** with the status **Agreed**.
 
-![Discover lists the provider's data products as cards, each with its access and usage policy](../img/discover.png)
+![Discover lists the provider's data products as cards, each with its access and usage policy and a Request agreement button](../img/discover.png)
 
 ## 6. Get the data (consumer)
 
@@ -66,7 +66,7 @@ On the agreement, select **Start transfer**, choose **Pull** and start the trans
 **Download** under **Transfers**. The file is delivered directly from the provider's
 connector.
 
-![The Transfers page with a pull transfer and its Download button](../img/transfers.png)
+![The Transfers page with a running pull transfer and its Download, Access details, Suspend and Terminate buttons](../img/transfers.png)
 
 ## What next
 
