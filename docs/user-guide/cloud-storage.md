@@ -4,13 +4,14 @@ title: Cloud storage
 
 # Cloud storage
 
-Connectors can offer data stored in Amazon S3 or Azure Blob Storage and receive data into
-their own bucket or container. The storage keys are set once per connector rather than per
-product, by a connector Manager on the connector's **Cloud storage** tab.
+Connectors can use data stored in Amazon S3 or Azure Blob Storage as product sources and
+receive transferred data in their own buckets or containers. Storage keys are configured once
+per connector, rather than for each product, by a connector Manager on the connector's
+**Cloud storage** tab.
 
 ## Supported transfer types
 
-| Source of the product | Pull (download link) | Push to an HTTP endpoint | Push to S3 | Push to Azure |
+| Source of the product | Pull (download link) | Push to HTTP             | Push to S3 | Push to Azure |
 | --------------------- | -------------------- | ------------------------ | ---------- | ------------- |
 | HTTP                  | yes                  | yes                      | yes        | yes           |
 | S3                    | no                   | yes                      | yes        | yes           |
@@ -28,27 +29,32 @@ Before you create keys, read [AWS account and permissions](#aws-account-and-perm
 [Azure](#azure) below. Then, on the connector's **Cloud storage** tab, set up one or both
 providers:
 
-- **AWS**: the region, access key ID, secret access key and the **buckets** the connector
-  uses. S3-compatible services such as MinIO or Garage are not supported.
-- **Azure**: one or more storage accounts, each with its access key and its **containers**.
-  For other Azure clouds, such as Azure China, an endpoint template can be set (default
-  `https://%s.blob.core.windows.net`, where `%s` is the account name).
+- **AWS**: enter the region, access key ID and secret access key, then select the
+  **buckets** the connector can use. S3-compatible services such as MinIO and Garage are not
+  supported.
+- **Azure**: add one or more storage accounts, each with its access key, and select the
+  **containers** the connector can use. For other Azure clouds, such as Azure China, you can
+  configure an endpoint template. The default is `https://%s.blob.core.windows.net`, where
+  `%s` is replaced by the account name.
 
-Products and transfers choose from these buckets and containers, so a new one must be added
-here before it can be used.
+Products and transfers can use only the buckets and containers configured here. Add a bucket
+or container before selecting it in a product or transfer.
 
-On a platform-hosted connector:
+### Platform-hosted connectors
 
-- The keys are stored in the connector's Vault. Saving them does not affect its products,
+- The keys are stored in the connector's Vault. Saving them does not affect existing products,
   offers or agreements.
-- OpenDS never shows the keys again. Saving without keys keeps the stored ones, and removing
-  AWS or an account deletes its keys.
-- Before saving, OpenDS checks that the AWS keys work and belong to an IAM user rather than
-  the root account, that each bucket exists in the chosen region, and that each Azure account
-  key is accepted and its containers exist. Nothing is stored when a check fails.
+- OpenDS never shows saved keys again. Saving without entering new keys keeps the stored ones,
+  and removing AWS or an account deletes its keys.
+- Before saving, OpenDS validates the keys and the storage configuration:
+  - AWS keys must be valid and belong to an IAM user, not the root account.
+  - Each S3 bucket must exist in the selected region.
+  - Each Azure account key must be accepted, and its configured containers must exist.
+- If validation fails, nothing is stored.
 
-On a **self-hosted** connector, the keys never reach OpenDS and are set on the connector's
-host:
+### Self-hosted connectors
+
+The keys never reach OpenDS. Configure them directly on the connector's host:
 
 ```bash
 sudo sh ./cloud-storage.sh aws                      # asks for the access key ID and secret
@@ -64,22 +70,26 @@ without keys, so that product forms and transfers offer them.
 
 ## Products
 
-- **S3 source**: one of the connector's buckets, then either an **existing object** with its
-  key or path, or **upload a new file**. The region comes from the connector.
-- **Azure source**: a storage account and container from the connector's list, then the file
-  in the same way.
+- **S3 source**: select one of the connector's configured buckets. Then select an existing
+  object by its key or path, or choose **Upload a new file**. The region is taken from the
+  connector's configuration.
+- **Azure source**: select a configured storage account and container, then select an
+  existing file or upload a new one.
 
 The source types Amazon S3 and Azure Blob Storage appear in the product form only when the
 connector has that storage configured.
 
 ## File upload
 
-**Upload a new file** stores a file of up to 100 MB in the chosen bucket or container under
-the path entered in **Save as** (default `opends-uploads/<file name>`). An existing file at
-that path is never replaced: the upload is refused and you choose another path. The file is
-passed through OpenDS to the storage without being kept by OpenDS. On a self-hosted
-connector, the agent authorizes the upload with the keys on its host, so the keys never reach
-OpenDS.
+**Upload a new file** stores a file of up to 100 MB in the selected bucket or container, using
+the path entered in **Save as**. The default path is `opends-uploads/<file name>`.
+
+An existing file at that path is never overwritten. If the path is already in use, the upload
+is refused and you must choose another path.
+
+The file passes through OpenDS to the storage provider but is not kept by OpenDS. For
+self-hosted connectors, the agent authorizes the upload using the keys on the connector's
+host, so the keys never reach OpenDS.
 
 ## AWS account and permissions
 
@@ -149,9 +159,3 @@ The same permissions as a policy, to paste into the IAM console's JSON editor (r
 An account key gives full access to its storage account, so use a **storage account
 dedicated to data exchange**. To receive data, the consumer's connector creates the container
 if needed and writes with a short-lived SAS token derived from the key.
-
-## Known limitations
-
-After a push into S3, expired short-lived credentials can remain stored on the connector. This
-is a limitation of the connector runtime. The transfer still completes and its IAM role is
-deleted.
