@@ -130,9 +130,10 @@ The domain is part of the issuer DID and the DIDs of all test and managed identi
 it later does not require a new installation, but it invalidates the existing identities
 associated with the previous domain.
 
-1. Setup stops with a "created for another address" error.
+1. When you run setup again with the new domain, it stops with a "created for another
+   address" error.
 2. You remove the affected identity stack with the command that the error names.
-3. Setup then creates new identity services for the new domain, and the identities start over:
+3. Running setup again then creates new identity services for the new domain, and the identities start over:
    - **Test identities** are reset.
    - **Production identities** and their keys are deleted. Every production organization sets
      up its identity again, and self-hosted wallets request their credentials again.
