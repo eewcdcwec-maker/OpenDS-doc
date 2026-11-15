@@ -95,8 +95,8 @@ agreement, because data that a consumer has already received cannot be technical
 [Policy enforcement](/architecture#policy-enforcement) shows which terms belong to which group.
 
 **Partner groups** let you change who is allowed without republishing: changes to a group also
-apply to offers that are already published. Owners and administrators create them under
-**Partner groups** in the sidebar. Removing a member prevents new agreements, but an
+apply to offers that are already published. Organization owners and administrators create
+them under **Partner groups** in the sidebar. Removing a member prevents new agreements, but an
 existing agreement stays valid until you revoke it. A group used by active offers cannot be
 renamed or deleted until those offers are withdrawn.
 

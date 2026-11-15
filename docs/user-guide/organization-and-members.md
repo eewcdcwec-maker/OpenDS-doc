@@ -4,8 +4,8 @@ title: Organization and members
 
 # Organization and members
 
-This page describes how people join an organization, how owners and administrators manage it,
-and what each member can set up for themselves.
+This page describes how people join an organization, how organization owners and
+administrators manage it, and what each member can set up for themselves.
 
 ## Joining and leaving
 
@@ -14,7 +14,7 @@ and what each member can set up for themselves.
   registration is closed, ask to be invited. A platform administrator approves the organization
   before it can exchange data. Until then, you can sign in but not exchange data. A notice at the top
   shows whether the organization is awaiting approval, rejected or suspended.
-- **Be invited**: an owner or administrator invites you by email address. What happens next
+- **Be invited**: an organization owner or administrator invites you by email address. What happens next
   depends on whether you already have an account:
   - **No account yet**: OpenDS creates your account and emails you a **Choose a password**
     link, which is valid for seven days. If no email server is configured for OpenDS, the
@@ -29,7 +29,7 @@ Only the most recent password link works, so requesting a password reset replace
 are not available.
 
 You can decline an invitation or leave an organization at any time. If you are its last owner,
-appoint another owner first. An owner or administrator can also remove a member. Whether you leave
+appoint another owner first. An organization owner or administrator can also remove a member. Whether you leave
 or are removed, your account remains, together with its other organizations.
 
 ## Your profile
@@ -46,7 +46,7 @@ Partners see this description. Signed-in members can also browse the organizatio
 which lists the other approved organizations of the dataspace and their running connectors. It
 never shows user data.
 
-Owners and administrators also manage:
+Organization owners and administrators also manage:
 
 - **Members**: who belongs to the organization and their roles, on the same page.
 - **Organization settings**: access requests and activity tracking, as described
@@ -58,7 +58,7 @@ Owners and administrators also manage:
 
 ### Organization settings
 
-Owners and administrators have two settings under **Organization → Organization settings**:
+Organization owners and administrators have two settings under **Organization → Organization settings**:
 
 - **Track activity** (default Yes): with No, the organization stops recording new entries in
   its activity log. Existing entries, memberships, permissions and server logs remain.
@@ -69,11 +69,6 @@ Owners and administrators have two settings under **Organization → Organizatio
 
 Every member can create a personal API key for scripts under **API access**. When you create a
 key, you enter your password and choose an expiry of 30 days, 90 days, one year or never. The
-key is shown only once. A key acts as you, with your roles. **Replace key** creates a new key, and the old one
-stops working at once. **Revoke key** removes it. How to use the key is described under
-[API](/user-guide/api).
-
-## Identity
-
-The identity types of an organization and how to change them are described under
-[Identity](/user-guide/identity).
+key is shown only once. A key acts as you, with your roles. **Replace key** creates a new
+key, and the old one stops working at once. **Revoke key** removes it. How to use the key is
+described under [API](/user-guide/api).
