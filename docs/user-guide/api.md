@@ -4,16 +4,16 @@ title: API
 
 # API and permissions
 
-Everything the web application does goes through the same REST API, so scripts can do the same.
-Create a personal API key under **API access** and send it, together with the organization you
-want to act in, on every request:
+Everything available in the web application is accessible through the same REST API, so you
+can automate the same operations with scripts. Create a personal API key under **API access**
+and include it in every request, together with the ID of the organization you want to act in:
 
 ```text
 Authorization: users API-Key <your-api-key>
 x-tenant-id: <organization-id>
 ```
 
-The organization ID is shown under **API access**, in the **Connect** card, in the row for your
+The organization ID is shown under **API access**, in the **Connect** card, alongside your
 organization, with a copy button.
 
 ![The Connect card under API access, with the base URL and the organization ID](../img/api-connect.png)
@@ -27,8 +27,8 @@ With `EDGE_TLS=internal`, clients must trust the dataspace CA
 
 ## Conventions
 
-- **Collections**: `/api/<collection>` with paginated results (`docs`, `totalDocs`, `page`,
-  `limit`). Creates and updates return `{doc}`.
+- **Collections**: use `/api/<collection>` for paginated results. Responses contain `docs`,
+  `totalDocs`, `page` and `limit`. Create and update operations return `{doc}`.
 - **Permissions**: API keys apply the same organization and connector permissions as the app,
   as listed under [Roles](/user-guide/overview#roles).
 
@@ -44,15 +44,15 @@ Lists are paged per connector:
 GET /api/connector-resources?collection=products&connector=<uuid>&limit=20
 ```
 
-Follow `nextCursor` with the `cursor` parameter and reset it when changing filters. Policy
-lists also accept `purpose=ACCESS` or `purpose=USAGE`. Results are ordered by connector name,
+Use `nextCursor` as the `cursor` parameter to retrieve the next page, and reset the cursor
+when changing filters. Policy lists also accept `purpose=ACCESS` or `purpose=USAGE`. Results are ordered by connector name,
 then resource ID. Offers are published with `POST /api/offers/publish`.
 
 ## Cloud storage
 
 - `POST /api/connectors/:id/cloud-storage`: sets the connector's AWS and Azure storage
   (Manager). The body is `{ "aws": { region, buckets, ... } | null, "azure": { accounts: [{ name, containers, key }] } | null }`.
-  A missing key keeps the stored one. Keys are never returned. The response contains the
+  Omitting a key keeps the stored one. Keys are never returned. The response contains the
   settings and a `taskId`.
 - `POST /api/connectors/:id/files?bucket=<b>&path=` or `?account=<a>&container=<c>&path=`:
   uploads the request body of up to 100 MB into one of the connector's buckets or containers at
@@ -78,10 +78,11 @@ The keys come from the consumer's connector. See [Cloud storage](/user-guide/clo
 | `POST /api/exchange/transfers/<connector>/<transfer>/suspend`      | Suspends a running transfer on either side. `resume` and `terminate` work the same way |
 
 - **Provider view**: by default, the agreement and transfer lists show exchanges in which your
-  organization is the consumer. With `role=provider`, they list the agreements and transfers of
-  data it shares. The consumer is then in `partner`, and `retired` is set for revoked agreements.
-- **Permissions**: these actions require the Manager role on the connector. Revoking and restoring
-  only work on the provider's own connector.
+  organization is the consumer. Add `role=provider` to list the agreements and transfers of
+  data your organization shares. In this view, `partner` identifies the consumer, and `retired`
+  marks revoked agreements.
+- **Permissions**: these actions require the Manager role on the connector. Revoking and
+  restoring work only on the provider's own connector.
 - **Paging**: agreements and transfers come in pages of 20, 50 or 100 entries per connector.
   New records can shift page boundaries.
 
@@ -121,7 +122,9 @@ connector, either on the connector page or with these routes:
 
 ## Records panel
 
-`/platform-admin` is the raw admin interface with full edit access to every record of every
-organization. Platform administrators open it with the **Records panel** button on the
-**Platform Admin** page. It is for support and recovery only. Day-to-day administration, such
-as approvals, email and backups, happens on the **Platform Admin** page itself.
+`/platform-admin` provides a raw administration interface with full edit access to every
+record of every organization. Platform administrators open it with the **Records panel**
+button on the **Platform Admin** page.
+
+The Records panel is intended for support and recovery. Day-to-day administration, including
+approvals, email and backups, is handled on the **Platform Admin** page.
