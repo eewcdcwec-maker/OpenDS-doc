@@ -126,9 +126,9 @@ PAYLOAD_ADMIN_EMAIL=you@example.org   # the first administrator; a real mailbox
 ```
 
 :::warning[Choose your domain before organizations join]
-The domain is built into the identifiers (DIDs) of the issuer and of every test and managed
-identity. Changing it later does not require a new installation, but all existing identities
-stop matching the new domain:
+The domain is part of the issuer DID and the DIDs of all test and managed identities. Changing
+it later does not require a new installation, but it invalidates the existing identities
+associated with the previous domain.
 
 1. Setup stops with a "created for another address" error.
 2. You remove the affected identity stack with the command that the error names.
