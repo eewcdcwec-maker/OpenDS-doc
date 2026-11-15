@@ -4,62 +4,65 @@ title: Connectors
 
 # Connectors
 
-A connector is the software that exchanges data on behalf of your organization. Connectors are
-created and managed under **Connectors**.
+A connector exchanges data on behalf of your organization. You can create and manage
+connectors under **Connectors**.
 
-If your organization has a self-hosted identity, add each new connector to your wallet's
-`did.json` so that other participants can find it, as described under
-[Self-hosted wallet](/self-hosting/self-hosted-wallet#connecting-the-wallet-to-opends).
+If your organization uses a self-hosted identity, add each new connector to the `did.json`
+file in your wallet so that other participants can discover it. See
+[Self-hosted wallet](/self-hosting/self-hosted-wallet#connecting-the-wallet-to-opends) for
+instructions.
 
 ## Hosting modes
 
-| Mode            | Where it runs                                  | Suitable for                                       |
-| --------------- | ---------------------------------------------- | -------------------------------------------------- |
-| Platform-hosted | On Kubernetes, managed by the dataspace operator | Organizations that do not want to install anything |
-| Self-hosted     | On your organization's own Docker host         | Organizations that operate the connector themselves |
+| Mode            | Where it runs                                    | Suitable for                                                                 |
+| --------------- | ------------------------------------------------ | ---------------------------------------------------------------------------- |
+| Platform-hosted | On Kubernetes, managed by the dataspace operator | Organizations that do not want to manage their own connector infrastructure |
+| Self-hosted     | On the organization's own Docker host            | Organizations that want to operate their connectors on their own infrastructure |
 
 The hosting mode can be changed on the connector page. This is a migration with five steps:
 
 1. Export the connector data.
-2. Set up the connector in the new mode.
+2. Set up the connector in the new hosting mode.
 3. Import its products and policies.
-4. Enter the source credentials again.
+4. Re-enter the source credentials, if required.
 5. Publish the offers again.
 
-Existing agreements cannot be moved, so other participants negotiate again.
+Existing agreements cannot be transferred, so other participants must negotiate them again.
 
-To self-host a connector, create it, select **Use self-hosting** on its **Hosting** tab and run
-the commands shown on your Docker host. Installation, HTTPS options, source credentials and
-moving to another server are described under
+To set up a self-hosted connector, create it, select **Use self-hosting** on its **Hosting**
+tab and run the commands shown on your Docker host. Installation, HTTPS options, source
+credentials and migration to another server are described under
 [Self-hosted connector](/self-hosting/self-hosted-connector).
 
 ## Lifecycle
 
-**Provision**, **Pause** and **Resume** are at the top of the connector page. The
+**Provision**, **Pause** and **Resume** are available at the top of the connector page. The
 **Hosting** tab contains **List in discovery**, **Deprovision**, **Delete connector** and the
-self-hosting actions. **Export connector data** is under **More**.
+self-hosting actions. **Export connector data** is available under **More**.
 
 - **Provision**: installs a new platform-hosted connector. This may take several minutes while
   images are downloaded and services start.
-- **Pause** and **Resume**: stop and start the connector services while keeping their data. A
-  paused connector's offers are hidden from **Discover**.
-- **Deprovision**: uninstalls the connector's services. The connector stays in OpenDS and can be
-  provisioned again, but its products, policies and offers are lost.
-- **List in discovery**: lets other organizations find the connector's offers under
-  **Discover**. A connector that is not listed still exchanges data, but other participants can only
-  reach it with its DSP address and your DID. The connector's **Hosting** tab shows both, as
-  **Protocol endpoint** and **DID**, each with a copy button.
-- **Export connector data**: saves the connector's data while it is online, to move it or keep
-  a copy ([API](/user-guide/api#connector-data-export-and-import)).
-- **Delete connector**: removes the connector and its platform record. Stop a self-hosted
-  connector on its host first, because OpenDS cannot erase a remote machine. If you need its
-  products, policies and offers later, export them beforehand.
+- **Pause** and **Resume**: stop and start the connector services while retaining their data.
+  A paused connector's offers are hidden from **Discover**.
+- **Deprovision**: uninstalls the connector services. The connector remains in OpenDS and can
+  be provisioned again, but its products, policies and offers are lost.
+- **List in discovery**: makes the connector's offers discoverable by other organizations
+  under **Discover**. A connector that is not listed can still exchange data, but other
+  participants need its DSP address and DID to connect to it. Both are available on the
+  connector's **Hosting** tab as **Protocol endpoint** and **DID**, with a copy button for
+  each.
+- **Export connector data**: exports the connector's data while it is online, allowing you to
+  move it or keep a backup ([API](/user-guide/api#connector-data-export-and-import)).
+- **Delete connector**: removes the connector and its record from OpenDS. Stop a self-hosted
+  connector on its host first, as OpenDS cannot remove it from a remote machine. Export its
+  data beforehand if you may need its products, policies or offers later.
 
 ![The Hosting tab of a connector, showing its DID and Protocol endpoint with copy buttons](../img/connector-hosting.png)
 
-Before a connector is deleted or deprovisioned, the confirmation offers **Download connector
-data first**, because OpenDS does not archive connector data itself. A paused or offline
+Before a connector is deleted or deprovisioned, the confirmation dialog offers **Download
+connector data first**, as OpenDS does not archive connector data. A paused or offline
 connector must be started before its data can be downloaded.
 
-Health checks run regularly. The connector page shows their result together with recent
-events. Who may perform these actions is listed under [Roles](/user-guide/overview#roles).
+Health checks run regularly. Their results and recent events are displayed on the connector
+page. The permissions required to perform these actions are listed under
+[Roles](/user-guide/overview#roles).
