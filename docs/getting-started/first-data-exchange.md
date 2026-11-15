@@ -52,7 +52,7 @@ other organizations can find its offers.
 
 Under **Offers → Publish offer**, choose the connector, the data product, the access policy and
 the usage policy. Keep **Automatic** approval and publish the offer. The summary on the right
-shows what partners will see.
+shows what other participants will see.
 
 ![The Publish an offer dialog with connector, data product, access and usage policy, and approval, and a summary on the right](../img/publish-offer.png)
 
@@ -77,7 +77,7 @@ connector.
 
 - [Publish data](/user-guide/publish-data) and [Cloud storage](/user-guide/cloud-storage) explain how to
   protect a source with a password or token and how to offer files from Amazon S3 or Azure.
-- [Publish data](/user-guide/publish-data) also explains how to limit an offer to chosen partners or
+- [Publish data](/user-guide/publish-data) also explains how to limit an offer to chosen participants or
   review each request yourself.
 - [Discover and exchange data](/user-guide/discover-and-exchange-data) explains how to receive data into your own
   storage or download it repeatedly from a script.
