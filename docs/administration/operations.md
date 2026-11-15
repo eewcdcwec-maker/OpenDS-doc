@@ -24,7 +24,7 @@ storage and certificates. Email alerts are sent once monitoring and email are co
 
 ## Updates
 
-Updating from an earlier release has not yet been verified end to end. The expected steps are:
+To update OpenDS:
 
 1. Create a backup with `bash manage.sh backup create`.
 2. Get the new version with `git pull`.
