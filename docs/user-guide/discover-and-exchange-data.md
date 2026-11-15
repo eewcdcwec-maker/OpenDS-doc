@@ -24,8 +24,8 @@ Credentials and private source configuration never appear in discovery results.
 Choose a consumer connector and an offer, then:
 
 - **Offers with provider approval**: select **Request access**. The provider approves or rejects
-  the request. An approval concludes the agreement for you. After a rejection, you can
-  select **Request again**.
+  the request. Once the provider approves, the agreement is concluded for you. After a
+  rejection, you can select **Request again**.
 - **All other offers**: select **Request agreement**, which succeeds if the access policy allows
   you.
 
@@ -49,11 +49,14 @@ Pull is available only for products with an HTTP source. S3 and Azure products a
 push.
 
 - **Pull**: after starting the transfer, **Transfers** shows **Download** and **Access
-  details** for it. **Download** fetches the data directly. **Access details** shows the
-  endpoint, token and expiry, with curl and Python examples. **Fetch the data once** uses
-  the current token, and **Get a new token** issues a fresh one. **Fetch it repeatedly** is a
-  script that requests current access details before every download. It reads a personal API
-  key (from **API access**) from the environment variable `OPENDS_API_KEY`.
+  details** for it:
+  - **Download** fetches the data directly.
+  - **Access details** shows the endpoint, token and expiry, with curl and Python examples.
+  - **Fetch the data once** uses the current token.
+  - **Get a new token** issues a fresh one.
+  - **Fetch it repeatedly** is a script that requests current access details before every
+    download. It reads a personal API key (from **API access**) from the environment variable
+    `OPENDS_API_KEY`.
 - **Push to HTTP**: enter your endpoint URL and, if needed, an authentication header name and
   value. The endpoint must be reachable from the provider's connector. The header is passed to
   the provider's connector for this transfer only and is not stored by OpenDS.
@@ -78,8 +81,8 @@ each consumer's name.
   valid, so the consumer can start a new transfer. To prevent further transfers under an
   agreement, revoke the agreement.
 - **Review access requests**: for offers with provider approval, approve or reject each pending
-  request under **Access requests**. Owners, administrators and the Managers of the publishing
-  connector decide and receive the notification email. Access requests must be enabled under
+  request under **Access requests**. Organization owners, administrators and the Managers of
+  the publishing connector decide and receive the notification email. Access requests must be enabled under
   **Organization → Organization settings** and cannot be disabled while an offer that requires
   approval is active.
 

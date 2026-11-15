@@ -24,7 +24,7 @@ product, by a connector Manager on the connector's **Cloud storage** tab.
 
 ## Setting it up
 
-Before you create keys, read [A restricted AWS account](#a-restricted-aws-account) and
+Before you create keys, read [AWS account and permissions](#aws-account-and-permissions) and
 [Azure](#azure) below. Then, on the connector's **Cloud storage** tab, set up one or both
 providers:
 
@@ -37,12 +37,15 @@ providers:
 Products and transfers choose from these buckets and containers, so a new one must be added
 here before it can be used.
 
-On a platform-hosted connector, the keys are stored in the connector's Vault. Saving them does
-not affect its products, offers or agreements. OpenDS never shows the keys again. Saving without keys keeps
-the stored ones. Removing AWS or an account deletes its keys. Before saving, OpenDS
-checks that the AWS keys work and belong to an IAM user rather than the root account, that each
-bucket exists in the chosen region, and that each Azure account key is accepted and its
-containers exist. Nothing is stored when a check fails.
+On a platform-hosted connector:
+
+- The keys are stored in the connector's Vault. Saving them does not affect its products,
+  offers or agreements.
+- OpenDS never shows the keys again. Saving without keys keeps the stored ones, and removing
+  AWS or an account deletes its keys.
+- Before saving, OpenDS checks that the AWS keys work and belong to an IAM user rather than
+  the root account, that each bucket exists in the chosen region, and that each Azure account
+  key is accepted and its containers exist. Nothing is stored when a check fails.
 
 On a **self-hosted** connector, the keys never reach OpenDS and are set on the connector's
 host:
@@ -66,25 +69,25 @@ without keys, so that product forms and transfers offer them.
 - **Azure source**: a storage account and container from the connector's list, then the file
   in the same way.
 
-The source types Amazon S3 and Azure Blob Storage appear in the product form only when the connector has that
-storage configured.
+The source types Amazon S3 and Azure Blob Storage appear in the product form only when the
+connector has that storage configured.
 
 ## File upload
 
 **Upload a new file** stores a file of up to 100 MB in the chosen bucket or container under
 the path entered in **Save as** (default `opends-uploads/<file name>`). An existing file at
 that path is never replaced: the upload is refused and you choose another path. The file is
-passed through OpenDS to the storage without being kept on the platform. On a self-hosted
+passed through OpenDS to the storage without being kept by OpenDS. On a self-hosted
 connector, the agent authorizes the upload with the keys on its host, so the keys never reach
 OpenDS.
 
-## A restricted AWS account
+## AWS account and permissions
 
 Use an **IAM user access key** in a **dedicated AWS account** that holds only the exchange
 buckets. To receive data into S3, the consumer's connector creates a short-lived IAM role for
 each transfer, tagged `dataspaceconnector:process`. It uses the role to write to the target
-bucket and deletes it afterwards. Because this requires the right to create roles, a separate account
-limits what the credentials can reach.
+bucket and deletes it afterwards. Because this requires the right to create roles, a separate
+account limits what the credentials can reach.
 
 Permissions the IAM user needs, limited to the exchange buckets (for example `opends-*`):
 

@@ -19,8 +19,10 @@ organization, with a copy button.
 ![The Connect card under API access, with the base URL and the organization ID](../img/api-connect.png)
 
 Creating a key asks for your password and an expiry, which is 90 days by default. An expired
-key stops working within a minute. The API guide in the app has curl and Python examples, including
-file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dataspace CA
+key stops working within a minute.
+
+The API guide in the app has curl and Python examples, including file downloads and uploads.
+With `EDGE_TLS=internal`, clients must trust the dataspace CA
 ([Configuration](/administration/configuration#trusting-the-dataspace-ca)).
 
 ## Conventions
@@ -29,11 +31,6 @@ file downloads and uploads. With `EDGE_TLS=internal`, clients must trust the dat
   `limit`). Creates and updates return `{doc}`.
 - **Permissions**: API keys apply the same organization and connector permissions as the app,
   as listed under [Roles](/user-guide/overview#roles).
-- **Records panel**: `/platform-admin` is the raw admin interface with full edit access to
-  every record of every organization. Platform administrators open it with the **Records
-  panel** button on the **Platform Admin** page. It is for support and recovery only.
-  Day-to-day administration, such as approvals, email and backups, happens on the **Platform
-  Admin** page itself.
 
 ## Products, policies and offers
 
@@ -43,7 +40,7 @@ changed or deleted.
 
 Lists are paged per connector:
 
-```
+```text
 GET /api/connector-resources?collection=products&connector=<uuid>&limit=20
 ```
 
@@ -53,10 +50,14 @@ then resource ID. Offers are published with `POST /api/offers/publish`.
 
 ## Cloud storage
 
-| Endpoint                                                                                | Purpose                                                                                                                                                                                                                         |
-| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST /api/connectors/:id/cloud-storage`                                                | Sets the connector's AWS and Azure storage (Manager). Body `{ "aws": { region, buckets, ... } \| null, "azure": { accounts: [{ name, containers, key }] } \| null }`. A missing key keeps the stored one. Keys are never returned. The response contains the settings and a `taskId`. |
-| `POST /api/connectors/:id/files?bucket=<b>&path=` or `?account=<a>&container=<c>&path=` | Uploads the request body of up to 100 MB into one of the connector's buckets or containers at `path` (Manager). Returns 409 when a file already exists there. Otherwise, returns the product source fields.                         |
+- `POST /api/connectors/:id/cloud-storage`: sets the connector's AWS and Azure storage
+  (Manager). The body is `{ "aws": { region, buckets, ... } | null, "azure": { accounts: [{ name, containers, key }] } | null }`.
+  A missing key keeps the stored one. Keys are never returned. The response contains the
+  settings and a `taskId`.
+- `POST /api/connectors/:id/files?bucket=<b>&path=` or `?account=<a>&container=<c>&path=`:
+  uploads the request body of up to 100 MB into one of the connector's buckets or containers at
+  `path` (Manager). Returns 409 when a file already exists there. Otherwise, returns the
+  product source fields.
 
 Transfers of type `AmazonS3-PUSH` and `AzureStorage-PUSH` take only the location in
 `dataDestination` (`bucketName` and `objectName`, or `account`, `container` and `blobName`).
@@ -117,3 +118,10 @@ connector, either on the connector page or with these routes:
 | `POST /api/organizations/:id/offboard`                            | Offboards an organization (platform administrator), withdrawing its offers, removing its connectors and suspending access |
 | `GET /api/account/invitations`                                    | Lists the invitations of the signed-in account                                              |
 | `POST /api/account/invitations/:id/accept`, `.../decline`         | Accepts or declines an invitation                                                           |
+
+## Records panel
+
+`/platform-admin` is the raw admin interface with full edit access to every record of every
+organization. Platform administrators open it with the **Records panel** button on the
+**Platform Admin** page. It is for support and recovery only. Day-to-day administration, such
+as approvals, email and backups, happens on the **Platform Admin** page itself.
