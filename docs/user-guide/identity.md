@@ -4,30 +4,31 @@ title: Identity
 
 # Identity
 
-Every organization has exactly one identity, consisting of a DID (decentralized identifier) and
-credentials issued by the dataspace operator. Connectors present these credentials when they negotiate, so partners know
-whom they are dealing with. All connectors of an organization share its identity.
+Each organization has a single identity, comprising a DID (decentralized identifier) and
+credentials issued by the dataspace operator. All connectors belonging to that organization
+share this identity and present its credentials during negotiations, allowing other
+participants to verify the organization's identity.
 
 ## Identity types
 
-| Type in the app          | Wallet                       | Accepted by        | Suitable for                                  |
-| ------------------------ | ---------------------------- | ------------------ | --------------------------------------------- |
-| **Test**                 | Hosted by OpenDS, disposable | Other test identities only | Evaluation and testing                        |
-| **Managed identity**     | Hosted by OpenDS             | All partners       | Exchanging real data without running a wallet |
-| **Self-hosted identity** | Your own domain and wallet   | All partners       | Keeping your keys on your own server          |
+| Type in the app          | Wallet                                                            | Accepted by                | Suitable for                                         |
+| ------------------------ | ----------------------------------------------------------------- | -------------------------- | ---------------------------------------------------- |
+| **Test**                 | Hosted by OpenDS and disposable                                   | Other test identities only | Evaluation and testing                               |
+| **Managed identity**     | Hosted by OpenDS                                                  | All partners               | Exchanging real data without operating your own wallet |
+| **Self-hosted identity** | Hosted on your own infrastructure and associated with your domain | All partners               | Keeping your identity keys under your own control    |
 
-You choose the type when you register. Managed and self-hosted identities are production
-identities. They receive their credentials from the production issuer of the dataspace. Test
-identities receive theirs from a separate test issuer, so they can only exchange data with
-other test identities.
+You choose the identity type when registering your organization. Managed and self-hosted
+identities are production identities and receive credentials from the production issuer of the
+dataspace. Test identities receive credentials from a separate test issuer and can exchange
+data only with other test identities.
 
-- **Test and managed identities** are ready a few seconds after a platform administrator
-  approves your organization.
-- **Self-hosted identities** need your wallet first, as described under
+- **Test and managed identities** are ready within a few seconds after a platform
+  administrator approves your organization.
+- **Self-hosted identities** require you to set up your wallet first, as described under
   [Self-hosted wallet](/self-hosting/self-hosted-wallet). A platform administrator then
-  confirms that the domain belongs to you before credentials are issued.
+  verifies domain ownership before the production issuer issues your credentials.
 
-Every identity type works with both platform-hosted and self-hosted connectors.
+All identity types work with both platform-hosted and self-hosted connectors.
 
 ## Changing the identity
 
