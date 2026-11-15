@@ -36,6 +36,10 @@ enter to everyone browsing **Discover**, before they agree to the usage terms.
 
 ### HTTP sources
 
+The **Provider source URL** must be an address that the connector can reach over the network.
+`localhost` does not work, because the connector runs in its own container and would look for
+the service inside itself.
+
 For an HTTP source, two more fields describe how consumers use it:
 
 - **What consumers can request**:

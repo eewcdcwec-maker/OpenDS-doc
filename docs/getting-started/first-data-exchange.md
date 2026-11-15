@@ -5,9 +5,10 @@ title: Your first data exchange
 # Your first data exchange
 
 This walk-through takes two organizations from registration to a downloaded file. One
-organization provides the data and the other consumes it. You need an OpenDS [installation](/getting-started/installation).
-You can use the sample data that every installation serves at `<OpenDS address>/api/test-data`,
-where the OpenDS address is the one that setup printed.
+organization provides the data and the other consumes it. You need an OpenDS
+[installation](/getting-started/installation). You can use the sample data that every
+installation serves at `<OpenDS address>/api/test-data`, where the OpenDS address is the one
+that setup printed.
 
 ## 1. Register both organizations
 
@@ -16,7 +17,7 @@ the following details:
 
 - The organization name, your name, your email address and a password of at least 16
   characters.
-- The identity type **Test**.
+- Any participant role and the identity type **Test**.
 - A short **Intended use**, which the platform administrator reads before approving.
 
 Accept the participation terms and submit the registration. Then register the consumer in the
