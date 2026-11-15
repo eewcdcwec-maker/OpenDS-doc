@@ -48,9 +48,9 @@ agreements and transfers are deleted. Members remain. Partner groups of other or
 that include this one must be updated, and a platform administrator must approve the new
 identity.
 
-Before leaving test mode, you can export each connector's data under **More → Export connector
-data**. Export the data while the connectors are still running, because leaving test mode
-deletes them.
+Before leaving test mode, you can export each connector's data. On the connector page, select
+**More → Export connector data**. Export the data while the connectors are still running,
+because leaving test mode deletes them.
 
 Importing the exported data restores products and policies. Offers are restored only if
 **Publish imported offers immediately** is selected. Agreements and transfers are not
@@ -68,8 +68,9 @@ together with their products, policies and agreements.
 The organization's own partner groups remain, but other organizations must add the
 organization to their groups again because those groups reference its previous identity.
 
-Before changing wallet hosting, export each connector's data under **More → Export connector
-data**. You can then import the products and policies into the new connectors.
+Before changing wallet hosting, export each connector's data. On the connector page, select
+**More → Export connector data**. You can then import the products and policies into the new
+connectors.
 
 Self-hosted connectors must be stopped on their servers before the change. The operation is
 refused while any self-hosted connector is online.
