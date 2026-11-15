@@ -14,46 +14,97 @@ platform services, the connector cluster and the identity services.
 - An evaluation installation with up to two platform-hosted connectors needs at least 4 CPU
   cores, 8 GB RAM and 20 GB of free disk space. Actual use depends on the connector workload,
   image caches and retained data.
-- Self-hosted connectors run on servers operated by their organizations, not on this one. This
-  server still handles their management, discovery and agent requests.
-- HTTPS on the internet requires a domain that points at the server, with TCP port 443 open.
-- The server needs outbound access to GitHub, the container registries and the Kubernetes and
-  Helm downloads.
-- Setup runs as a regular user with Docker access. If `docker ps` reports "permission
-  denied", add the user to the `docker` group with `sudo usermod -aG docker $USER` and log in
-  again.
-- The connector cluster needs two raised kernel limits. If setup can use `sudo`, it raises them
-  itself. Otherwise, set them once as root so that they also survive a reboot:
+- To make the platform reachable over HTTPS from the internet, the server needs a domain name
+  that points to its IP address and an open TCP port 443.
+- During installation, the server needs outbound internet access to fetch the OpenDS source
+  from GitHub, container images from the registries, and the Kubernetes and Helm tooling.
+- Setup runs as a regular user who has Docker access. If `docker ps` reports "permission
+  denied", add the user to the `docker` group with `sudo usermod -aG docker $USER`, then log
+  out and back in.
+- The connector cluster needs higher system limits for file watching than most Linux
+  distributions set by default. If the setup user can run `sudo`, setup raises them
+  automatically. Otherwise, an administrator should set them once with the following command,
+  which also keeps them after a reboot:
 
   ```bash
   printf 'fs.inotify.max_user_instances=8192\nfs.inotify.max_user_watches=1048576\n' \
     | sudo tee /etc/sysctl.d/99-opends.conf && sudo sysctl --system
   ```
 
-## Choose a TLS mode
+## Choose an installation option
 
-You set the TLS mode with `EDGE_TLS` in `.env` during installation:
+The installation options differ in how the platform is reached and secured. You select one with
+`EDGE_TLS` and `PUBLIC_DOMAIN` in `.env` during installation:
 
-| `EDGE_TLS`  | Use it when                                                    | Result                                          |
-| ----------- | -------------------------------------------------------------- | ----------------------------------------------- |
-| `acme`      | The server is on the internet with a domain                    | HTTPS with Let's Encrypt                        |
-| `internal`  | The server is on a private network where clients can trust the dataspace CA | HTTPS with dataspace-issued certificates         |
-| `files`     | You provide `.deploy/edge-certs/tls.crt` and `tls.key` before setup | HTTPS with your certificate                     |
+| Option                | `EDGE_TLS`  | Use it when                                                    | Result                                   |
+| --------------------- | ----------- | -------------------------------------------------------------- | ---------------------------------------- |
+| Internet with a domain | `acme`      | The server is on the internet with a domain                    | HTTPS with Let's Encrypt                 |
+| Private network        | `internal`  | The server is on a private network where clients can trust the dataspace CA | HTTPS with dataspace-issued certificates |
+| Your own certificate   | `files`     | You already have a certificate for the domain                  | HTTPS with your certificate              |
+| HTTP evaluation        | not set     | You only want to try OpenDS on a trusted network               | Plain HTTP, test identities only         |
 
-With `EDGE_TLS=internal`, every browser and script client must trust the dataspace CA. After
-setup, its certificate is stored on the server in `.deploy/ca/dataspace-ca.crt`. Copy it to your
-computer and add it as described in
+Each option is described below with the lines it needs in `.env`. You enter them in the
+[Install](#install) section.
+
+### Internet with a domain
+
+Use this option when the server is reachable from the internet and has a domain name that points
+to it. OpenDS obtains and renews a Let's Encrypt certificate automatically.
+
+```bash
+PUBLIC_DOMAIN=dataspace.example.org
+EDGE_TLS=acme
+```
+
+### Private network
+
+Use this option when the server is only reachable inside a private network. OpenDS issues the
+certificates itself with the dataspace CA, so every browser and script client must trust that
+CA. After setup, its certificate is stored on the server in `.deploy/ca/dataspace-ca.crt`. Copy
+it to your computer and add it as described in
 [Trusting the dataspace CA](/administration/configuration#trusting-the-dataspace-ca).
 
-### HTTP evaluation mode
+```bash
+PUBLIC_DOMAIN=opends.example.internal
+EDGE_TLS=internal
+```
 
-If you leave `PUBLIC_DOMAIN` empty and set `PUBLIC_HOST` to the server's IP address, the app
-runs over plain HTTP at `http://<PUBLIC_HOST>:8081`.
+If you have no DNS record for the server, you can use an address-based hostname from `sslip.io`
+instead:
+
+```bash
+PUBLIC_DOMAIN=opends.192-168-1-50.sslip.io   # for a server at 192.168.1.50
+EDGE_TLS=internal
+```
+
+### Your own certificate
+
+Use this option when you have a certificate for the domain, for example from a company CA, or
+when Let's Encrypt is not an option. `PUBLIC_DOMAIN` must be the name the certificate is issued
+for, otherwise browsers show a warning.
+
+```bash
+PUBLIC_DOMAIN=dataspace.example.org
+EDGE_TLS=files
+```
+
+Before you run setup, place the certificate chain in `.deploy/edge-certs/tls.crt` and the
+private key in `.deploy/edge-certs/tls.key`.
+
+### HTTP evaluation
+
+Use this option only to try OpenDS quickly. Leave `PUBLIC_DOMAIN` empty and set `PUBLIC_HOST` to
+the server's IP address. The app then runs over plain HTTP at `http://<PUBLIC_HOST>:8081`.
+
+```bash
+PUBLIC_DOMAIN=
+PUBLIC_HOST=192.168.1.50
+```
 
 :::danger[Unencrypted]
-HTTP evaluation mode supports test identities only. Login details, tokens and data sent over
-its endpoints are not encrypted. Use it only on a trusted network. For HTTPS on a private
-network, set a hostname in `PUBLIC_DOMAIN` together with `EDGE_TLS=internal`.
+HTTP evaluation supports test identities only. Login details, tokens and data sent over its
+endpoints are not encrypted. Use it only on a trusted network. For HTTPS on a private network,
+use the private network option instead.
 :::
 
 ## Install
@@ -65,26 +116,19 @@ git clone https://github.com/kwe712/OpenDS.git opends && cd opends
 cp .env.example .env
 ```
 
-Fill in the first section of `.env`:
+In the first section of `.env`, enter the lines for your installation option and set the first
+administrator:
 
 ```bash
-PUBLIC_DOMAIN=dataspace.example.org   # your domain; choose it once
-EDGE_TLS=acme                         # acme (internet), internal (private network) or files
+PUBLIC_DOMAIN=dataspace.example.org   # your domain; changing it later resets identities
+EDGE_TLS=acme                         # acme, internal or files, as described above
 PAYLOAD_ADMIN_EMAIL=you@example.org   # the first administrator; a real mailbox
 ```
 
-On a private network, you can use an address-based hostname from `sslip.io` instead of your
-own DNS record:
-
-```bash
-PUBLIC_DOMAIN=opends.192-168-1-50.sslip.io   # for a server at 192.168.1.50
-EDGE_TLS=internal
-```
-
 :::warning[Choose your domain before organizations join]
-The domain is part of the DID of the issuer and of every test and managed identity. Changing
-it later does not require a new installation, but all existing identities stop matching the
-new domain:
+The domain is built into the identifiers (DIDs) of the issuer and of every test and managed
+identity. Changing it later does not require a new installation, but all existing identities
+stop matching the new domain:
 
 1. Setup stops with a "created for another address" error.
 2. You remove the affected identity stack with the command that the error names.
