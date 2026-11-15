@@ -5,13 +5,15 @@ slug: /development
 
 # Development
 
-This page covers running OpenDS from source. How to propose a change is described in
-`CONTRIBUTING.md`, and how to test it under [Testing](/development/testing).
+This page covers running OpenDS from source. Contribution guidelines are provided in
+`CONTRIBUTING.md`, and testing procedures are described under [Testing](/development/testing).
 
 ## Running locally
 
-Use Node.js 22.23.4 (pinned in `.nvmrc`, the package engines, CI and the Dockerfiles). A
-Docker deployment itself needs no Node.js on the host.
+Use Node.js 22.23.4, pinned in `.nvmrc`, the package engines, CI and the Dockerfiles. A Docker
+deployment does not require Node.js on the host.
+
+Install the dependencies and run the checks:
 
 ```bash
 npm run bootstrap        # install all dependencies
@@ -20,35 +22,56 @@ npm run dev:frontend     # app on port 5173
 ```
 
 The frontend development server forwards API and admin routes to port 8080. Set
-`API_PROXY_TARGET` for another API address. The proxy keeps an explicit Origin and otherwise
-forwards the Referer origin, so Payload's cookie and CSRF checks also work over plain HTTP.
+`API_PROXY_TARGET` to use a different API address. The proxy forwards an explicit `Origin`
+header or, if none is present, uses the origin from the `Referer` header. This allows Payload's
+cookie and CSRF checks to work over plain HTTP.
 
-To run the backend from source as well, after `bash manage.sh setup` has created `.env`:
+To run the backend from source as well, first run `bash manage.sh setup` to create `.env`. Then
+start the backend and the worker in separate terminals:
 
 ```bash
 npm run dev:backend      # API on port 8080, using the settings in .env
 npm run dev:worker       # jobs: connector provisioning, identity, health
+```
+
+Set the frontend proxy target to the local backend:
+
+```bash
 API_PROXY_TARGET=http://localhost:8080 npm run dev:frontend
 ```
 
-Run the API and the worker in separate terminals with the same settings and cluster access.
-Backend resource operations use the official Kubernetes client. kubectl is only used by
-infrastructure scripts and tests. Rendering tests need Helm on `PATH`, in `.tools/helm`
-(installed by setup), or set through `HELM_BIN`.
+Run the API and the worker with the same settings and cluster access. Backend resource
+operations use the official Kubernetes client. `kubectl` is used only by infrastructure
+scripts and tests. Rendering tests need Helm on `PATH`, in `.tools/helm` (installed by setup),
+or at the path set in `HELM_BIN`.
 
-For a database of your own, use a fresh PostgreSQL 18 and set `PAYLOAD_DATABASE_URL`,
-`PAYLOAD_SECRET` and `OPENDS_DATA_KEY` (each 32 characters or more), `PAYLOAD_ADMIN_EMAIL`, `PAYLOAD_ADMIN_PASSWORD`
-(16 characters or more), `PAYLOAD_SERVER_URL` and `CORS_ORIGIN` (the browser origin), and
-`PLATFORM_PUBLIC_URL` (an address self-hosted agents can reach). Then:
+### Using a separate database
+
+To use your own database, create a fresh PostgreSQL 18 instance and set the following
+environment variables:
+
+- `PAYLOAD_DATABASE_URL`
+- `PAYLOAD_SECRET` and `OPENDS_DATA_KEY` (at least 32 characters each)
+- `PAYLOAD_ADMIN_EMAIL`
+- `PAYLOAD_ADMIN_PASSWORD` (at least 16 characters)
+- `PAYLOAD_SERVER_URL`
+- `CORS_ORIGIN` (the browser origin)
+- `PLATFORM_PUBLIC_URL` (an address that self-hosted agents can reach)
+
+Run the migrations and create the administrator:
 
 ```bash
 npm --prefix backend run platform:migrate
-npm --prefix backend run seed    # creates the administrator; never overwrites accounts
+npm --prefix backend run seed
 ```
+
+The seed command creates the administrator account and never overwrites existing accounts.
 
 ## Database changes
 
-Schema changes need checked-in migrations, because schema push is not a deployment strategy.
+Schema changes require checked-in migrations. Schema push is not a deployment strategy.
+
+Create a migration, apply it and regenerate the API types:
 
 ```bash
 npm --prefix backend run platform:migration:create -- describe_change
@@ -56,15 +79,18 @@ npm --prefix backend run platform:migrate
 npm --prefix backend run platform:types
 ```
 
-For these commands on the host, set `PAYLOAD_DATABASE_URL` to the local PostgreSQL in your
-shell. Containers and CI set it themselves. `platform:types` regenerates the checked-in API
-types for both backend and frontend.
+When running these commands on the host, set `PAYLOAD_DATABASE_URL` in your shell to point to
+the local PostgreSQL instance. Containers and CI set it themselves.
+
+`platform:types` regenerates the checked-in API types used by both the backend and the
+frontend.
 
 ## Dependencies
 
 The dependency gate is `npm audit --audit-level=high` in all three packages. Overrides for
-DOMPurify and graphql-scalars address high advisories in upstream packages. Remaining low and moderate
-upstream advisories are reported by the audit, not hidden.
+DOMPurify and graphql-scalars address high-severity advisories in upstream packages. Remaining
+low- and moderate-severity upstream advisories are reported by the audit rather than
+suppressed.
 
 ## Runtime upgrades
 
@@ -99,8 +125,8 @@ The platform and connector databases use PostgreSQL 18.
 - **Worker**: a single runner, guarded by a PostgreSQL advisory lock, so it can safely recover
   jobs a stopped worker left behind. Tasks are serialized per connector, keep their operation
   IDs and recheck the initiating user's permissions.
-- **Process rights**: backend and worker run as the user who ran setup (not as root when setup
-  is run by a regular user) and without Linux capabilities.
+- **Process rights**: the backend and the worker run as the user who executed setup, rather
+  than as root when setup is run by a regular user. They run without Linux capabilities.
 - **Connector Vaults**: an unseal sidecar initializes each Vault, unseals it after restarts and
   creates the connector's own token, derived from `OPENDS_DATA_KEY`. The unseal key is kept on
   the Vault's volume. This protects against restarts but not against access to the volume.
@@ -124,10 +150,10 @@ only the connectors. Both are instances of `infra/identity/compose.yaml` and are
 | Tractus-X BDRS          | 0.6.0   | The stack's directory, which trusts only the stack's issuer  |
 | PostgreSQL 18, Vault 1.20 |       | Persistent stores, with private keys in Vault                |
 
-The issued credentials are MembershipCredential, BpnCredential, DataExchangeGovernanceCredential
-and UsagePurposeCredential.
+The issued credentials are `MembershipCredential`, `BpnCredential`,
+`DataExchangeGovernanceCredential` and `UsagePurposeCredential`.
 
-Known limitations of these versions:
+### Known limitations
 
 - **Issuer DID**: IssuerService 0.4.1 has no DID management API, so OpenDS republishes the
   issuer's DID document. Setup refuses any change of the issuer's address, for the test stack
@@ -150,6 +176,7 @@ frontend/
     features/            Pages grouped by business capability
     shared/              Code used by several features, including the API client
   e2e/                   Browser workflow tests
+
 backend/
   src/
     platform/            Collections, permissions, workflows, jobs and migrations
@@ -160,9 +187,11 @@ backend/
       hosting/
         kubernetes/      Platform-hosted provisioning and health
         docker/          Self-host Compose bundle and agent
+
 runtimes/
   tractusx/              Pinned runtime profile, chart, values and Docker templates
   common/                Connector-local source-token worker
+
 infra/
   identity/              Identity stacks (test and production) in Docker Compose
   identity-host/         Production identity stack on a separate host
@@ -171,6 +200,7 @@ infra/
   kubernetes/            Cluster connection and the connector ingress (Traefik)
   local/                 Same-host kind networking and connector gateway
   charts/                Upstream licenses and chart checksums
+
 scripts/                 Setup, backups, identity installers and tests
 docker-compose.yml       Platform services; the files under infra/ add to it
 manage.sh                Setup, operations and test commands
