@@ -5,21 +5,27 @@ title: Your first data exchange
 # Your first data exchange
 
 This walk-through takes two organizations from registration to a downloaded file. It takes
-about half an hour, plus the time the connectors need to start. One organization provides the data and the
-other consumes it. You need an OpenDS [installation](/getting-started/installation). As data, you
-can use the sample that every installation serves at `https://<your domain>/api/test-data`.
+about half an hour, plus the time the connectors need to start. One organization provides the
+data and the other consumes it. You need an OpenDS [installation](/getting-started/installation).
+You can use the sample data that every installation serves at `<OpenDS address>/api/test-data`,
+where the OpenDS address is the one that setup printed.
 
 ## 1. Register both organizations
 
 Open the OpenDS address and select **Register an organization**. Register the provider with
-the organization name, your name, email address and a password of at least 16 characters, the
-role **Data provider**, the identity type **Test** and a short **Intended use**, which the
-platform administrator reads before approving. Accept the participation terms and submit the
-registration. Then register the consumer in the same way, choosing **Data
-consumer** as its role. Use another browser profile so that you can stay signed in to both.
+the following details:
 
-Sign in as the platform administrator (the account from the installation) in a third browser
-profile, and approve both organizations under **Platform Admin → Organizations awaiting
+- The organization name, your name, your email address and a password of at least 16
+  characters.
+- The role **Data provider** and the identity type **Test**.
+- A short **Intended use**, which the platform administrator reads before approving.
+
+Accept the participation terms and submit the registration. Then register the consumer in the
+same way, choosing **Data consumer** as its role. Use another browser profile so that you can
+stay signed in to both.
+
+Sign in as the platform administrator (the account you set up during installation with
+`PAYLOAD_ADMIN_EMAIL`) in a third browser profile, and approve both organizations under **Platform Admin → Organizations awaiting
 approval**. A few seconds later, the **Organization** page of each organization shows
 its identity as **Ready**.
 
@@ -28,8 +34,8 @@ its identity as **Ready**.
 In each organization, open **Connectors → New connector**, enter a name and save. Then select
 **Provision** on the connector page. The connector shows **Running** after a few minutes. The
 first connector of an installation takes longer because the software is downloaded first.
-Finally, on the provider's connector, select **List in discovery** on the **Hosting** tab so
-that other organizations can find its offers.
+On the provider's connector only, select **List in discovery** on the **Hosting** tab so that
+other organizations can find its offers.
 
 ## 3. Describe the data and its rules (provider)
 
@@ -40,10 +46,9 @@ that other organizations can find its offers.
    with the rule **Allowed usage purposes** and choose a purpose. Consumers accept these terms
    as part of the agreement.
 3. Under **Data products → New data product**, enter a name, a description, the connector, a
-   category and `https://<your domain>/api/test-data` as the **Provider source URL**. Keep **Source type** at **HTTP API
-   or file URL**. When you
-   later offer your own data, use an address that the connector can reach rather than
-   `localhost`.
+   category and `<OpenDS address>/api/test-data` as the **Provider source URL**. Keep **Source
+   type** at **HTTP API or file URL**. When you later offer your own data, use an address that
+   the connector can reach rather than `localhost`.
 
 ## 4. Publish the offer (provider)
 
