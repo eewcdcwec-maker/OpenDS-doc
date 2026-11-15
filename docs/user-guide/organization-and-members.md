@@ -4,26 +4,29 @@ title: Organization and members
 
 # Organization and members
 
+This page describes how people join an organization, how owners and administrators manage it,
+and what each member can set up for themselves.
+
 ## Joining and leaving
 
-- **Register**: when the platform allows self-registration, create an account and an
+- **Register**: when self-registration is enabled, create an account and an
   organization on the sign-up page and accept the participation terms of the dataspace. If
   registration is closed, ask to be invited. A platform administrator approves the organization
-  before it can exchange data. Until then, you can sign in and look around. A notice at the top
+  before it can exchange data. Until then, you can sign in but not exchange data. A notice at the top
   shows whether the organization is awaiting approval, rejected or suspended.
 - **Be invited**: an owner or administrator invites you by email address. What happens next
   depends on whether you already have an account:
   - **No account yet**: OpenDS creates your account and emails you a **Choose a password**
-    link, which is valid for seven days. If the platform has no email server, the inviter sets
-    an initial password and passes it on.
+    link, which is valid for seven days. If no email server is configured for OpenDS, the
+    inviter sets an initial password and passes it on.
   - **Existing account**: you receive an invitation with an invitation code. The link in the
     email opens OpenDS with that code, and you accept the invitation at the top of the page
-    after signing in. If the platform has no email server, the inviter is shown the code once
-    and passes it on. Your account keeps its name and password.
+    after signing in. If no email server is configured for OpenDS, the inviter is shown the
+    code once and passes it on. Your account keeps its name and password.
 
 Only the most recent password link works, so requesting a password reset replaces an unused
-**Choose a password** link. If the platform has no email server, password resets are not
-available.
+**Choose a password** link. If no email server is configured for OpenDS, password resets
+are not available.
 
 You can decline an invitation or leave an organization at any time. If you are its last owner,
 appoint another owner first. An owner or administrator can also remove a member. Whether you leave
@@ -32,20 +35,20 @@ or are removed, your account remains, together with its other organizations.
 ## Your profile
 
 Open the menu under your name and choose **Edit profile** to change your name or password.
-Every change asks for your current password, and a new password needs at least 16 characters. Changing it signs out every session of your account,
-including the current one. After five wrong passwords in a row, the account is locked
+Every change asks for your current password, and a new password needs at least 16 characters.
+Changing it signs out every session of your account, including the current one. After five wrong passwords in a row, the account is locked
 for ten minutes.
 
 ## Organization details
 
 Under **Organization**, you describe what your organization shares or uses in the dataspace.
-Partners see this description. In the organization directory, signed-in members can also see the
-other approved organizations of their dataspace and those organizations' running connectors,
-but never any user data.
+Partners see this description. Signed-in members can also browse the organization directory,
+which lists the other approved organizations of the dataspace and their running connectors. It
+never shows user data.
 
 Owners and administrators also manage:
 
-- **Members**: the members and their roles, on the same page.
+- **Members**: who belongs to the organization and their roles, on the same page.
 - **Organization settings**: access requests and activity tracking, as described
   [below](#organization-settings).
 - **Connector access**: Manager or Viewer rights for a member, granted and revoked on the
@@ -57,17 +60,17 @@ Owners and administrators also manage:
 
 Owners and administrators have two settings under **Organization → Organization settings**:
 
-- **Track activity** (default Yes): with No, the organization stops recording new activity
-  audit entries. Existing entries, memberships, permissions and server logs remain.
-- **Access requests** (default Yes): lets offers require provider approval. Offers that require
-  approval must be withdrawn before it can be turned off.
+- **Track activity** (default Yes): with No, the organization stops recording new entries in
+  its activity log. Existing entries, memberships, permissions and server logs remain.
+- **Access requests** (default Yes): lets offers require provider approval. Before you turn
+  this setting off, withdraw all offers that require approval.
 
 ## API keys
 
 Every member can create a personal API key for scripts under **API access**. When you create a
 key, you enter your password and choose an expiry of 30 days, 90 days, one year or never. The
-key is shown only once. A key acts as you, with your roles. **Replace key** creates a new key, and the old one stops
-working at once. **Revoke key** removes it. How to use the key is described under
+key is shown only once. A key acts as you, with your roles. **Replace key** creates a new key, and the old one
+stops working at once. **Revoke key** removes it. How to use the key is described under
 [API](/user-guide/api).
 
 ## Identity
