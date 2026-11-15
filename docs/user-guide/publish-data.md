@@ -47,7 +47,7 @@ For an HTTP source, two more fields describe how consumers use it:
   - **This URL plus a sub-path and query** (the default): consumers read below the URL, for
     example `/meters/42?from=2026-01-01`.
   - **Any request to this API, including writes**: consumers also choose the HTTP method and
-    send a body. Use it only for APIs that are meant to accept partner input.
+    send a body. Use it only for APIs that are meant to accept input from other participants.
 - **How to use**: free text for paths, parameters and a link to the API documentation.
   Consumers see it with the offer and next to their endpoint.
 
@@ -86,7 +86,7 @@ Under **Policies**, create two kinds of policies:
   You can allow all verified participants, selected organizations or a **partner group**.
 - **Usage policy**: defines the terms of use, such as time limits, usage purposes, a contract
   reference with an attached contract document, jurisdictions, onward sharing and deletion.
-  Partners download the contract PDF from the offer in **Discover** before they agree, and a
+  Other participants download the contract PDF from the offer in **Discover** before they agree, and a
   checksum lets both sides verify the file. The platform administrator defines the list of usage
   purposes for the whole dataspace, and you choose from it.
 
@@ -105,14 +105,14 @@ Policies created outside OpenDS are shown read-only.
 ## Offers
 
 Under **Offers**, publish one product per offer with an access policy and a usage policy.
-Partners find the offer under **Discover** once its connector is listed with
+Other participants find the offer under **Discover** once its connector is listed with
 **List in discovery** on the connector's **Hosting** tab.
 
-![The Publish an offer dialog with a summary of what partners will see](../img/publish-offer.png)
+![The Publish an offer dialog with a summary of what other participants will see](../img/publish-offer.png)
 
 - **Provider approval**: with **Automatic**, eligible consumers can request an agreement
   directly. With **Request approval**, you review each access request first. Approval is a step
-  in OpenDS and does not stop a partner who contacts your connector directly, so use the access
+  in OpenDS and does not stop a participant who contacts your connector directly, so use the access
   policy to restrict which organizations are eligible.
 - **Withdraw**: removes the offer from **Discover** and stops new access requests. Existing exchange history is kept.
   Active offers must be withdrawn before their product or policy can be changed or deleted.

@@ -42,7 +42,7 @@ for ten minutes.
 ## Organization details
 
 Under **Organization**, you describe what your organization shares or uses in the dataspace.
-Partners see this description. Signed-in members can also browse the organization directory,
+Other participants see this description. Signed-in members can also browse the organization directory,
 which lists the other approved organizations of the dataspace and their running connectors. It
 never shows user data.
 

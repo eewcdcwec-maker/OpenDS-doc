@@ -14,8 +14,8 @@ participants to verify the organization's identity.
 | Type in the app          | Wallet                                                            | Accepted by                | Suitable for                                         |
 | ------------------------ | ----------------------------------------------------------------- | -------------------------- | ---------------------------------------------------- |
 | **Test**                 | Hosted by OpenDS and disposable                                   | Other test identities only | Evaluation and testing                               |
-| **Managed identity**     | Hosted by OpenDS                                                  | All partners               | Exchanging real data without operating your own wallet |
-| **Self-hosted identity** | Hosted on your own infrastructure and associated with your domain | All partners               | Keeping your identity keys under your own control    |
+| **Managed identity**     | Hosted by OpenDS                                                  | All participants           | Exchanging real data without operating your own wallet |
+| **Self-hosted identity** | Hosted on your own infrastructure and associated with your domain | All participants           | Keeping your identity keys under your own control    |
 
 You choose the identity type when registering your organization. Managed and self-hosted
 identities are production identities and receive credentials from the production issuer of the
@@ -65,8 +65,8 @@ Use **Change wallet hosting** to switch between a managed and a self-hosted iden
 organization receives a new DID, and its existing offers are withdrawn. Connectors are removed
 together with their products, policies and agreements.
 
-The organization's own partner groups remain, but other partners must add the organization to
-their groups again because those groups reference its previous identity.
+The organization's own partner groups remain, but other organizations must add the
+organization to their groups again because those groups reference its previous identity.
 
 Before changing wallet hosting, export each connector's data under **More → Export connector
 data**. You can then import the products and policies into the new connectors.

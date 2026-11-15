@@ -31,8 +31,8 @@ dataspace.
 | Offer         | A data product published with an access policy and a usage policy                                    |
 | Agreement     | The result of a successful negotiation between a consumer and a provider                             |
 | Transfer      | One delivery of data under an agreement                                                              |
-| DID           | The decentralized identifier of an organization, which partners use to verify its identity           |
-| DSP address   | The address at which partners reach a connector, shown on the connector's **Hosting** tab as **Protocol endpoint**. Needed when the connector is not listed in discovery |
+| DID           | The decentralized identifier of an organization, which other participants use to verify its identity           |
+| DSP address   | The address at which other participants reach a connector, shown on the connector's **Hosting** tab as **Protocol endpoint**. Needed when the connector is not listed in discovery |
 | Wallet        | The service that holds an organization's keys and credentials. It is hosted by OpenDS or self-hosted |
 | STS secret    | The secret all connectors of an organization use to obtain tokens from its wallet                    |
 
