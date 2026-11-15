@@ -9,7 +9,7 @@ and work with the OpenDS web application.
 
 ## From joining to exchange
 
-1. **Join** the dataspace by [registering or accepting an invitation](/user-guide/organization-and-team).
+1. **Join** the dataspace by [registering or accepting an invitation](/user-guide/organization-and-members).
 2. **Choose an identity type** when you register: a test identity to try things out, or a
    production identity ([Identity](/user-guide/identity)).
 3. **Start a connector**, hosted by OpenDS or on your own server
@@ -40,11 +40,11 @@ and work with the OpenDS web application.
 
 | Role                                | Permissions                                                                                                                        |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Organization owner or administrator | Manages the organization settings and team, and is Manager on every connector of the organization. Only the owner can change the identity                        |
+| Organization owner or administrator | Manages the organization settings and members, and is Manager on every connector of the organization. Only the owner can change the identity                        |
 | Organization member                 | Works on the connectors they have been granted                                                                                     |
 | Connector Manager                   | Can do everything on that connector, including products, policies, offers, imports, lifecycle, exchanges and access for other members |
 | Connector Viewer                    | Can view the resources of that connector                                                                                           |
-| Platform administrator              | Approves, suspends and offboards organizations and manages platform settings. In the app, they can only work in organizations they belong to |
+| Platform administrator                | Approves, suspends and offboards organizations and manages platform settings |
 
 A connector grant does not give access to other connectors or to the administration of the
 organization. An API key has the same permissions as the member who created it.

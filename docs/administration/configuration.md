@@ -29,7 +29,7 @@ it from the account menu.
 
 Organization owners and administrators have their own settings under **Organization →
 Organization settings**, described under
-[Organization and team](/user-guide/organization-and-team#organization-settings).
+[Organization and members](/user-guide/organization-and-members#organization-settings).
 
 ## Administrator account
 

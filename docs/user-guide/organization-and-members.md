@@ -1,8 +1,8 @@
 ---
-title: Organization and team
+title: Organization and members
 ---
 
-# Organization and team
+# Organization and members
 
 ## Joining and leaving
 

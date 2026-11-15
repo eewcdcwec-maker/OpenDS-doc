@@ -15,7 +15,7 @@ const sidebars = {
       label: 'User guide',
       items: [
         'user-guide/overview',
-        'user-guide/organization-and-team',
+        'user-guide/organization-and-members',
         'user-guide/identity',
         'user-guide/connectors',
         'user-guide/publish-data',
