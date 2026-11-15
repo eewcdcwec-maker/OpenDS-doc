@@ -47,7 +47,7 @@ account must already exist, and the person signs out and in again afterwards.
 
 With `PUBLIC_DOMAIN` set, everything is served over HTTPS on that domain. Without it, OpenDS
 runs in the unencrypted HTTP evaluation mode described under
-[Installation](/getting-started/installation#http-evaluation). A private network does not need a public
+[Installation](/getting-started/installation#option-4-http-evaluation). A private network does not need a public
 domain, because an address-based name such as `opends.192-168-1-50.sslip.io` with
 `EDGE_TLS=internal` provides full HTTPS.
 

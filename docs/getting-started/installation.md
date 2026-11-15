@@ -36,17 +36,17 @@ platform services, the connector cluster and the identity services.
 The installation options differ in how the platform is reached and secured. You select one with
 `EDGE_TLS` and `PUBLIC_DOMAIN` in `.env` during installation:
 
-| Option                | `EDGE_TLS`  | Use it when                                                    | Result                                   |
-| --------------------- | ----------- | -------------------------------------------------------------- | ---------------------------------------- |
-| Internet with a domain | `acme`      | The server is on the internet with a domain                    | HTTPS with Let's Encrypt                 |
-| Private network        | `internal`  | The server is on a private network where clients can trust the dataspace CA | HTTPS with dataspace-issued certificates |
-| Your own certificate   | `files`     | You already have a certificate for the domain                  | HTTPS with your certificate              |
-| HTTP evaluation        | not set     | You only want to try OpenDS on a trusted network               | Plain HTTP, test identities only         |
+| #   | Option                 | `EDGE_TLS`  | Use it when                                                    | Result                                   |
+| --- | ---------------------- | ----------- | -------------------------------------------------------------- | ---------------------------------------- |
+| 1   | Internet with a domain | `acme`      | The server is on the internet with a domain                    | HTTPS with Let's Encrypt                 |
+| 2   | Private network        | `internal`  | The server is on a private network where clients can trust the dataspace CA | HTTPS with dataspace-issued certificates |
+| 3   | Your own certificate   | `files`     | You already have a certificate for the domain                  | HTTPS with your certificate              |
+| 4   | HTTP evaluation        | not set     | You only want to try OpenDS on a trusted network               | Plain HTTP, test identities only         |
 
 Each option is described below with the lines it needs in `.env`. You enter them in the
 [Install](#install) section.
 
-### Internet with a domain
+### Option 1: Internet with a domain
 
 Use this option when the server is reachable from the internet and has a domain name that points
 to it. OpenDS obtains and renews a Let's Encrypt certificate automatically.
@@ -56,7 +56,7 @@ PUBLIC_DOMAIN=dataspace.example.org
 EDGE_TLS=acme
 ```
 
-### Private network
+### Option 2: Private network
 
 Use this option when the server is only reachable inside a private network. OpenDS issues the
 certificates itself with the dataspace CA, so every browser and script client must trust that
@@ -77,7 +77,7 @@ PUBLIC_DOMAIN=opends.192-168-1-50.sslip.io   # for a server at 192.168.1.50
 EDGE_TLS=internal
 ```
 
-### Your own certificate
+### Option 3: Your own certificate
 
 Use this option when you have a certificate for the domain, for example from a company CA, or
 when Let's Encrypt is not an option. `PUBLIC_DOMAIN` must be the name the certificate is issued
@@ -91,7 +91,7 @@ EDGE_TLS=files
 Before you run setup, place the certificate chain in `.deploy/edge-certs/tls.crt` and the
 private key in `.deploy/edge-certs/tls.key`.
 
-### HTTP evaluation
+### Option 4: HTTP evaluation
 
 Use this option only to try OpenDS quickly. Leave `PUBLIC_DOMAIN` empty and set `PUBLIC_HOST` to
 the server's IP address. The app then runs over plain HTTP at `http://<PUBLIC_HOST>:8081`.
@@ -104,7 +104,7 @@ PUBLIC_HOST=192.168.1.50
 :::danger[Unencrypted]
 HTTP evaluation supports test identities only. Login details, tokens and data sent over its
 endpoints are not encrypted. Use it only on a trusted network. For HTTPS on a private network,
-use the private network option instead.
+use option 2 instead.
 :::
 
 ## Install
@@ -116,7 +116,7 @@ git clone https://github.com/kwe712/OpenDS.git opends && cd opends
 cp .env.example .env
 ```
 
-In the first section of `.env`, enter the lines for your installation option and set the first
+In the first section of `.env`, enter the lines for your chosen option (1 to 4) and set the first
 administrator:
 
 ```bash
