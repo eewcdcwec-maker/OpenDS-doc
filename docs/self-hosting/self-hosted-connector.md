@@ -4,17 +4,18 @@ title: Self-hosted connector
 
 # Self-hosted connector
 
-A self-hosted connector runs on your organization's own server with Docker. It is managed from
-OpenDS like any other connector. A small agent next to the connector picks up the work queued
-in OpenDS, such as creating products, publishing offers and health checks, and runs it locally.
-OpenDS therefore never needs access to your connector's Management API. Source
-passwords and cloud keys are entered on your server and never pass through OpenDS.
+A self-hosted connector runs on your organization's own server using Docker. It is managed
+through OpenDS like any other connector. A small agent running alongside the connector
+retrieves tasks queued in OpenDS, such as creating products, publishing offers and performing
+health checks, and executes them locally. OpenDS therefore does not need access to the
+connector's Management API. Source passwords and cloud keys are entered directly on your
+server and never pass through OpenDS.
 
 ## Requirements
 
 - A Linux server with Docker Engine and Docker Compose v2.
-- Inbound TCP port 443 from your partners, either from the internet or from your private
-  network.
+- Inbound TCP port 443 accessible to other participants, either over the internet or through
+  your private network.
 - Ideally a DNS name for the connector, such as `connector.example.org`, that points at the
   server. Without one, the connector uses names derived from the server's IP address via
   `sslip.io`, which need no DNS record.
@@ -24,9 +25,9 @@ passwords and cloud keys are entered on your server and never pass through OpenD
 
 :::warning[Keep the installer link private]
 The install commands in step 1 contain a one-time installer link. Until the connector has
-started once, anyone with the link can download setup files that
-contain your connector's identity credentials. Treat the link and the folder as secrets, and
-use **Reinstall** as described below if the link leaks or the server is lost.
+started for the first time, anyone with the link can download setup files that contain the
+connector's identity credentials. Treat the link and the downloaded folder as secrets. If the
+link is exposed or the server is lost, use **Reinstall** as described below.
 :::
 
 1. Open the connector, go to its **Hosting** tab and select **Use self-hosting**. A dialog
@@ -46,13 +47,19 @@ use **Reinstall** as described below if the link leaks or the server is lost.
    sudo env OPENDS_PUBLIC_HOST=connector.example.org sh ./start.sh
    ```
 
-   Without a DNS name, run `sudo sh ./start.sh`. The connector then uses an `sslip.io` name
-   for the address that an internet service reports for the server. On a private network,
-   that is usually the router's public address, so name the private address instead, for
+   Without a DNS name, run:
+
+   ```bash
+   sudo sh ./start.sh
+   ```
+
+   The connector then uses an `sslip.io` name based on the server's public IP address, as
+   reported by an internet service. On a private network, this is usually the router's public
+   address. In that case, specify a name based on the server's private IP address instead, for
    example `OPENDS_PUBLIC_HOST=connector.192-168-1-20.sslip.io`.
 
 4. After about half a minute, the connector shows **Running** in OpenDS. Then select
-   **List in discovery** on the **Hosting** tab so that partners find its offers.
+   **List in discovery** on the **Hosting** tab so that other participants can find its offers.
 
 ## HTTPS options
 
@@ -91,19 +98,20 @@ For a product with HTTP source authentication, the offer dialog shows the comman
 its secret, for example:
 
 ```bash
-sudo sh ./source-secret.sh <product-id> bearer      # or basic, header, login-body
+sudo sh ./source-secret.sh <product-id> bearer
 ```
 
-Run it in the connector folder before publishing. It asks for the secret and stores it on the
-connector. Keys for Amazon S3 or Azure are stored the same way:
+Use `basic`, `header` or `login-body` instead of `bearer` when appropriate. Run the command in
+the connector folder before publishing the offer. It prompts for the secret and stores it on
+the connector. Keys for Amazon S3 and Azure are stored in the same way:
 
 ```bash
 sudo sh ./cloud-storage.sh aws
 sudo sh ./cloud-storage.sh azure <storage account>
 ```
 
-Then record the region, buckets, accounts and containers without keys on the connector's
-**Cloud storage** tab.
+After storing the keys, enter the region, buckets, storage accounts and containers on the
+connector's **Cloud storage** tab, without entering the keys again.
 
 ## Everyday operation
 
@@ -121,8 +129,8 @@ is online, so stop it on the server first.
 ## Moving to another server
 
 Products, policies and offers are stored in the connector's database on the server, so a new
-installation starts empty. Existing agreements and transfers cannot be moved, so partners
-negotiate again. To move the connector:
+installation starts empty. Existing agreements and transfers cannot be moved, so other
+participants must negotiate again. To move the connector:
 
 1. On the connector page, select **More → Export connector data** while the old server still
    runs.
@@ -130,7 +138,7 @@ negotiate again. To move the connector:
    new install command is shown.
 3. Install on the new server, then select **More → Import connector data** with the exported
    file. Offers are not published automatically unless you select **Publish imported offers
-   immediately**. Publish offers of products with source authentication yourself after step 4.
+   immediately**. Offers for products that use source authentication must be published again after step 4.
 4. Run `source-secret.sh` and `cloud-storage.sh` again on the new server, because secrets are
    never exported.
 5. Rotate the STS secret under **Organization → Rotate STS secret**, because the old setup
@@ -138,7 +146,8 @@ negotiate again. To move the connector:
 
 ## Switching to platform hosting
 
-Existing agreements cannot be moved, so partners negotiate again. To switch:
+Existing agreements cannot be moved when switching hosting modes, so other participants must
+negotiate again. To switch:
 
 1. If you want to keep the connector's products and policies, export its data.
 2. Stop the connector on its server.
