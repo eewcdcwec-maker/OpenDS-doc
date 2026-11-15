@@ -29,6 +29,10 @@ These source types appear only when the connector has cloud storage set up, as d
 [Cloud storage](/user-guide/cloud-storage).
 
 Give each product a name, a description, categories and tags so that consumers can find it.
+Two further options describe the data itself. **This data contains personal information**
+helps consumers recognize sensitive data, while who may access it and how it may be used is
+still set in the offer's policies. **Show a sample in Discover** shows the sample content you
+enter to everyone browsing **Discover**, before they agree to the usage terms.
 
 ### HTTP sources
 

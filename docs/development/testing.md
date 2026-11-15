@@ -27,11 +27,20 @@ Notes for the integration tests:
   `.deploy/ca/dataspace-ca.crt`.
 - They create their own organizations and offboard them afterwards.
   `bash manage.sh clean-test-data` removes leftovers of interrupted runs.
-- Overrides include `OPENDS_BASE_URL`, `PLAYWRIGHT_BASE_URL` (with
-  `PLAYWRIGHT_IGNORE_HTTPS_ERRORS=1` for an installation with its own CA), `OPENDS_ADMIN_EMAIL` and
-  `OPENDS_ADMIN_PASSWORD`. The self-host test also accepts `OPENDS_SELF_HOST_E2E_*` network
-  and port overrides (for example connector port 28080 and agent port 27070), and
-  `OPENDS_SELF_HOST_E2E_DATABASE_URL` for an isolated test database.
+- Overrides include `OPENDS_BASE_URL`, and `OPENDS_ADMIN_EMAIL` and `OPENDS_ADMIN_PASSWORD`
+  for the integration scripts. The browser workflows use `PLAYWRIGHT_BASE_URL` (with
+  `PLAYWRIGHT_IGNORE_HTTPS_ERRORS=1` for an installation with its own CA) and sign in with
+  `PAYLOAD_ADMIN_EMAIL` and `PAYLOAD_ADMIN_PASSWORD`. The self-host test also accepts
+  `OPENDS_SELF_HOST_E2E_*` network and port overrides (for example connector port 28080 and
+  agent port 27070), and `OPENDS_SELF_HOST_E2E_DATABASE_URL` for an isolated test database.
+- With a remote connector cluster, the connectors must reach the test host:
+  - `runtime-e2e` needs `OPENDS_RUNTIME_E2E_SOURCE_HOST=<the OpenDS server's private address>`.
+    Otherwise, it uses the local kind network, and the first transfer fails with "No BPN entry
+    found for agreement".
+  - `self-host-e2e` can place its connector on the second server with
+    `OPENDS_SELF_HOST_E2E_SSH=<user@server>`, together with
+    `OPENDS_SELF_HOST_E2E_PUBLIC_HOST` and `OPENDS_SELF_HOST_E2E_DATASPACE_EDGE_IP` (both that
+    server's address), and `OPENDS_SELF_HOST_E2E_EDGE=shared` if its port 443 is already in use.
 - The token renewal scenario of the runtime test serves a login source from the test host.
   The platform refuses it as a private address unless allowed. Start the backend with
   `SOURCE_LOGIN_PRIVATE_ORIGINS=http://<docker gateway>:<port>` and run the test with

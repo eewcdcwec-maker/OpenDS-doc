@@ -21,7 +21,8 @@ it from the account menu.
 
 - **Email**: the SMTP password is stored encrypted. `SMTP_*` values in `.env` are only used
   when no server is saved in the app. Port 465 uses TLS. Every other port requires STARTTLS, so
-  a local relay without STARTTLS needs `SMTP_ALLOW_PLAINTEXT=true` in `.env`. Without
+  a local relay without STARTTLS needs `SMTP_ALLOW_PLAINTEXT=true` in `.env`, followed by
+  `docker compose up -d backend worker`. Without
   email, password resets are not available and inviters set an initial password.
 - **Private networks**: shown read-only on the **Dataspace** tab, because they are set in `.env`
   as described [below](#private-networks).

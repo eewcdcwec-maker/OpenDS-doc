@@ -114,7 +114,9 @@ With `EDGE_TLS=internal`, first trust the dataspace CA as described above. Then 
 address and sign in with the email and password from `PAYLOAD_ADMIN_EMAIL` and
 `PAYLOAD_ADMIN_PASSWORD` in `.env`. If you left the password empty, setup generated one.
 
-You can run setup again later. It keeps your settings and data.
+You can run setup again later. It keeps your settings and data and rebuilds the platform
+images, which needs about 3 GB of free disk space. If the code has not changed since the last
+run, add `--skip-build` to reuse the existing images.
 
 ## After installation
 

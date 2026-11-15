@@ -47,8 +47,10 @@ IngressClass (`nginx` by default, with the ingress-nginx CORS annotations) and
 
 In this example, the OpenDS server is at `10.0.0.10` and the second server at `10.0.0.20` on
 the same private network. Connector names use sslip.io, so no DNS records are needed. The steps
-run on the second server from a copy of the OpenDS repository, with Docker, `kind`, `kubectl`
-and `helm` installed.
+run on the second server from a copy of the OpenDS repository, with Docker installed. Setup on
+the OpenDS server downloads the tested versions of `kind`, `kubectl` and `helm` into `.tools/`,
+so copy that folder along and add it to the `PATH`. The second server also needs the two kernel
+limits listed under [Requirements](/getting-started/installation#requirements).
 
 1. Create the cluster. The API listens on the private address. The public ingress uses port 80,
    and the private one only the loopback port 19090:
@@ -183,6 +185,11 @@ and `helm` installed.
    ```
 
    New connectors then start on the second server.
+
+In this example, the public ingress serves the connectors over plain HTTP on port 80, so
+protocol messages and data between partners are not encrypted. For real data, terminate HTTPS
+for the connector domain in front of the public ingress, for example with a load balancer or a
+certificate on the ingress controller.
 
 One Kubernetes target serves one OpenDS installation, and each connector records its target.
 Connectors on another target are ignored and refuse lifecycle actions, so never point an

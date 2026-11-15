@@ -38,7 +38,9 @@ downloaded.
 
 Backups are encrypted with `BACKUP_PASSPHRASE` from `.env`. The passphrase is generated on first
 use. Also keep a copy of it somewhere other than the server. Daily backups, retention, backups
-on demand and downloads are configured under **Platform Admin → Operations**.
+on demand and downloads are configured under **Platform Admin → Operations**. The backup
+service checks for scheduled and requested backups every ten minutes, so a backup started with
+**Back up now** appears in the list a few minutes later.
 
 | Included in a platform backup                                   | Not included                                         |
 | --------------------------------------------------------------- | ---------------------------------------------------- |

@@ -17,6 +17,10 @@ described under [Identity](/user-guide/identity).
   server. For a short test, an address-based `sslip.io` name can be used instead.
 - Inbound TCP port 443, which the wallet also uses to obtain its certificate.
 - An OpenDS organization configured for **Self-hosted identity**.
+- On a private network, the dataspace operator must allow the wallet's address with
+  `ORGANIZATION_PRIVATE_NETWORKS`, as described under
+  [Private networks](/administration/configuration#private-networks), because OpenDS only
+  connects to public addresses by default.
 
 ## Starting the wallet
 
@@ -69,9 +73,13 @@ management API stays private and must never be published.
 
 ## Connecting the wallet to OpenDS
 
-In OpenDS, open **Organization → Dataspace identity** and complete the steps shown there.
+In OpenDS, open **Organization → Dataspace identity** and complete the steps shown there. Keep
+the page open between the first two steps, because the ownership challenge is created with the
+DID document and is not shown again after a reload.
 
-1. Under **DID document**, run `./wallet.sh public-key` and paste its output. Enter this
+1. Under **DID document**, run `./wallet.sh public-key` and paste the key, which is the line
+   that starts with `{"kty"`. The first run also prints Docker download messages, which must
+   not be pasted. Enter this
    credential-service endpoint, replacing the domain:
 
    ```text
@@ -110,8 +118,9 @@ In OpenDS, open **Organization → Dataspace identity** and complete the steps s
    ![The Dataspace identity card with all six steps done: DID document, ownership, wallet, approval, credentials, ready](../img/wallet-progress.png)
 
 After you add connectors, the **Organization** page lists their entries under "Add these
-connector entries to the `service` list", next to **Download did.json**. Add them to the
-`service` array in `./did/did.json` so that partners can find the connectors.
+connector entries to the `service` list" with their `id`, `type` and `serviceEndpoint`. Add each
+entry to the `service` array in `./did/did.json` by hand and remove the entries of deleted
+connectors, so that partners can find the connectors.
 
 ## Operation and backup
 

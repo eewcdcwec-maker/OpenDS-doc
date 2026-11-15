@@ -36,6 +36,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Cannot create or edit a product or policy                  | Choose a running connector, because paused or stopped connectors cannot be edited.               |
 | Cannot change or delete a product or policy                | Withdraw the offers that use it first.                                                          |
 | Publishing a login-protected offer fails with "destination is not public" | The login service is on a private network. An operator allows its exact origin with `SOURCE_LOGIN_PRIVATE_ORIGINS`. |
+| Partners cannot reach a self-hosted connector on a private network | Without a DNS name, the connector uses the router's public address. Start it again with `OPENDS_PUBLIC_HOST` set to a name for the server's private address, as described under [Installation](/self-hosting/self-hosted-connector#installation). |
 | A self-hosted server was lost or replaced                  | **Reinstall** on the Hosting tab, then rotate the STS secret ([Move to another server](/self-hosting/self-hosted-connector#moving-to-another-server)). |
 
 ## Identity and wallets
@@ -51,5 +52,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Symptom                                                    | What to do                                                                                     |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | A provider's offers do not appear under **Discover**       | Its connector must be running and listed (**List in discovery**). Paused connectors are hidden. |
+| An agreement stays **Negotiating**                         | The provider's connector cannot reach yours. Check that partners can reach your connector's address over HTTPS. |
+| A transfer returns an HTTP 500 page from the provider     | The product needs source authentication, but its secret is missing, for example after an import. The provider withdraws the offer and publishes it again with the secret. |
 | Discover tags an offer **Connector offer**, and partners cannot request it | The offer exists on the connector without an OpenDS record, for example because it was created directly through the connector's Management API. The provider republishes it in OpenDS with an explicit approval setting. |
 | Scripts get empty results or authentication errors         | Check the `Authorization` header, `x-tenant-id` (the organization's ID), the key's expiry and your permissions. `GET /api/users/me` shows whether the key signs you in. |

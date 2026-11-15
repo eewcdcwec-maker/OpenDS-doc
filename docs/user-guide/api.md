@@ -102,7 +102,9 @@ connector, either on the connector page or with these routes:
   included. Source credentials must therefore be entered again, and policies reviewed, before
   imported offers are published.
 - **Import behavior**: imports create new resource IDs, keep existing resources and skip offers
-  unless `publishOffers` is true. A failed import removes what that attempt created.
+  unless `publishOffers` is true. Offers of products with source authentication are published
+  without their secret, so publish those offers again with the secret instead. A failed import
+  removes what that attempt created.
 - **Exchange history**: included for reference only, because it cannot be recreated on a
   connector.
 - **Limits**: the configuration part is limited to 5 million characters, 1,000 products, 2,000

@@ -31,8 +31,8 @@ or are removed, your account remains, together with its other organizations.
 
 ## Your profile
 
-Open the menu under your name and choose **Edit profile** to change your name or password. A
-new password needs at least 16 characters. Changing it signs out every session of your account,
+Open the menu under your name and choose **Edit profile** to change your name or password.
+Every change asks for your current password, and a new password needs at least 16 characters. Changing it signs out every session of your account,
 including the current one. After five wrong passwords in a row, the account is locked
 for ten minutes.
 

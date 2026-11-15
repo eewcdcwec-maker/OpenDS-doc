@@ -33,7 +33,11 @@ use **Reinstall** as described below if the link leaks or the server is lost.
    shows the install commands, with a one-time installer link, and the commands to start,
    stop and delete it later.
 2. On your server, run the first command. It downloads the bundle, together with a
-   `README.md`, into a folder named after the connector.
+   `README.md`, into a folder named after the connector. With `EDGE_TLS=internal`, the server
+   must trust the dataspace CA first, or the download fails with a certificate error. Either
+   add the CA as described under
+   [Trusting the dataspace CA](/administration/configuration#trusting-the-dataspace-ca), or add
+   `--cacert dataspace-ca.crt` to the `curl` command.
 3. Start the connector, with your DNS name if you have one. If the server already runs other
    services or several connectors, use a start command from [HTTPS options](#https-options)
    instead:
@@ -42,7 +46,10 @@ use **Reinstall** as described below if the link leaks or the server is lost.
    sudo env OPENDS_PUBLIC_HOST=connector.example.org sh ./start.sh
    ```
 
-   Without a DNS name, run `sudo sh ./start.sh`.
+   Without a DNS name, run `sudo sh ./start.sh`. The connector then uses an `sslip.io` name
+   for the address that an internet service reports for the server. On a private network,
+   that is usually the router's public address, so name the private address instead, for
+   example `OPENDS_PUBLIC_HOST=connector.192-168-1-20.sslip.io`.
 
 4. After about half a minute, the connector shows **Running** in OpenDS. Then select
    **List in discovery** on the **Hosting** tab so that partners find its offers.
@@ -122,7 +129,8 @@ negotiate again. To move the connector:
 2. On the **Hosting** tab, select **Reinstall**. The old server loses access immediately, and a
    new install command is shown.
 3. Install on the new server, then select **More → Import connector data** with the exported
-   file. Offers are not published automatically.
+   file. Offers are not published automatically unless you select **Publish imported offers
+   immediately**. Publish offers of products with source authentication yourself after step 4.
 4. Run `source-secret.sh` and `cloud-storage.sh` again on the new server, because secrets are
    never exported.
 5. Rotate the STS secret under **Organization → Rotate STS secret**, because the old setup

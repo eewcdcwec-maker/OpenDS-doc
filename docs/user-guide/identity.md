@@ -36,7 +36,7 @@ Only the organization owner can change the identity, on the **Organization** pag
 | Change                          | Action                        | Effect                                                                                                                                                              |
 | ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Test to managed or self-hosted  | **Leave test mode**           | The organization starts over: connectors, products, policies, offers, partner groups, agreements and transfers are deleted. Members stay. A platform administrator approves the new identity. |
-| Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn. Connectors are removed together with their products, policies and agreements. Partner groups stay. |
+| Managed to self-hosted, or back | **Change wallet hosting**     | The organization gets a new DID. Offers are withdrawn. Connectors are removed together with their products, policies and agreements. The organization's own partner groups stay, but partners must add it to their groups again, because those name its old identity. |
 | Correct the self-hosted domain  | **Change** next to the domain | Possible only until a platform administrator approves the identity                                                                                                          |
 
 Before **Change wallet hosting**, export the data of each connector under **More → Export
@@ -45,9 +45,11 @@ Self-hosted connectors must be stopped on their servers first, because the chang
 while one of them is online.
 
 You can also export before **Leave test mode**. Do it while the connectors are still running,
-because leaving test mode deletes them. An import brings back products, policies and offers,
-but not agreements and transfers, and partner groups that name test identities must be
-updated. This path has not been tested end to end.
+because leaving test mode deletes them. An import brings back products and policies, and offers
+only when **Publish imported offers immediately** is selected. Agreements and transfers are not
+imported, and partner groups that name test identities must be updated. Offers of products with
+source authentication must be published again with their secret, because secrets are never
+exported.
 
 :::caution[Your domain becomes part of your DID]
 With a self-hosted identity, the domain is part of the DID and cannot change after approval.

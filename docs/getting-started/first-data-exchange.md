@@ -12,7 +12,9 @@ can use the sample that every installation serves at `https://<your domain>/api/
 ## 1. Register both organizations
 
 Open the OpenDS address and select **Register an organization**. Register the provider with
-the organization name, your name, email address and password, the role **Data provider**, and the identity type **Test**. Accept the participation terms and submit the
+the organization name, your name, email address and a password of at least 16 characters, the
+role **Data provider**, the identity type **Test** and a short **Intended use**, which the
+platform administrator reads before approving. Accept the participation terms and submit the
 registration. Then register the consumer in the same way, choosing **Data
 consumer** as its role. Use another browser profile so that you can stay signed in to both.
 
