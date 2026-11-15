@@ -6,6 +6,8 @@ title: Operations
 
 ## Everyday commands
 
+Run these commands from the OpenDS installation directory:
+
 ```bash
 bash manage.sh health            # API, database and backend status
 bash manage.sh status            # containers and connectors
@@ -15,7 +17,7 @@ bash manage.sh logs backend
 bash manage.sh                   # lists every command
 ```
 
-Under **Platform Admin → Operations**, administrators can check identity services, connectors,
+Under **Platform Admin → Operations**, administrators can monitor identity services, connectors,
 storage and certificates. Email alerts are sent once monitoring and email are configured.
 
 ![The Monitoring card: daily alert email, connector health check interval and the current checks](../img/monitoring.png)
@@ -29,18 +31,20 @@ Updating from an earlier release has not yet been verified end to end. The expec
 3. Run `bash manage.sh setup` again. It keeps your settings and data and also refreshes the
    identity services.
 
-Database migrations run automatically when the backend starts. For code-only changes,
-`bash manage.sh rebuild backend` and `bash manage.sh rebuild frontend` are enough. Updating does
-not upgrade running connectors, or self-host bundles that organizations have already
-downloaded.
+Database migrations run automatically when the backend starts. For code-only changes, running
+`bash manage.sh rebuild backend` and `bash manage.sh rebuild frontend` is sufficient.
+
+Updating OpenDS does not upgrade running connectors or self-hosted connector bundles that
+organizations have already downloaded.
 
 ## Backups
 
-Backups are encrypted with `BACKUP_PASSPHRASE` from `.env`. The passphrase is generated on first
-use. Also keep a copy of it somewhere other than the server. Daily backups, retention, backups
-on demand and downloads are configured under **Platform Admin → Operations**. The backup
-service checks for scheduled and requested backups every ten minutes, so a backup started with
-**Back up now** appears in the list a few minutes later.
+Backups are encrypted using `BACKUP_PASSPHRASE` from `.env`. The passphrase is generated on
+first use. Keep a separate copy somewhere other than the server.
+
+Configure daily backups, retention, on-demand backups and downloads under **Platform Admin →
+Operations**. The backup service checks for scheduled and requested backups every ten minutes,
+so a backup started with **Back up now** may take a few minutes to appear in the list.
 
 | Included in a platform backup                                   | Not included                                         |
 | --------------------------------------------------------------- | ---------------------------------------------------- |
@@ -57,22 +61,24 @@ consistent recovery point, pause contract uploads and deletions while taking a b
 
 | Command                                   | Effect                                                                                                         |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `bash manage.sh backup create`            | Writes an encrypted backup to `backups/` in the OpenDS folder, readable only by its owner. `OPENDS_BACKUP_DIR` changes the location |
-| `bash manage.sh backup verify <file>`     | Test-restores the backup in temporary containers and checks its contents                                       |
-| `bash manage.sh backup restore <file>`    | Replaces the platform state of this installation with the backup, after confirmation (`OPENDS_RESTORE_CONFIRM=yes` without a terminal) |
+| `bash manage.sh backup create`            | Writes an encrypted backup to `backups/` in the OpenDS folder, readable only by its owner. Set `OPENDS_BACKUP_DIR` to use a different location |
+| `bash manage.sh backup verify <file>`     | Restores the backup in temporary containers and checks its contents                                            |
+| `bash manage.sh backup restore <file>`    | Replaces the platform state of this installation with the backup, after confirmation. For non-interactive use, set `OPENDS_RESTORE_CONFIRM=yes` |
 
-To restore, run the following with the original passphrase. On a new server, install OpenDS
-first.
+To restore a backup, provide the original passphrase:
 
 ```bash
 BACKUP_PASSPHRASE=<passphrase> bash manage.sh backup restore <file>
 ```
 
-- **Platform-hosted connectors**: on the same server, they keep their runtime data. On a new
-  server, they must be provisioned again, with their products, policies and offers imported and their
-  credentials entered again.
-- **Separate identity host**: `backup restore` skips its data. The backup holds that data for
-  manual recovery only. The supported path is to rebuild the host, as described under
+On a new server, install OpenDS before restoring the backup.
+
+- **Platform-hosted connectors**: on the same server, connectors retain their runtime data. On
+  a new server, they must be provisioned again. Import their products, policies and offers, and
+  enter their credentials again.
+- **Separate identity host**: `backup restore` does not restore its data. The backup retains
+  that data for manual recovery only. The supported recovery procedure is to rebuild the host,
+  as described under
   [Identity services](/administration/identity-services#rebuilding-a-lost-identity-host).
 
 ## Self-hosted connectors
@@ -86,16 +92,17 @@ Organizations install, run and move their self-hosted connectors themselves, as 
   of OpenDS, and shell histories, do not record these links.
 - **Running state**: a self-hosted connector only counts as running when all its services are
   healthy, not merely when its agent is online.
-- **Deletion**: deleting the platform record of an offline connector cannot erase the remote
-  machine.
+- **Deletion**: deleting the platform record of an offline connector does not erase the
+  connector from the remote server.
 
 ## Platform secrets
 
-Setup generates two secrets in `.env`, which are included in backups.
+Setup generates two secrets in `.env`, both of which are included in backups.
 
-- **`PAYLOAD_SECRET`**: signs sessions and API keys. If it may have leaked, set a new value of at
-  least 32 characters in `.env` and run `docker compose up -d backend worker`. Everyone then
-  signs in again, and API keys must be created again. Connectors and stored data are not
+- **`PAYLOAD_SECRET`**: signs sessions and API keys. If it may have been exposed, replace it with a
+  new value of at least 32 characters in `.env`, then run `docker compose up -d backend worker`.
+  All users must sign in again, and API keys must be recreated. Connectors and stored data are not
   affected.
-- **`OPENDS_DATA_KEY`**: protects the connector and identity secrets and the SMTP password.
-  It must never be changed, because existing connectors and identities would stop working.
+- **`OPENDS_DATA_KEY`**: protects connector and identity secrets, as well as the SMTP
+  password. Never change this value, because doing so would prevent existing connectors and
+  identities from working.
