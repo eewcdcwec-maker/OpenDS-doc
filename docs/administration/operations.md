@@ -11,7 +11,7 @@ Run these commands from the OpenDS installation directory:
 ```bash
 bash manage.sh health            # API, database and backend status
 bash manage.sh status            # containers and connectors
-bash manage.sh rebuild backend   # rebuild and restart after an update
+bash manage.sh rebuild backend   # rebuild and restart after code changes
 bash manage.sh rebuild frontend
 bash manage.sh logs backend
 bash manage.sh                   # lists every command
@@ -21,21 +21,6 @@ Under **Platform Admin → Operations**, administrators can monitor identity ser
 storage and certificates. Email alerts are sent once monitoring and email are configured.
 
 ![The Monitoring card: daily alert email, connector health check interval and the current checks](../img/monitoring.png)
-
-## Updates
-
-To update OpenDS:
-
-1. Create a backup with `bash manage.sh backup create`.
-2. Get the new version with `git pull`.
-3. Run `bash manage.sh setup` again. It keeps your settings and data and also refreshes the
-   identity services.
-
-Database migrations run automatically when the backend starts. For code-only changes, running
-`bash manage.sh rebuild backend` and `bash manage.sh rebuild frontend` is sufficient.
-
-Updating OpenDS does not upgrade running connectors or self-hosted connector bundles that
-organizations have already downloaded.
 
 ## Backups
 
