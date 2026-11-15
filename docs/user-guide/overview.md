@@ -4,8 +4,8 @@ title: Overview
 
 # User guide overview
 
-This guide is for members of organizations that share or consume data in an OpenDS dataspace
-and work with the OpenDS web application.
+This guide explains how to use the OpenDS web application to share and consume data in a
+dataspace.
 
 ## From joining to exchange
 
