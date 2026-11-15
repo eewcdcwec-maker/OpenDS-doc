@@ -84,11 +84,11 @@ approval. Contact the platform administrator if you need to change it.
 All connectors belonging to an organization use the same secret to obtain tokens from its
 wallet. Rotate this secret if it may have been compromised, for example after losing a server.
 
-1. For a self-hosted identity, first run `./wallet.sh rotate-secret` in the wallet directory.
-   The command prints a new secret.
-2. In OpenDS, go to **Organization → Rotate STS secret** and start the rotation. For a
-   self-hosted identity, enter the secret printed in step 1 in the **New secret from your
-   wallet** field.
+To rotate the secret, go to **Organization → Rotate STS secret** and start the rotation.
+
+With a self-hosted identity, first run `./wallet.sh rotate-secret` in the wallet directory.
+The command prints a new secret. Enter it in the **New secret from your wallet** field when
+you start the rotation in OpenDS.
 
 OpenDS distributes the new secret to all the organization's connectors. Self-hosted connectors
 receive it through their agents within one minute.
