@@ -17,12 +17,11 @@ the following details:
 
 - The organization name, your name, your email address and a password of at least 16
   characters.
-- The role **Data provider** and the identity type **Test**.
+- The identity type **Test**.
 - A short **Intended use**, which the platform administrator reads before approving.
 
 Accept the participation terms and submit the registration. Then register the consumer in the
-same way, choosing **Data consumer** as its role. Use another browser profile so that you can
-stay signed in to both.
+same way. Use another browser profile so that you can stay signed in to both.
 
 Sign in as the platform administrator (the account you set up during installation with
 `PAYLOAD_ADMIN_EMAIL`) in a third browser profile, and approve both organizations under **Platform Admin → Organizations awaiting
