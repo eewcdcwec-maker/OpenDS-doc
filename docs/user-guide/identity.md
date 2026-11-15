@@ -33,9 +33,14 @@ All identity types work with both platform-hosted and self-hosted connectors.
 ## Changing the identity
 
 Only the organization owner can change the identity from the **Organization** page. There are
-three kinds of change.
+three kinds of change:
 
-### Leave test mode
+1. **Leave test mode**: switch from a test identity to a managed or self-hosted identity.
+2. **Change wallet hosting**: switch between a managed and a self-hosted identity.
+3. **Correct the self-hosted domain**: fix the domain of a self-hosted identity before it is
+   approved.
+
+### 1. Leave test mode
 
 Use **Leave test mode** to switch from a test identity to a managed or self-hosted identity.
 This resets the organization: connectors, products, policies, offers, partner groups,
@@ -54,7 +59,7 @@ imported.
 Offers for products with source authentication must be published again with their secrets,
 because secrets are never included in exports.
 
-### Change wallet hosting
+### 2. Change wallet hosting
 
 Use **Change wallet hosting** to switch between a managed and a self-hosted identity. The
 organization receives a new DID, and its existing offers are withdrawn. Connectors are removed
@@ -69,7 +74,7 @@ data**. You can then import the products and policies into the new connectors.
 Self-hosted connectors must be stopped on their servers before the change. The operation is
 refused while any self-hosted connector is online.
 
-### Correct the self-hosted domain
+### 3. Correct the self-hosted domain
 
 Select **Change** next to the domain on the **Organization** page. You can do this only before
 a platform administrator approves the identity.
