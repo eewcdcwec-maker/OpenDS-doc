@@ -32,60 +32,70 @@ All identity types work with both platform-hosted and self-hosted connectors.
 
 ## Changing the identity
 
-Only the organization owner can change the identity, on the **Organization** page. There are
+Only the organization owner can change the identity from the **Organization** page. There are
 three kinds of change.
 
 ### Leave test mode
 
-Use **Leave test mode** to move from a test identity to a managed or self-hosted identity. The
-organization starts over: connectors, products, policies, offers, partner groups, agreements
-and transfers are deleted. Members stay. A platform administrator approves the new identity.
+Use **Leave test mode** to switch from a test identity to a managed or self-hosted identity.
+This resets the organization: connectors, products, policies, offers, partner groups,
+agreements and transfers are deleted. Members remain. Partner groups of other organizations
+that include this one must be updated, and a platform administrator must approve the new
+identity.
 
-You can export the data of each connector first, under **More → Export connector data**. Do it
-while the connectors are still running, because leaving test mode deletes them. An import
-brings back products and policies, and offers only when **Publish imported offers
-immediately** is selected. Agreements and transfers are not imported, and partner groups that
-name test identities must be updated. Offers of products with source authentication must be
-published again with their secret, because secrets are never exported.
+Before leaving test mode, you can export each connector's data under **More → Export connector
+data**. Export the data while the connectors are still running, because leaving test mode
+deletes them.
+
+Importing the exported data restores products and policies. Offers are restored only if
+**Publish imported offers immediately** is selected. Agreements and transfers are not
+imported.
+
+Offers for products with source authentication must be published again with their secrets,
+because secrets are never included in exports.
 
 ### Change wallet hosting
 
-Use **Change wallet hosting** to move from a managed to a self-hosted identity, or back. The
-organization gets a new DID. Offers are withdrawn. Connectors are removed together with their
-products, policies and agreements. The organization's own partner groups stay, but partners
-must add it to their groups again, because those name its old identity.
+Use **Change wallet hosting** to switch between a managed and a self-hosted identity. The
+organization receives a new DID, and its existing offers are withdrawn. Connectors are removed
+together with their products, policies and agreements.
 
-Before the change, export the data of each connector under **More → Export connector data**,
-so that you can import its products and policies into the new connectors. Self-hosted
-connectors must be stopped on their servers first, because the change is refused while one of
-them is online.
+The organization's own partner groups remain, but other partners must add the organization to
+their groups again because those groups reference its previous identity.
+
+Before changing wallet hosting, export each connector's data under **More → Export connector
+data**. You can then import the products and policies into the new connectors.
+
+Self-hosted connectors must be stopped on their servers before the change. The operation is
+refused while any self-hosted connector is online.
 
 ### Correct the self-hosted domain
 
-Select **Change** next to the domain on the **Organization** page. This is possible only until
+Select **Change** next to the domain on the **Organization** page. You can do this only before
 a platform administrator approves the identity.
 
 :::caution[Your domain becomes part of your DID]
-With a self-hosted identity, the domain is part of the DID and cannot change after approval.
-Contact the platform administrator if it must change.
+For a self-hosted identity, the domain is part of the DID and cannot be changed after
+approval. Contact the platform administrator if you need to change it.
 :::
 
 ## Rotating the STS secret
 
-All connectors of an organization use one secret to obtain tokens from its wallet. Rotate it
-if it may have leaked, for example after a server was lost.
+All connectors belonging to an organization use the same secret to obtain tokens from its
+wallet. Rotate this secret if it may have been compromised, for example after losing a server.
 
-1. With a self-hosted identity, first run `./wallet.sh rotate-secret` in the wallet folder.
-   It prints a new secret.
-2. Under **Organization → Rotate STS secret**, start the rotation. With a self-hosted
-   identity, enter the secret from step 1 in the **New secret from your wallet** field.
+1. For a self-hosted identity, first run `./wallet.sh rotate-secret` in the wallet directory.
+   The command prints a new secret.
+2. In OpenDS, go to **Organization → Rotate STS secret** and start the rotation. For a
+   self-hosted identity, enter the secret printed in step 1 in the **New secret from your
+   wallet** field.
 
-OpenDS delivers the new secret to every connector. Self-hosted connectors receive it through
-their agent within a minute.
+OpenDS distributes the new secret to all the organization's connectors. Self-hosted connectors
+receive it through their agents within one minute.
 
 ## When an organization is offboarded
 
-When a platform administrator offboards an organization, OpenDS immediately withdraws its
-DID document, removes its directory entry and revokes its credentials, so partners stop
-trusting it at once.
-Its members lose access, and accounts without another organization are removed.
+When a platform administrator offboards an organization, OpenDS immediately withdraws its DID
+document, removes its directory entry and revokes its credentials. Partners therefore stop
+trusting the organization's identity. Its members lose access to OpenDS, and accounts that do
+not belong to another organization are removed.
