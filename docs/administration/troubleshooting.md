@@ -4,23 +4,23 @@ title: Troubleshooting
 
 # Troubleshooting
 
-These three commands on the OpenDS server answer most questions:
+The following commands on the OpenDS server help diagnose most issues:
 
 ```bash
-bash manage.sh health            # API, database and backend reachable?
+bash manage.sh health            # API, database and backend reachability
 bash manage.sh status            # containers, Kubernetes target and connector pods
-bash manage.sh logs backend      # what the backend reports
+bash manage.sh logs backend      # backend logs
 ```
 
-Remove API keys, installer links and passwords from any logs before sharing them.
+Remove API keys, installer links and passwords from logs before sharing them.
 
 ## Installation
 
 | Symptom                                                           | What to do                                                                                     |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Setup says "permission denied" for the Docker socket              | Add the user to the `docker` group (`sudo usermod -aG docker $USER`), sign in again, rerun setup. |
-| Setup stops with "Run sudo sysctl -w fs.inotify…"                 | Set the two kernel limits once as root, as shown under [Requirements](/getting-started/installation#requirements), then rerun setup. |
-| After changing the domain, setup stops with "The test issuer was created for another address" | Run the command it names (`docker compose -p opends-identity-test down -v`) and rerun setup. Test identities start over. For the local production stack, the error names `docker compose -p opends-identity-production down -v`. That deletes all production identities and their keys. Every production organization then sets up its identity again, and self-hosted wallets request their credentials again. |
+| Setup reports `permission denied` for the Docker socket           | Add the user to the `docker` group with `sudo usermod -aG docker $USER`, sign in again and rerun setup. |
+| Setup stops with `Run sudo sysctl -w fs.inotify…`                 | Set the two kernel limits once as root, as shown under [Requirements](/getting-started/installation#requirements), then rerun setup. |
+| After changing the domain, setup stops with `The test issuer was created for another address` | Run the command shown in the error, `docker compose -p opends-identity-test down -v`, then rerun setup. Test identities start over. For the local production stack, the error instead names `docker compose -p opends-identity-production down -v`. **This deletes all production identities and their keys.** Every production organization must set up its identity again, and organizations with self-hosted wallets must request their credentials again. |
 | Browser warns about the certificate                               | With `EDGE_TLS=internal`, trust the [dataspace CA](/administration/configuration#trusting-the-dataspace-ca) once. |
 | No HTTPS certificate, Let's Encrypt reports a rate limit (429)    | Let's Encrypt limits how many certificates one name gets per week. Wait, or use your own certificate (`EDGE_TLS=files`). |
 | The app is not on port 443 without a domain                       | Without `PUBLIC_DOMAIN` it runs over plain HTTP at `http://<PUBLIC_HOST>:8081`.                  |
@@ -30,13 +30,13 @@ Remove API keys, installer links and passwords from any logs before sharing them
 
 | Symptom                                                    | What to do                                                                                     |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Provisioning fails with "no free capacity"                 | Each platform-hosted connector needs about 1.3 CPU cores and 2.3 GB RAM. Pause another connector or add capacity, then provision again. |
+| Provisioning fails with `no free capacity`                 | Each platform-hosted connector needs about 1.3 CPU cores and 2.3 GB RAM. Pause another connector or add capacity, then try provisioning again. |
 | Self-hosted connector is not "Running"                     | Its control plane, data plane and proxy must be healthy and registered. Check `curl http://localhost:7070` on its server. |
 | Self-hosted connector shows **Degraded**, **Agent offline** | It is stopped or cannot reach OpenDS. Run `sudo sh ./start.sh` in its folder.                   |
 | Cannot create or edit a product or policy                  | Choose a running connector, because paused or stopped connectors cannot be edited.               |
 | Cannot change or delete a product or policy                | Withdraw the offers that use it first.                                                          |
-| Publishing a login-protected offer fails with "destination is not public" | The login service is on a private network. An operator allows its exact origin with `SOURCE_LOGIN_PRIVATE_ORIGINS`. |
-| Partners cannot reach a self-hosted connector on a private network | Without a DNS name, the connector uses the router's public address. Start it again with `OPENDS_PUBLIC_HOST` set to a name for the server's private address, as described under [Installation](/self-hosting/self-hosted-connector#installation). |
+| Publishing a login-protected offer fails with `destination is not public` | The login service is on a private network. An operator allows its exact origin with `SOURCE_LOGIN_PRIVATE_ORIGINS`. |
+| Other participants cannot reach a self-hosted connector on a private network | Without a DNS name, the connector uses the router's public address. Start it again with `OPENDS_PUBLIC_HOST` set to a name for the server's private address, as described under [Installation](/self-hosting/self-hosted-connector#installation). |
 | A self-hosted server was lost or replaced                  | **Reinstall** on the Hosting tab, then rotate the STS secret ([Move to another server](/self-hosting/self-hosted-connector#moving-to-another-server)). |
 
 ## Identity and wallets
@@ -52,7 +52,7 @@ Remove API keys, installer links and passwords from any logs before sharing them
 | Symptom                                                    | What to do                                                                                     |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | A provider's offers do not appear under **Discover**       | Its connector must be running and listed (**List in discovery**). Paused connectors are hidden. |
-| An agreement stays **Negotiating**                         | The provider's connector cannot reach yours. Check that partners can reach your connector's address over HTTPS. |
+| An agreement stays **Negotiating**                         | The provider's connector cannot reach yours. Check that other participants can reach your connector's address over HTTPS. |
 | A transfer returns an HTTP 500 page from the provider     | The product needs source authentication, but its secret is missing, for example after an import. The provider withdraws the offer and publishes it again with the secret. |
-| Discover tags an offer **Connector offer**, and partners cannot request it | The offer exists on the connector without an OpenDS record, for example because it was created directly through the connector's Management API. The provider republishes it in OpenDS with an explicit approval setting. |
+| Discover labels an offer **Connector offer**, and other participants cannot request it | The offer exists on the connector without an OpenDS record, for example because it was created directly through the connector's Management API. The provider republishes it in OpenDS with an explicit approval setting. |
 | Scripts get empty results or authentication errors         | Check the `Authorization` header, `x-tenant-id` (the organization's ID), the key's expiry and your permissions. `GET /api/users/me` shows whether the key signs you in. |
