@@ -73,12 +73,6 @@ A separate identity host requires:
 
 A server with 2 vCPUs, 4 GB RAM and swap enabled is sufficient.
 
-:::warning[Moving an existing dataspace]
-Moving from a local stack changes the production issuer's DID, which affects every production
-organization. If production organizations already exist, read the
-[migration notes](#migration-notes) below before you run the installer.
-:::
-
 After `bash manage.sh setup` has finished, run the following command on the OpenDS server.
 Replace the SSH user, server address and DNS name with those of your identity host:
 
@@ -99,34 +93,9 @@ The script can be run again to update the stack. It:
 - **Includes the host in the platform backups** by fetching its database and Vault state with a
   separate, restricted key.
 
-### Migration notes
-
-- **Self-hosted wallets** must be reachable from the identity host, because the issuer delivers
-  credentials to them. A public identity host cannot reach wallets on a private network.
-  Organizations in that situation must use a managed identity.
-- **Moving from a local stack** changes the production issuer's DID, which affects every
-  production organization:
-  - **Managed identities** cannot keep their DIDs, because these contain the old domain. They
-    receive new identities on the identity host automatically.
-  - **Self-hosted wallets** keep their DID, but their credentials came from the old issuer. Their
-    identity returns to **Awaiting credentials**. The **Organization** page shows the new
-    issuer's DID, and they run `./wallet.sh request-credentials <that DID>`.
-  - **All production connectors** still trust the old issuer, because a connector receives the
-    issuer's DID when it is provisioned. Until a connector is provisioned again, its new
-    negotiations and transfers fail. For a self-hosted connector, this means **Reinstall** with
-    a new installer. Because reprovisioning removes a connector's products and policies, export
-    each connector first under **More → Export connector data** and import the data afterwards.
-  - **Rollback**: there is no scripted rollback, and the manual path is untested. The previous
-    `.env` is kept in `.deploy/env.before-identity-host`, and the old production stack keeps
-    running on the OpenDS server. To go back, copy that file back to `.env` and run
-    `bash manage.sh setup`. Connectors that were already provisioned again must be provisioned
-    once more. Once the rollback is no longer needed, stop the old stack:
-
-    ```bash
-    docker compose -p opends-identity-production down
-    ```
-
-    Add `-v` only when you are sure, because that deletes its keys.
+A self-hosted wallet must be reachable from the identity host, because the issuer delivers
+credentials to it. A public identity host cannot reach wallets on a private network.
+Organizations in that situation must use a managed identity.
 
 ## Rebuilding a lost identity host
 
