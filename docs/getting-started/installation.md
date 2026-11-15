@@ -133,7 +133,8 @@ associated with the previous domain.
 1. When you run setup again with the new domain, it stops with a "created for another
    address" error.
 2. You remove the affected identity stack with the command that the error names.
-3. Running setup again then creates new identity services for the new domain, and the identities start over:
+3. Running setup again then creates new identity services for the new domain, and the
+   identities start over:
    - **Test identities** are reset.
    - **Production identities** and their keys are deleted. Every production organization sets
      up its identity again, and self-hosted wallets request their credentials again.
@@ -155,7 +156,9 @@ downloads and server resources. When it finishes, it prints:
 OpenDS is ready: https://<your domain>
 ```
 
-With `EDGE_TLS=internal`, first trust the dataspace CA as described above. Then open that
+With option 4, the address is `http://<PUBLIC_HOST>:8081` instead.
+
+With option 2 (`EDGE_TLS=internal`), first trust the dataspace CA as described there. Then open that
 address and sign in with the email and password from `PAYLOAD_ADMIN_EMAIL` and
 `PAYLOAD_ADMIN_PASSWORD` in `.env`. If you left the password empty, setup generated one.
 
