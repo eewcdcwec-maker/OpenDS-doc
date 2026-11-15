@@ -17,18 +17,21 @@ Compose with the official Tractus-X images.
 
 ## Choosing the domain
 
-The DIDs of the production issuer and of every managed identity contain the identity domain,
-and the issuer is named in every credential, so **changing the domain later invalidates all production identities and
-credentials**. Organizations with a managed identity then get new identities, and organizations with a self-hosted
-identity must request their credentials again. Before approving the first production
-organization, choose a name you will keep, such as `dataspace.example.org` or `id.example.org`,
-rather than an address-based name.
+The DIDs of the production issuer and of every managed identity contain the identity domain.
+The issuer is also named in every credential. Therefore, **changing the domain later
+invalidates all production identities and credentials**. Organizations with a managed identity
+receive new identities, while organizations with a self-hosted identity must request their
+credentials again.
+
+Choose a domain that you intend to keep before approving the first production organization.
+Use a stable name such as `dataspace.example.org` or `id.example.org`, rather than an
+address-based name.
 
 ## Layouts
 
-The issuer delivers credentials to each organization's wallet, and partners resolve DIDs and
-call the wallets, so these endpoints must be reachable by every participant under a stable HTTPS
-name.
+The issuer delivers credentials to each organization's wallet. Participants resolve DIDs and
+call wallet endpoints, so these services must be reachable by all participants through stable
+HTTPS addresses.
 
 - **Local stack (default)**: runs on the OpenDS server behind the platform's own HTTPS entry.
   Use it when the OpenDS server is reachable by all participants, either with a public domain or
@@ -61,18 +64,23 @@ server.
 
 ## Separate host
 
-A separate identity host needs a Linux server with Docker, an SSH user with sudo, TCP ports 80
-and 443 open to the internet, and a DNS name pointing at it. A server with 2 vCPUs, 4 GB RAM and
-swap enabled is sufficient.
+A separate identity host requires:
+
+- A Linux server with Docker.
+- An SSH user with `sudo` privileges.
+- TCP ports 80 and 443 open to the internet.
+- A DNS name pointing to the server.
+
+A server with 2 vCPUs, 4 GB RAM and swap enabled is sufficient.
 
 :::warning[Moving an existing dataspace]
 Moving from a local stack changes the production issuer's DID, which affects every production
-organization. If production organizations already exist, read the notes on moving from a local
-stack below before you run the installer.
+organization. If production organizations already exist, read the
+[migration notes](#migration-notes) below before you run the installer.
 :::
 
-After `bash manage.sh setup` has finished, run this on the OpenDS server, with the SSH user and
-address of the identity host and its DNS name:
+After `bash manage.sh setup` has finished, run the following command on the OpenDS server.
+Replace the SSH user, server address and DNS name with those of your identity host:
 
 ```bash
 bash scripts/identity-host-install.sh opends@203.0.113.20 id.example.org
@@ -91,11 +99,11 @@ The script can be run again to update the stack. It:
 - **Includes the host in the platform backups** by fetching its database and Vault state with a
   separate, restricted key.
 
-Notes:
+### Migration notes
 
 - **Self-hosted wallets** must be reachable from the identity host, because the issuer delivers
-  credentials to them. A public identity host cannot reach wallets on a private network, so
-  organizations there use a managed identity.
+  credentials to them. A public identity host cannot reach wallets on a private network.
+  Organizations in that situation must use a managed identity.
 - **Moving from a local stack** changes the production issuer's DID, which affects every
   production organization:
   - **Managed identities** cannot keep their DIDs, because these contain the old domain. They
@@ -112,9 +120,13 @@ Notes:
     `.env` is kept in `.deploy/env.before-identity-host`, and the old production stack keeps
     running on the OpenDS server. To go back, copy that file back to `.env` and run
     `bash manage.sh setup`. Connectors that were already provisioned again must be provisioned
-    once more. Once the rollback is no longer needed, stop the old stack with
-    `docker compose -p opends-identity-production down`. Add `-v` only when you are sure,
-    because that deletes its keys.
+    once more. Once the rollback is no longer needed, stop the old stack:
+
+    ```bash
+    docker compose -p opends-identity-production down
+    ```
+
+    Add `-v` only when you are sure, because that deletes its keys.
 
 ## Rebuilding a lost identity host
 
