@@ -5,10 +5,10 @@ title: Self-hosted wallet
 # Self-hosted wallet
 
 This guide applies when your organization chooses **Self-hosted identity**. The wallet runs on
-your server and gives your organization its own `did:web` identity. Its private key never leaves
-that server. OpenDS only receives the public key, proof that you control it, and the
-STS secret that your connectors use. The identity types and the effects of changing them are
-described under [Identity](/user-guide/identity).
+your server and provides your organization with its own `did:web` identity. Its private key
+never leaves your server. OpenDS receives only the public key, proof of ownership and the STS
+secret used by your connectors. The available identity types and the implications of changing
+them are described under [Identity](/user-guide/identity).
 
 ## Requirements
 
@@ -17,10 +17,10 @@ described under [Identity](/user-guide/identity).
   server. For a short test, an address-based `sslip.io` name can be used instead.
 - Inbound TCP port 443, which the wallet also uses to obtain its certificate.
 - An OpenDS organization configured for **Self-hosted identity**.
-- On a private network, the dataspace operator must allow the wallet's address with
+- For a private network, the dataspace operator must allow the wallet's address with
   `ORGANIZATION_PRIVATE_NETWORKS`, as described under
-  [Private networks](/administration/configuration#private-networks), because OpenDS only
-  connects to public addresses by default.
+  [Private networks](/administration/configuration#private-networks). By default, OpenDS
+  connects only to public addresses.
 
 ## Starting the wallet
 
@@ -34,13 +34,22 @@ directory, then run:
 
 ```bash
 ./wallet.sh setup wallet.example.org
+```
+
+Replace `wallet.example.org` with your wallet's DNS name. Then start the wallet:
+
+```bash
 sudo ./wallet.sh start
+```
+
+To follow the IdentityHub startup logs, run:
+
+```bash
 sudo docker compose logs -f identityhub
 ```
 
-Replace `wallet.example.org` with your wallet's DNS name and wait until the IdentityHub log
-reports that the runtime is ready. The generated `.env` file must not be shared or added to
-source control.
+Wait until the logs indicate that the runtime is ready. Do not share the generated `.env` file
+or add it to source control.
 
 ### Sharing one HTTPS entry with connectors
 
@@ -64,23 +73,25 @@ If nginx or Traefik already terminates HTTPS for this server, use `--external-pr
 sudo ./wallet.sh start
 ```
 
-For a proxy on another host, use the wallet server's private address in `--external-proxy`
-instead of `127.0.0.1`, and add
-`--proxy-allow <proxy-address>`. After startup, add either `external-proxy/nginx.conf` or
-`external-proxy/traefik.yml` to your proxy configuration, and give the proxy a certificate for
-the wallet domain. Only the DID document, the credential service and the STS are public. The
-management API stays private and must never be published.
+If the proxy runs on another host, use the wallet server's private address in
+`--external-proxy` instead of `127.0.0.1`, and add `--proxy-allow <proxy-address>`. After
+startup, add either `external-proxy/nginx.conf` or `external-proxy/traefik.yml` to your proxy
+configuration and provide a certificate for the wallet domain.
+
+Only the DID document, the credential service and the STS are public. The management API must
+remain private and must never be exposed through the proxy.
 
 ## Connecting the wallet to OpenDS
 
-In OpenDS, open **Organization → Dataspace identity** and complete the steps shown there. Keep
-the page open between the first two steps, because the ownership challenge is created with the
-DID document and is not shown again after a reload.
+In OpenDS, open **Organization → Dataspace identity** and complete the displayed steps. Keep
+the page open while completing the first two steps, because the ownership challenge is
+generated together with the DID document and is not displayed again after the page is
+reloaded.
 
-1. Under **DID document**, run `./wallet.sh public-key` and paste the key, which is the line
-   that starts with `{"kty"`. The first run also prints Docker download messages, which must
-   not be pasted. Enter this
-   credential-service endpoint, replacing the domain:
+1. **DID document**: run `./wallet.sh public-key` and paste the public key into OpenDS. It is
+   the line that begins with `{"kty"`. The first run may also print Docker download messages,
+   which you must not paste. Enter the credential-service endpoint, replacing the domain with
+   your wallet's domain:
 
    ```text
    https://wallet.example.org/api/credentials/v1/participants/did:web:wallet.example.org
@@ -88,25 +99,25 @@ DID document and is not shown again after a reload.
 
    Download the generated `did.json` and save it as `./did/did.json` in the wallet directory.
    The wallet then publishes it at `https://wallet.example.org/.well-known/did.json`.
-2. Under **Ownership**, sign the challenge that OpenDS displays and paste the result:
+2. **Ownership**: sign the challenge displayed by OpenDS and paste the result:
 
    ```bash
    ./wallet.sh sign '<challenge>'
    ```
 
-3. Under **Wallet**, enter the STS URL
-   `https://wallet.example.org/api/sts/token`, the same credential-service endpoint, and the
-   secret printed by:
+3. **Wallet**: enter the STS URL `https://wallet.example.org/api/sts/token`, the same
+   credential-service endpoint, and the secret printed by:
 
    ```bash
    ./wallet.sh secret
    ```
 
-4. OpenDS shows **Waiting for a platform administrator**. A platform administrator confirms that the
-   domain belongs to your organization and approves the identity under **Platform Admin →
-   Production identities awaiting approval**. This is separate from the earlier approval of the
-   organization.
-5. After approval, request credentials using the issuer DID displayed by OpenDS:
+4. **Approval**: OpenDS shows **Waiting for a platform administrator**. A platform
+   administrator confirms that the domain belongs to your organization and approves the
+   identity under **Platform Admin → Production identities awaiting approval**. This is
+   separate from the earlier approval of the organization.
+5. **Credentials**: after approval, request credentials using the issuer DID displayed by
+   OpenDS:
 
    ```bash
    ./wallet.sh request-credentials '<issuer-DID>'
@@ -118,9 +129,9 @@ DID document and is not shown again after a reload.
    ![The Dataspace identity card with all six steps done: DID document, ownership, wallet, approval, credentials, ready](../img/wallet-progress.png)
 
 After you add connectors, the **Organization** page lists their entries under "Add these
-connector entries to the `service` list" with their `id`, `type` and `serviceEndpoint`. Add each
-entry to the `service` array in `./did/did.json` by hand and remove the entries of deleted
-connectors, so that partners can find the connectors.
+connector entries to the `service` list", including their `id`, `type` and `serviceEndpoint`.
+Add each entry manually to the `service` array in `./did/did.json`. Remove the entries of
+deleted connectors, so that other participants can discover the current connectors.
 
 ## Operation and backup
 
