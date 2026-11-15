@@ -6,85 +6,86 @@ title: Discover and exchange data
 
 ## Discover
 
-Under **Discover**, you can search by product name, topic, tag or category, or filter by
-provider organization. Discover offers two views:
+Under **Discover**, search for offers by product name, topic, tag or category, or filter by
+provider organization. Two views are available:
 
-- **Data products**: every offer that providers have published on listed connectors, including
-  offers you cannot request. Each offer shows a summary of its access policy. Choose your
-  consumer connector for requests, then select **Search**.
-- **Live catalog**: a request to a provider's running connector, which returns only the offers
-  its access policies allow for you. If a provider's connector is not listed, select **The
-  provider is not listed** and enter the DSP address and DID that the provider gives you. The
-  provider finds both on its connector page.
+- **Data products**: shows all offers published by providers on connectors listed in
+  discovery, including offers you are not eligible to request. Each offer displays a summary of
+  its access policy. Select your consumer connector for requests, then select **Search**.
+- **Live catalog**: queries a provider's running connector and returns only the offers
+  permitted by its access policies for your organization. If the provider's connector is not
+  listed, select **The provider is not listed** and enter the DSP address and DID provided by
+  the provider. Both are available on the provider's connector page.
 
-Credentials and private source configuration never appear in discovery results.
+Credentials and private source configuration are never exposed in discovery results.
 
 ## Getting an agreement
 
-Choose a consumer connector and an offer, then:
+Select a consumer connector and an offer, then proceed according to the offer's approval
+settings:
 
-- **Offers with provider approval**: select **Request access**. The provider approves or rejects
-  the request. Once the provider approves, the agreement is concluded for you. After a
-  rejection, you can select **Request again**.
-- **All other offers**: select **Request agreement**, which succeeds if the access policy allows
-  you.
+- **Offers requiring provider approval**: select **Request access**. The provider can approve
+  or reject the request. Once approved, the connectors conclude the agreement. If the request
+  is rejected, you can select **Request again**.
+- **Offers without provider approval**: select **Request agreement**. The request succeeds if
+  the access policy permits it.
 
-The app then opens **Agreements**. The new agreement appears as **Agreed** once the connectors
-have concluded it, usually within seconds. You start transfers from there, and you can cancel a
-negotiation that has not finished. The details of an agreement show the terms
-you accepted.
+The app then opens **Agreements**. The new agreement appears as **Agreed** once both
+connectors have concluded it, usually within seconds. You can start transfers from this page or
+cancel a negotiation that is still in progress. Agreement details show the terms you accepted.
 
 ## Transferring data
 
-Start a transfer with **Start transfer** under **Agreements** and choose the transfer type:
+Under **Agreements**, select **Start transfer** and choose a transfer type:
 
-| Transfer type | How it works                                                                     |
-| ------------- | -------------------------------------------------------------------------------- |
-| Pull          | You fetch the data from the provider's connector with a short-lived token        |
-| Push to HTTP  | The provider's connector sends the data to your HTTP endpoint with POST          |
-| Push to S3    | The provider's connector writes to a bucket of your connector's cloud storage    |
-| Push to Azure | The provider's connector writes to a container of your connector's cloud storage |
+| Transfer type | How it works                                                                      |
+| ------------- | --------------------------------------------------------------------------------- |
+| Pull          | You fetch the data from the provider's connector using a short-lived token        |
+| Push to HTTP  | The provider's connector sends the data to your HTTP endpoint using POST          |
+| Push to S3    | The provider's connector writes the data to a bucket in your connector's cloud storage |
+| Push to Azure | The provider's connector writes the data to a container in your connector's cloud storage |
 
-Pull is available only for products with an HTTP source. S3 and Azure products are delivered by
-push.
+Pull is available only for products with an HTTP source. Products stored in S3 or Azure are
+delivered using push.
 
-- **Pull**: after starting the transfer, **Transfers** shows **Download** and **Access
-  details** for it:
+- **Pull**: after starting the transfer, **Transfers** provides **Download** and **Access
+  details**:
   - **Download** fetches the data directly.
-  - **Access details** shows the endpoint, token and expiry, with curl and Python examples.
-  - **Fetch the data once** uses the current token.
-  - **Get a new token** issues a fresh one.
-  - **Fetch it repeatedly** is a script that requests current access details before every
-    download. It reads a personal API key (from **API access**) from the environment variable
-    `OPENDS_API_KEY`.
-- **Push to HTTP**: enter your endpoint URL and, if needed, an authentication header name and
+  - **Access details** displays the endpoint, token and expiry time, with curl and Python
+    examples.
+  - **Fetch the data once** downloads the data using the current token.
+  - **Get a new token** issues a fresh token.
+  - **Fetch it repeatedly** provides a script that retrieves current access details before each
+    download. The script reads a personal API key (created under **API access**) from the
+    `OPENDS_API_KEY` environment variable.
+- **Push to HTTP**: enter your endpoint URL and, if required, an authentication header name and
   value. The endpoint must be reachable from the provider's connector. The header is passed to
   the provider's connector for this transfer only and is not stored by OpenDS.
-- **Push to S3 or Azure**: requires cloud storage on your own connector. You only enter the
-  bucket and object name, or the account, container and blob. The provider receives
+- **Push to S3 or Azure**: requires cloud storage configured on your own connector. Enter the
+  bucket and object name, or the storage account, container and blob. The provider receives
   short-lived write access for this transfer only.
 
-Progress and results appear under **Transfers**, where you can also suspend or terminate a
-transfer.
+Transfer progress and results appear under **Transfers**. You can also suspend or terminate a
+transfer there.
 
 ## Controlling use as a provider
 
-The **Consumers** page shows the agreements and transfers for the data you share, together with
-each consumer's name.
+The **Consumers** page shows the agreements and transfers associated with your shared data,
+including each consumer's name.
 
-- **Revoke an agreement**: new transfers are refused and running ones are terminated.
-  **Restore** allows transfers again. An optional reason is kept on your connector. The
-  consumer still sees the agreement as **Agreed**, because the revocation is recorded on your
-  connector only.
-- **Suspend, resume or terminate a transfer**: suspending is a pause that either side can
-  resume. Terminating ends only that transfer. The agreement stays
-  valid, so the consumer can start a new transfer. To prevent further transfers under an
-  agreement, revoke the agreement.
-- **Review access requests**: for offers with provider approval, approve or reject each pending
-  request under **Access requests**. Organization owners, administrators and the Managers of
-  the publishing connector decide and receive the notification email. Access requests must be enabled under
-  **Organization → Organization settings** and cannot be disabled while an offer that requires
-  approval is active.
+- **Revoke an agreement**: prevents new transfers and terminates running ones. **Restore**
+  allows transfers again. You can provide an optional reason, which is stored on your
+  connector. The consumer continues to see the agreement as **Agreed**, because revocation is
+  recorded only on your connector.
+- **Suspend, resume or terminate a transfer**: suspending pauses the transfer, which either
+  side can resume. Terminating ends only that transfer. The agreement remains valid, so the
+  consumer can start another transfer. To prevent further transfers under an agreement, revoke
+  the agreement.
+- **Review access requests**: for offers requiring provider approval, review pending requests
+  under **Access requests** and approve or reject them. Organization owners, administrators and
+  Managers of the publishing connector can make these decisions and receive notification
+  emails. Access requests must be enabled under **Organization → Organization settings** and
+  cannot be disabled while an offer requiring approval is active.
 
-Revocation stops further delivery, but data that has already been received cannot be taken
-back.
+Revocation prevents further delivery, but data already received by a consumer cannot be
+retrieved.
