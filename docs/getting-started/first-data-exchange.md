@@ -4,9 +4,8 @@ title: Your first data exchange
 
 # Your first data exchange
 
-This walk-through takes two organizations from registration to a downloaded file. It takes
-about half an hour, plus the time the connectors need to start. One organization provides the
-data and the other consumes it. You need an OpenDS [installation](/getting-started/installation).
+This walk-through takes two organizations from registration to a downloaded file. One
+organization provides the data and the other consumes it. You need an OpenDS [installation](/getting-started/installation).
 You can use the sample data that every installation serves at `<OpenDS address>/api/test-data`,
 where the OpenDS address is the one that setup printed.
 
