@@ -103,6 +103,6 @@ receive it through their agents within one minute.
 ## When an organization is offboarded
 
 When a platform administrator offboards an organization, OpenDS immediately withdraws its DID
-document, removes its directory entry and revokes its credentials. Partners therefore stop
-trusting the organization's identity. Its members lose access to OpenDS, and accounts that do
-not belong to another organization are removed.
+document, removes its directory entry and revokes its credentials. Other participants
+therefore stop trusting the organization's identity. Its members lose access to OpenDS, and
+accounts that do not belong to another organization are removed.
